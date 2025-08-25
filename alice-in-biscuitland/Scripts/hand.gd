@@ -139,13 +139,26 @@ func _process(delta: float) -> void:
 			if teacup.hovering:
 				# Dunked biscuit
 				currentBiscuit.isDunked = true
+				match currentBiscuit.onDunkSpecial:
+					1:
+						#FIRE EFFECT
+						teacup.teaLevel=100.0
+						teacup.get_node("Tea").self_modulate=Color(1,0.2,0.15,1)
 				play_biscuit(currentBiscuit)
 			elif player.hovering:
 				# Ate biscuit
-				play_biscuit(currentBiscuit)
+				##DRINK TEA
+				##ONLY ALLOWED IF NOT AN ONDUNKSPECIAL TYPE
+				if currentBiscuit.onDunkSpecial==0:
+					teacup.sip(currentBiscuit.dryness)
+					play_biscuit(currentBiscuit)
+				else:currentBiscuit.reset()
 			elif enemy.hovering:
 				# Enemy ate biscuit
-				play_biscuit(currentBiscuit)
+				if currentBiscuit.onDunkSpecial==0:
+					##WHEN WE ADD ENEMY DRYNESS&TEA YOU CAN COPY MY CODE JUST ABOVE FOR THE PLAYER 
+					play_biscuit(currentBiscuit)
+				else:currentBiscuit.reset()
 			else:
 				# Biscuit dropped
 				currentBiscuit.reset()

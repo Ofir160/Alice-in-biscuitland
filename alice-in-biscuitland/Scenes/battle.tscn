@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=8 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
 [ext_resource type="PackedScene" uid="uid://buxd6cop4cing" path="res://Scenes/turn_manager.tscn" id="2_f6xt6"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cavaphfau3v73" path="res://Scenes/teacup.tscn" id="3_1ruyk"]
 [ext_resource type="PackedScene" uid="uid://bibjx7qtlym8v" path="res://Scenes/enemy.tscn" id="4_1otgo"]
 [ext_resource type="PackedScene" uid="uid://c51ytetp1qhe2" path="res://Scenes/player.tscn" id="5_pd5xk"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_f6xt6"]
+size = Vector2(200, 200)
 
 [node name="Battle" type="Node"]
 
@@ -16,15 +19,27 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="Biscuit" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
 position = Vector2(1699, 1391)
+cardName = "Dry"
 Img = "res://Assets/Sprites/placeholder.png"
+dryness = 30
+defense = 0
+special = 0
 
 [node name="Biscuit2" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
 position = Vector2(1699, 1391)
+cardName = "Defend"
 Img = "res://Assets/Sprites/placeholder.png"
+dryness = 0
+special = 0
 
 [node name="Biscuit3" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
 position = Vector2(1699, 1391)
+cardName = "Fire"
 Img = "res://Assets/Sprites/placeholder.png"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 1
 
 [node name="Biscuit4" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
 position = Vector2(1699, 1391)
@@ -104,7 +119,13 @@ position = Vector2(401, -144)
 position = Vector2(-401, -160)
 
 [node name="Teacup" parent="Turn Manager" instance=ExtResource("3_1ruyk")]
+z_index = -1
 position = Vector2(462, 195)
+
+[node name="Tea" type="MeshInstance2D" parent="Turn Manager/Teacup"]
+self_modulate = Color(0.229563, 0.091267, 0.0290638, 1)
+show_behind_parent = true
+mesh = SubResource("QuadMesh_f6xt6")
 
 [node name="Timer" type="Timer" parent="Turn Manager"]
 one_shot = true
