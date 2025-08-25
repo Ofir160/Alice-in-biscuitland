@@ -19,9 +19,6 @@ var currentDeck : Array[Array]
 func _ready() -> void:
 	for biscuit in initialDeck:
 		add_card(biscuit)
-	drawPile.drawPile = currentDeck
-	drawPile.shuffle()
-	hand.draw_cards(5)
 
 func add_card(biscuit : Biscuit) -> void:
 	# Converts a biscuit into an array of its stats

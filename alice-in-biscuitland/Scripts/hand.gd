@@ -1,6 +1,8 @@
 class_name Hand
 extends Node2D
 
+signal TurnEnded
+
 @export var deckManager : DeckManager
 @export var discardPile : DiscardPile
 @export var drawPile : DrawPile
@@ -103,6 +105,7 @@ func play_biscuit(biscuit : Biscuit) -> void:
 		discardPile.discard_array(biscuitStatHand)
 		biscuitStatHand.clear()
 		reset_display_biscuits_positions(0, true)
+		TurnEnded.emit()
 		return
 	
 	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(biscuit))
@@ -136,6 +139,7 @@ func _process(delta: float) -> void:
 			if teacup.hovering:
 				# Dunked biscuit
 				currentBiscuit.isDunked = true
+				play_biscuit(currentBiscuit)
 			elif player.hovering:
 				# Ate biscuit
 				play_biscuit(currentBiscuit)
