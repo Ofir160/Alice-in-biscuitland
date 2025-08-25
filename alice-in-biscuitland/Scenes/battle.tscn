@@ -1,16 +1,103 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=6 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
-[ext_resource type="PackedScene" uid="uid://402nl5vb5nyi" path="res://Scenes/hand.tscn" id="2_1otgo"]
-[ext_resource type="PackedScene" uid="uid://pavq31380vg4" path="res://Scenes/draw_pile.tscn" id="3_pd5xk"]
-[ext_resource type="PackedScene" uid="uid://blrx8pwv70v4i" path="res://Scenes/discard_pile.tscn" id="4_f6xt6"]
+[ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="2_oxf17"]
+[ext_resource type="PackedScene" uid="uid://cavaphfau3v73" path="res://Scenes/teacup.tscn" id="3_1ruyk"]
+[ext_resource type="PackedScene" uid="uid://bibjx7qtlym8v" path="res://Scenes/enemy.tscn" id="4_1otgo"]
+[ext_resource type="PackedScene" uid="uid://c51ytetp1qhe2" path="res://Scenes/player.tscn" id="5_pd5xk"]
 
 [node name="Battle" type="Node"]
 
-[node name="Deck Manager" parent="." instance=ExtResource("1_w7k78")]
+[node name="Deck Manager" parent="." node_paths=PackedStringArray("teacup", "player", "currentEnemy", "initialDeck", "handBiscuits") instance=ExtResource("1_w7k78")]
+teacup = NodePath("../Teacup")
+player = NodePath("../Player")
+currentEnemy = NodePath("../Enemy")
+cardsToPlay = 3
+initialDeck = [NodePath("../InitialBiscuits/Biscuit"), NodePath("../InitialBiscuits/Biscuit2"), NodePath("../InitialBiscuits/Biscuit3"), NodePath("../InitialBiscuits/Biscuit4"), NodePath("../InitialBiscuits/Biscuit5")]
+handBiscuits = [NodePath("../HandDisplayBiscuits/1"), NodePath("../HandDisplayBiscuits/2"), NodePath("../HandDisplayBiscuits/3"), NodePath("../HandDisplayBiscuits/4"), NodePath("../HandDisplayBiscuits/5")]
 
-[node name="Hand" parent="Deck Manager" instance=ExtResource("2_1otgo")]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
 
-[node name="Draw Pile" parent="Deck Manager" instance=ExtResource("3_pd5xk")]
+[node name="Teacup" parent="." instance=ExtResource("3_1ruyk")]
+position = Vector2(462, 195)
 
-[node name="Discard Pile" parent="Deck Manager" instance=ExtResource("4_f6xt6")]
+[node name="Enemy" parent="." instance=ExtResource("4_1otgo")]
+position = Vector2(401, -144)
+
+[node name="Player" parent="." instance=ExtResource("5_pd5xk")]
+position = Vector2(-401, -160)
+
+[node name="InitialBiscuits" type="Node" parent="."]
+
+[node name="Biscuit" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(1699, 1391)
+Img = "res://Assets/Sprites/placeholder.png"
+
+[node name="Biscuit2" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(1699, 1391)
+Img = "res://Assets/Sprites/placeholder.png"
+
+[node name="Biscuit3" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(1699, 1391)
+Img = "res://Assets/Sprites/placeholder.png"
+
+[node name="Biscuit4" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(1699, 1391)
+Img = "res://Assets/Sprites/placeholder.png"
+
+[node name="Biscuit5" parent="InitialBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(1699, 1391)
+Img = "res://Assets/Sprites/placeholder.png"
+
+[node name="HandDisplayBiscuits" type="Node" parent="."]
+
+[node name="1" parent="HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(0, 2000)
+timeToReset = 0.5
+cardName = ""
+Description = ""
+Img = ""
+dryness = 0
+defense = 0
+special = 0
+
+[node name="2" parent="HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(0, 2000)
+timeToReset = 0.5
+cardName = ""
+Description = ""
+Img = ""
+dryness = 0
+defense = 0
+special = 0
+
+[node name="3" parent="HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(0, 2000)
+timeToReset = 0.5
+cardName = ""
+Description = ""
+Img = ""
+dryness = 0
+defense = 0
+special = 0
+
+[node name="4" parent="HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(0, 2000)
+timeToReset = 0.5
+cardName = ""
+Description = ""
+Img = ""
+dryness = 0
+defense = 0
+special = 0
+
+[node name="5" parent="HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
+position = Vector2(0, 2000)
+timeToReset = 0.5
+cardName = ""
+Description = ""
+Img = ""
+dryness = 0
+defense = 0
+special = 0

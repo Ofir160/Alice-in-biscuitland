@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://402nl5vb5nyi"]
+[gd_scene load_steps=2 format=3 uid="uid://402nl5vb5nyi"]
 
-[node name="Hand" type="Node"]
+[ext_resource type="Script" uid="uid://ckfg23r8ftgvf" path="res://Scripts/hand.gd" id="1_f6hnx"]
+
+[node name="Hand" type="Node2D"]
+script = ExtResource("1_f6hnx")
+dampStrength = 20.0

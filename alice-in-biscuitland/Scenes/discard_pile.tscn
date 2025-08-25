@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://blrx8pwv70v4i"]
+[gd_scene load_steps=2 format=3 uid="uid://blrx8pwv70v4i"]
+
+[ext_resource type="Script" uid="uid://cj1fq88mqkfvy" path="res://Scripts/discard_pile.gd" id="1_qf4os"]
 
 [node name="Discard Pile" type="Node"]
+script = ExtResource("1_qf4os")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cavaphfau3v73"]
+
+[ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
+[ext_resource type="Texture2D" uid="uid://bpt528lsjtejn" path="res://Assets/Sprites/placeholder.png" id="2_irbve"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
+radius = 115.004
+
+[node name="Teacup" type="Node2D"]
+script = ExtResource("1_re2n1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qboyo")
+
+[node name="Placeholder" type="Sprite2D" parent="."]
+texture = ExtResource("2_irbve")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

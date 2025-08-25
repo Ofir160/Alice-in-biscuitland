@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dcebjy3t60ww5"
-path="res://.godot/imported/MountainsofChristmas-Regular.ttf-0d554c70eb798684f94bba2711c2a4d3.fontdata"
+uid="uid://calg5hwqxyc0i"
+path="res://.godot/imported/MountainsofChristmas-Bold.ttf-443d1a97f5f1a6bf2006f8f00b4baa1e.fontdata"
 
 [deps]
 
-source_file="res://MountainsofChristmas-Regular.ttf"
-dest_files=["res://.godot/imported/MountainsofChristmas-Regular.ttf-0d554c70eb798684f94bba2711c2a4d3.fontdata"]
+source_file="res://Assets/Fonts/MountainsofChristmas-Bold.ttf"
+dest_files=["res://.godot/imported/MountainsofChristmas-Bold.ttf-443d1a97f5f1a6bf2006f8f00b4baa1e.fontdata"]
 
 [params]
 

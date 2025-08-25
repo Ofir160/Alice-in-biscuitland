@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://pavq31380vg4"]
+[gd_scene load_steps=2 format=3 uid="uid://pavq31380vg4"]
+
+[ext_resource type="Script" uid="uid://bkhmfugkxnv3h" path="res://Scripts/draw_pile.gd" id="1_3xnvp"]
 
 [node name="Draw Pile" type="Node"]
+script = ExtResource("1_3xnvp")
