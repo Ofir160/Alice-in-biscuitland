@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=5 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
+[ext_resource type="PackedScene" uid="uid://402nl5vb5nyi" path="res://Scenes/hand.tscn" id="2_1otgo"]
+[ext_resource type="PackedScene" uid="uid://pavq31380vg4" path="res://Scenes/draw_pile.tscn" id="3_pd5xk"]
+[ext_resource type="PackedScene" uid="uid://blrx8pwv70v4i" path="res://Scenes/discard_pile.tscn" id="4_f6xt6"]
 
 [node name="Battle" type="Node"]
 
 [node name="Deck Manager" parent="." instance=ExtResource("1_w7k78")]
+
+[node name="Hand" parent="Deck Manager" instance=ExtResource("2_1otgo")]
+
+[node name="Draw Pile" parent="Deck Manager" instance=ExtResource("3_pd5xk")]
+
+[node name="Discard Pile" parent="Deck Manager" instance=ExtResource("4_f6xt6")]
