@@ -2,7 +2,36 @@
 
 [ext_resource type="Texture2D" uid="uid://cm4l4wy66sdrf" path="res://Assets/Backgrounds/map.png" id="1_26yhd"]
 [ext_resource type="Texture2D" uid="uid://d28u7h7e6kxwx" path="res://Assets/Sprites/icon.svg" id="1_ci6au"]
-[ext_resource type="Script" uid="uid://w6j1wpwcqnv8" path="res://Scenes/alice.gd" id="2_p3ir5"]
+[ext_resource type="Script" uid="uid://bdcdlen21e5i4" path="res://Scripts/alice.gd" id="2_p3ir5"]
+
+[sub_resource type="Animation" id="Animation_p3ir5"]
+resource_name = "Cross"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alice:global_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.495, 0.5, 1, 1.5, 1.505, 2),
+"transitions": PackedFloat32Array(1, 1e-05, 1, 1, 1e-05, 1, 1),
+"update": 0,
+"values": [Vector2(138, -1083), Vector2(12, -1044), Vector2(12, -1044), Vector2(-229, -1087), Vector2(-470, -843), Vector2(-470, -843), Vector2(-621, -799)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Alice:crossing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5, 1.5, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, true, true, false]
+}
 
 [sub_resource type="Animation" id="Animation_myvm1"]
 length = 0.1
@@ -31,35 +60,6 @@ tracks/1/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_p3ir5"]
-resource_name = "Cross"
-length = 2.0
-step = 0.005
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Alice:global_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.495, 0.5, 1, 1.5, 1.505, 2),
-"transitions": PackedFloat32Array(1, 1e-05, 1, 1, 1e-05, 1, 1),
-"update": 0,
-"values": [Vector2(138, -1083), Vector2(12, -1044), Vector2(12, -1044), Vector2(-229, -1087), Vector2(-470, -843), Vector2(-470, -843), Vector2(-621, -799)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Alice:crossing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.04, 0.2, 0.5, 1.5, 1.8, 1.98),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, true, true, true, false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0mm3"]
 _data = {
 &"Cross": SubResource("Animation_p3ir5"),
@@ -67,10 +67,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p3ir5"]
-size = Vector2(45.2857, 33.4286)
+size = Vector2(36.4286, 33.4286)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myvm1"]
-size = Vector2(28.8572, 42.7142)
+size = Vector2(24.1429, 42.7142)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26yhd"]
 size = Vector2(70, 70)
@@ -100,24 +100,22 @@ one_shot = true
 [node name="Bridge1" type="Area2D" parent="background"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="background/Bridge1"]
-position = Vector2(-10.7857, -147.857)
-scale = Vector2(1, 1)
+position = Vector2(-15.2143, -147.857)
 shape = SubResource("RectangleShape2D_p3ir5")
 
 [node name="Bridge2" type="Area2D" parent="background"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="background/Bridge2"]
-position = Vector2(-56.5714, -136.571)
+position = Vector2(-54.2143, -136.571)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_myvm1")
 
-[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("aBrige")]
+[node name="Alice" type="CharacterBody2D" parent="."]
 position = Vector2(-628, -1951)
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("2_p3ir5")
 crossing = true
-aBrige = NodePath("../background/Bridge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alice"]
 shape = SubResource("RectangleShape2D_26yhd")
