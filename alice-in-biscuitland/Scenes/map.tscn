@@ -1,0 +1,141 @@
+[gd_scene load_steps=10 format=3 uid="uid://r7wouctlfokv"]
+
+[ext_resource type="Texture2D" uid="uid://cm4l4wy66sdrf" path="res://Assets/Backgrounds/map.png" id="1_26yhd"]
+[ext_resource type="Texture2D" uid="uid://d28u7h7e6kxwx" path="res://Assets/Sprites/icon.svg" id="1_ci6au"]
+[ext_resource type="Script" uid="uid://w6j1wpwcqnv8" path="res://Scenes/alice.gd" id="2_p3ir5"]
+
+[sub_resource type="Animation" id="Animation_myvm1"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alice:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-628, -1951), Vector2(-628, -1951)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Alice:crossing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_p3ir5"]
+resource_name = "Cross"
+length = 2.0
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alice:global_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.495, 0.5, 1, 1.5, 1.505, 2),
+"transitions": PackedFloat32Array(1, 1e-05, 1, 1, 1e-05, 1, 1),
+"update": 0,
+"values": [Vector2(138, -1083), Vector2(12, -1044), Vector2(12, -1044), Vector2(-229, -1087), Vector2(-470, -843), Vector2(-470, -843), Vector2(-621, -799)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Alice:crossing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.04, 0.2, 0.5, 1.5, 1.8, 1.98),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q0mm3"]
+_data = {
+&"Cross": SubResource("Animation_p3ir5"),
+&"RESET": SubResource("Animation_myvm1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3ir5"]
+size = Vector2(45.2857, 33.4286)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myvm1"]
+size = Vector2(28.8572, 42.7142)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26yhd"]
+size = Vector2(70, 70)
+
+[node name="Map" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+scale = Vector2(7, 7)
+texture = ExtResource("1_26yhd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="background"]
+
+[node name="River" type="CollisionPolygon2D" parent="background/StaticBody2D"]
+polygon = PackedVector2Array(-254.286, -173, -232, -177.571, -163, -191.571, -128.143, -195.714, -103.143, -193, -73.8571, -188.143, -47.4286, -178.714, -29.5714, -168.714, -22.1429, -148.714, 1.28571, -126.143, 36, -91.5714, 53.8571, -78.1429, 66.8571, -69.2857, 112, -57.7143, 146.857, -53.2857, 226.857, -45.8571, 268.857, -38.1429, 264.429, 19.5714, 222, 2.42857, 151, -14.2857, 79, -37.2857, 50.5714, -48.2857, 6.85714, -79.5714, -36.2857, -110.143, -49.5714, -132.286, -71.7143, -147.286, -109.143, -153.571, -160.714, -150.571, -242.143, -138.429, -260.429, -132.143, -263.714, -172.857)
+
+[node name="Bridge" type="AnimationPlayer" parent="background"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_q0mm3")
+}
+autoplay = "RESET"
+speed_scale = 0.7
+
+[node name="TweenTimer" type="Timer" parent="background/Bridge"]
+one_shot = true
+
+[node name="Bridge1" type="Area2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Bridge1"]
+position = Vector2(-10.7857, -147.857)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_p3ir5")
+
+[node name="Bridge2" type="Area2D" parent="background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Bridge2"]
+position = Vector2(-56.5714, -136.571)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_myvm1")
+
+[node name="Alice" type="CharacterBody2D" parent="." node_paths=PackedStringArray("aBrige")]
+position = Vector2(-628, -1951)
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("2_p3ir5")
+crossing = true
+aBrige = NodePath("../background/Bridge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Alice"]
+shape = SubResource("RectangleShape2D_26yhd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Alice"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_ci6au")
+
+[node name="Camera2D" type="Camera2D" parent="Alice"]
+zoom = Vector2(0.5, 0.5)
+limit_left = -1800
+limit_top = -2700
+limit_right = 1800
+limit_bottom = 2700
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+
+[connection signal="timeout" from="background/Bridge/TweenTimer" to="Alice" method="_on_bridge_time"]
+[connection signal="body_entered" from="background/Bridge1" to="Alice" method="_on_bridge_entered"]
+[connection signal="body_entered" from="background/Bridge2" to="Alice" method="_on_bridge2_entered"]
