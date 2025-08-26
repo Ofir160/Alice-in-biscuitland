@@ -1,6 +1,8 @@
 class_name Hand
 extends Node2D
 
+signal BiscuitPlayed(biscuitStat : Array)
+signal BiscuitDunked(biscuitStat : Array)
 signal TurnEnded
 
 @export var deckManager : DeckManager
@@ -10,15 +12,9 @@ signal TurnEnded
 
 var biscuitHand : Array[Biscuit] 
 var biscuitStatHand : Array[Array]
-var teacup : Teacup
-var player : Player
-var enemy : Enemy
 var currentBiscuit : Biscuit
 
 func _ready() -> void:
-	teacup = deckManager.teacup
-	player = deckManager.player
-	enemy = deckManager.currentEnemy
 	biscuitHand = deckManager.handBiscuits
 
 func draw_cards(numberOfCards : int) -> void:
@@ -97,24 +93,16 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 	
 	return positions
 
-func play_biscuit(biscuit : Biscuit) -> void:
+func discard_biscuit(sunk : bool) -> void:
 	
-	deckManager.cardsToPlay -= 1
-	if deckManager.cardsToPlay <= 0:
-		# End turn
-		discardPile.discard_array(biscuitStatHand)
-		biscuitStatHand.clear()
-		reset_display_biscuits_positions(0, true)
-		TurnEnded.emit()
-		return
+	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(currentBiscuit))
+	if not sunk:
+		discardPile.discard(biscuitStat) # Discard the biscuit
 	
-	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(biscuit))
-	discardPile.discard(biscuitStat)
-	
-	reset_display_biscuits_positions(len(biscuitStatHand), true)
+	reset_display_biscuits_positions(len(biscuitStatHand), true) 
 	biscuitStatHand.erase(biscuitStat)
-	biscuitHand.erase(biscuit)
-	biscuitHand.append(biscuit)
+	biscuitHand.erase(currentBiscuit)
+	biscuitHand.append(currentBiscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 	
 	for i in range(len(biscuitStatHand)):
@@ -123,6 +111,12 @@ func play_biscuit(biscuit : Biscuit) -> void:
 	
 	currentBiscuit.position = Vector2(0.0, 2000.0)
 	
+
+func end_turn() -> void:
+	discardPile.discard_array(biscuitStatHand)
+	biscuitStatHand.clear()
+	reset_display_biscuits_positions(0, true)
+	TurnEnded.emit()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click"):
@@ -136,29 +130,13 @@ func _process(delta: float) -> void:
 		# When releasing
 		if currentBiscuit:
 			# If you are dragging a biscuit
-			if teacup.hovering:
+			if deckManager.battleManager.teacup.hovering:
 				# Dunked biscuit
 				currentBiscuit.isDunked = true
-				match currentBiscuit.onDunkSpecial:
-					1:
-						#FIRE EFFECT
-						teacup.teaLevel=100.0
-						teacup.get_node("Tea").self_modulate=Color(1,0.2,0.15,1)
-				play_biscuit(currentBiscuit)
-			elif player.hovering:
-				# Ate biscuit
-				##DRINK TEA
-				##ONLY ALLOWED IF NOT AN ONDUNKSPECIAL TYPE
-				if currentBiscuit.onDunkSpecial==0:
-					teacup.sip(currentBiscuit.dryness)
-					play_biscuit(currentBiscuit)
-				else:currentBiscuit.reset()
-			elif enemy.hovering:
-				# Enemy ate biscuit
-				if currentBiscuit.onDunkSpecial==0:
-					##WHEN WE ADD ENEMY DRYNESS&TEA YOU CAN COPY MY CODE JUST ABOVE FOR THE PLAYER 
-					play_biscuit(currentBiscuit)
-				else:currentBiscuit.reset()
+				BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
+			elif deckManager.battleManager.table.hovering:
+				# Dropped biscuit on table
+				BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
 			else:
 				# Biscuit dropped
 				currentBiscuit.reset()
