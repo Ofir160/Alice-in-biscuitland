@@ -47,13 +47,13 @@ func start_enemy_turn() -> void:
 	
 	player.take_dryness(action.get(0))
 	enemy.add_defense(action.get(1))
-	
-func end_enemy_turn() -> void:
 	if teacup.sip(player.thirst):
 		lose_fight()
 	else:
 		player.thirst = 0
-		start_player_turn()
+	
+func end_enemy_turn() -> void:
+	start_player_turn()
 	
 
 func lose_fight() -> void:

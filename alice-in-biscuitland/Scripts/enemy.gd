@@ -52,10 +52,15 @@ func set_action() -> void:
 		5:
 			# The Red Queen
 			pass
+	$AnimationPlayer.play("Fly In")
+	$"Enemy Attack 1".update_sprites()
+	$"Enemy Attack 2".update_sprites()
+	$"Enemy Attack 3".update_sprites()
 	chosenAction = action
 
 
 func get_action() -> Array:
+	$AnimationPlayer.play("Play Biscuits")
 	return chosenAction
 
 

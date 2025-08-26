@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=12 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
 [ext_resource type="PackedScene" uid="uid://buxd6cop4cing" path="res://Scenes/battle_manager.tscn" id="2_f6xt6"]
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-2000, 600), Vector2(-1370, 600)]
+"values": [Vector2(-2000, 250), Vector2(-1370, 250)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -31,7 +31,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.25, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-2000, 200), Vector2(-1370, 200)]
+"values": [Vector2(-2000, -50), Vector2(-1370, -50)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -43,7 +43,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-2000, -200), Vector2(-1370, -200)]
+"values": [Vector2(-2000, -350), Vector2(-1370, -350)]
 }
 
 [sub_resource type="Animation" id="Animation_ww2ai"]
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 2000)]
+"values": [Vector2(-2000, 250)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -70,7 +70,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 2000)]
+"values": [Vector2(-2000, -50)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -82,12 +82,125 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 2000)]
+"values": [Vector2(-2000, -350)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy Attack 1:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Enemy Attack 2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Enemy Attack 3:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lrv64"]
+resource_name = "Play Biscuits"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy Attack 1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.41),
+"transitions": PackedFloat32Array(1, 0.0001, 1),
+"update": 0,
+"values": [Vector2(-1370, 250), Vector2(-1370, 250), Vector2(-2000, 250)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy Attack 2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.21),
+"transitions": PackedFloat32Array(1, 1, 1, 1e-05, 1),
+"update": 0,
+"values": [Vector2(-1370, -50), Vector2(-1370, -50), Vector2(-1370, 250), Vector2(-1370, 250), Vector2(-2000, 250)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy Attack 3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 1.99, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 0.001, 1),
+"update": 0,
+"values": [Vector2(-1370, -350), Vector2(-1370, -350), Vector2(-1370, -50), Vector2(-1370, -50), Vector2(-1370, 250), Vector2(-1370, 250), Vector2(-2000, 250)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Enemy Attack 1:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Enemy Attack 2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Enemy Attack 3:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.99, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ww2ai"]
 _data = {
 &"Fly In": SubResource("Animation_f6xt6"),
+&"Play Biscuits": SubResource("Animation_lrv64"),
 &"RESET": SubResource("Animation_ww2ai")
 }
 
@@ -105,7 +218,6 @@ zoom = Vector2(0.5, 0.5)
 position = Vector2(1699, 1391)
 cardName = "Dry"
 Description = "Deals 30 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 30
 defense = 0
 special = 0
@@ -114,7 +226,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Defend"
 Description = "Adds 5 Defense"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 0
 special = 0
 
@@ -122,7 +233,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Fire"
 Description = "Refills tea"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 0
 defense = 0
 special = 0
@@ -132,7 +242,6 @@ onDunkSpecial = 1
 position = Vector2(1699, 1391)
 cardName = "Slash"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 5
 defense = 0
 special = 0
@@ -141,7 +250,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Slash"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 5
 defense = 0
 special = 0
@@ -150,7 +258,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Whack"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 20
 defense = 0
 special = 0
@@ -159,7 +266,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Slash"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 15
 defense = 0
 special = 0
@@ -168,7 +274,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Slashweraw"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 5
 defense = 0
 special = 0
@@ -177,7 +282,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Slash22"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 5
 defense = 0
 special = 0
@@ -186,7 +290,6 @@ special = 0
 position = Vector2(1699, 1391)
 cardName = "Slashww"
 Description = "Deal 5 Dryness"
-Img = "res://Assets/Sprites/placeholder.png"
 dryness = 5
 defense = 0
 special = 0
@@ -263,13 +366,16 @@ libraries = {
 }
 
 [node name="Enemy Attack 1" parent="Battle Manager/Enemy" instance=ExtResource("2_oxf17")]
-position = Vector2(0, 2000)
+position = Vector2(-2000, 250)
+hoverRight = true
 
 [node name="Enemy Attack 2" parent="Battle Manager/Enemy" instance=ExtResource("2_oxf17")]
-position = Vector2(0, 2000)
+position = Vector2(-2000, -50)
+hoverRight = true
 
 [node name="Enemy Attack 3" parent="Battle Manager/Enemy" instance=ExtResource("2_oxf17")]
-position = Vector2(0, 2000)
+position = Vector2(-2000, -350)
+hoverRight = true
 
 [node name="Player" parent="Battle Manager" instance=ExtResource("5_pd5xk")]
 position = Vector2(-401, -160)
@@ -284,6 +390,7 @@ show_behind_parent = true
 mesh = SubResource("QuadMesh_f6xt6")
 
 [node name="Timer" type="Timer" parent="Battle Manager"]
+wait_time = 3.0
 one_shot = true
 
 [connection signal="timeout" from="Battle Manager/Timer" to="Battle Manager" method="_on_timer_timeout"]

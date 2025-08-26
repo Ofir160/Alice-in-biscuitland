@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://2i6y7s6bk7vx"]
+[gd_scene load_steps=14 format=3 uid="uid://2i6y7s6bk7vx"]
 
 [ext_resource type="Script" uid="uid://dnsbihxciabxh" path="res://Scripts/biscuit.gd" id="1_06a0o"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_06a0o"]
+[ext_resource type="Texture2D" uid="uid://bpt528lsjtejn" path="res://Assets/Sprites/placeholder.png" id="2_obm7r"]
 [ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="3_8ptjb"]
 
 [sub_resource type="Animation" id="Animation_8ptjb"]
@@ -28,7 +29,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1, -321)]
+"values": [Vector2(-1, -320)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -42,6 +43,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.8, 0.8)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../name:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -50)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../name:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_06a0o"]
 resource_name = "appear"
@@ -54,7 +79,7 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -67,9 +92,9 @@ tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.406126, 1),
+"transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(-1, -250), Vector2(-1, -321)]
+"values": [Vector2(-1, -250), Vector2(-1, -320)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -82,6 +107,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../name:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, -50), Vector2(-1, -120)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../name:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_xieux"]
@@ -108,9 +157,9 @@ tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.406, 1),
+"transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(-1, -321), Vector2(-1, -250)]
+"values": [Vector2(-1, -320), Vector2(-1, -250)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -124,12 +173,166 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.8, 0.8)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../name:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, -120), Vector2(-1, -50)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../name:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qm8hk"]
+resource_name = "vanish_left"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../name:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, -120), Vector2(-1, -50)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../name:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(400, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_obm7r"]
+resource_name = "appear_right"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../name:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, -50), Vector2(-1, -120)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../name:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(400, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xieux"]
 _data = {
 &"RESET": SubResource("Animation_8ptjb"),
 &"appear": SubResource("Animation_06a0o"),
-&"vanish": SubResource("Animation_xieux")
+&"appear_right": SubResource("Animation_obm7r"),
+&"vanish": SubResource("Animation_xieux"),
+&"vanish_left": SubResource("Animation_qm8hk")
 }
 
 [sub_resource type="QuadMesh" id="QuadMesh_xieux"]
@@ -139,16 +342,17 @@ size = Vector2(400, 300)
 size = Vector2(250, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06a0o"]
-size = Vector2(248, 293)
+size = Vector2(250, 275)
 
 [node name="Biscuit" type="Node2D"]
 script = ExtResource("1_06a0o")
 cardName = "My name"
 Description = "WHATEVER we WANT"
-Img = "res://placeholder.png"
+Img = "res://Assets/Sprites/placeholder.png"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_obm7r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../description")
@@ -159,14 +363,16 @@ libraries = {
 [node name="description" type="MeshInstance2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.301961)
-position = Vector2(-1, -321)
+position = Vector2(-1, -320)
 mesh = SubResource("QuadMesh_xieux")
 
 [node name="text" type="RichTextLabel" parent="description"]
+z_index = 1
 offset_left = -185.0
 offset_top = -139.0
 offset_right = 191.0
 offset_bottom = 141.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
@@ -178,15 +384,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="name" type="MeshInstance2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.301961)
-position = Vector2(-1, -120)
+position = Vector2(-1, -50)
 mesh = SubResource("QuadMesh_jfpc5")
 
 [node name="text" type="RichTextLabel" parent="name"]
+z_index = 1
 offset_left = -123.0
 offset_top = -48.0
 offset_right = 122.0
 offset_bottom = 47.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
@@ -200,6 +409,7 @@ vertical_alignment = 1
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, -7.75)
 shape = SubResource("RectangleShape2D_06a0o")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

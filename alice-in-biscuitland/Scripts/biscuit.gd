@@ -2,6 +2,7 @@ class_name Biscuit
 extends Node2D
 
 @export var timeToReset : float
+@export var hoverRight : bool
 
 @export var cardName:="";
 @export var Description:="";
@@ -38,20 +39,26 @@ func reset() -> void:
 	droppedPosition = position
 
 func update_sprites():
-	$description/text.text=Description
-	$name/text.text=cardName
-	$Sprite2D.texture=load(Img)
+	$description/text.text = Description
+	$name/text.text = cardName
+	$Sprite2D.texture = load(Img)
 
 
 func _on_area_2d_mouse_entered() -> void:
 	if not dragged:
-		$AnimationPlayer.play("appear")
+		if not hoverRight:
+			$AnimationPlayer.play("appear")
+		else:
+			$AnimationPlayer.play("appear_right")
 	hovered = true;
 
 
 func _on_area_2d_mouse_exited() -> void:
 	if not dragged:
-		$AnimationPlayer.play("vanish")
+		if not hoverRight:
+			$AnimationPlayer.play("vanish")
+		else:
+			$AnimationPlayer.play("vanish_left")
 	hovered = false
 	
 	
