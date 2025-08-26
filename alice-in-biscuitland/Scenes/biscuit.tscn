@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2i6y7s6bk7vx"]
+[gd_scene load_steps=11 format=3 uid="uid://blwvhaqjkf1ar"]
 
 [ext_resource type="Script" uid="uid://dnsbihxciabxh" path="res://Scripts/biscuit.gd" id="1_06a0o"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_06a0o"]
