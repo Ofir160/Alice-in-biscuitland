@@ -65,7 +65,9 @@ func reset_display_biscuits_positions(biscuitCount : int, updatePositions : bool
 		else:
 			displayBiscuit.handPosition = Vector2(0, 2000.0)
 		if updatePositions:
+			displayBiscuit.modulate = Color(0, 0, 0, 0)
 			displayBiscuit.position = displayBiscuit.handPosition
+			displayBiscuit.modulate = Color(1, 1, 1, 1)
 
 func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 	var positions : Array[Vector2]
@@ -99,17 +101,18 @@ func discard_biscuit(sunk : bool) -> void:
 	if not sunk:
 		discardPile.discard(biscuitStat) # Discard the biscuit
 	
-	reset_display_biscuits_positions(len(biscuitStatHand), true) 
 	biscuitStatHand.erase(biscuitStat)
 	biscuitHand.erase(currentBiscuit)
 	biscuitHand.append(currentBiscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 	
+	currentBiscuit.modulate = Color(0 , 0, 0, 0)
+	currentBiscuit.position = Vector2(0.0, 2000.0)
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		displayBiscuit.reset()
-	
 	currentBiscuit.position = Vector2(0.0, 2000.0)
+	currentBiscuit.modulate = Color(1, 1, 1, 1)
 	
 
 func end_turn(sunk : bool) -> void:
@@ -120,7 +123,8 @@ func end_turn(sunk : bool) -> void:
 	
 	discardPile.discard_array(biscuitStatHand)
 	biscuitStatHand.clear()
-	reset_display_biscuits_positions(1, true)
+	for displayBiscuit in biscuitHand:
+		displayBiscuit.position = Vector2(0, 2000.0)
 	
 	for displayBiscuit in biscuitHand:
 		displayBiscuit.isDunked = false

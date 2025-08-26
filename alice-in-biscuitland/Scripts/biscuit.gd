@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 		
 		if t >= 1.0:
 			resetting = false
+			modulate = Color(1, 1, 1, 1)
 
 
 func reset() -> void:

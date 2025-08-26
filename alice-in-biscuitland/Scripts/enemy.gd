@@ -62,12 +62,10 @@ func set_action() -> void:
 		#$AnimationPlayer2.play("Fly 2")
 		#$AnimationPlayer3.play("Fly 3")
 	elif len(actions) == 2:
-		pass
-		#$AnimationPlayer1.play("Fly 1")
-		#$AnimationPlayer2.play("Fly 2")
+		$AnimationPlayer1.play("Fly 1")
+		$AnimationPlayer2.play("Fly 2")
 	elif len(actions) == 1:
-		pass
-		#$AnimationPlayer1.play("Fly 1")
+		$AnimationPlayer1.play("Fly 1")
 		
 	$"Enemy Attack 1".update_sprites()
 	$"Enemy Attack 2".update_sprites()
@@ -82,12 +80,10 @@ func get_actions() -> Array[Array]:
 		#$AnimationPlayer2.play("Play Biscuits Player2")
 		#$AnimationPlayer3.play("Play Biscuits Player3")
 	elif len(chosenActions) == 2:
-		pass
-		#$AnimationPlayer1.play("Play Biscuits Player1")
-		#$AnimationPlayer2.play("Play Biscuits Player2")
+		$AnimationPlayer1.play("Play Biscuits Player1")
+		$AnimationPlayer2.play("Play Biscuits Player2")
 	elif len(chosenActions) == 1:
-		pass
-		#$AnimationPlayer1.play("Play Biscuits Player1")
+		$AnimationPlayer1.play("Play Biscuits Player1")
 	return chosenActions
 
 
