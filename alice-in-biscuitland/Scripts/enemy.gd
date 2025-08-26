@@ -1,7 +1,7 @@
 class_name Enemy
 extends Node2D
 
-var chosenAction : Array # Dryness Defense Special
+var chosenActions : Array[Array] # Dryness Defense Special
 var index : int # Controls what the enemy is
 var hovering : bool = false
 
@@ -25,18 +25,20 @@ func sip(amount : int) -> bool:
 		return true
 	return false
 		 
+		
 func add_defense(_defense : int) -> void:
 	defense += _defense
 		
 
 func set_action() -> void:
-	var action : Array
-	for i in range(3):
-		action.append(0)
+	var action : Array[Array]
+	action.append([0, 0, 0])
+	action.append([0, 0, 0])
 	match index:
 		0:
 			# White rabbit
-			action.set(0, 10)
+			action.set(0, [10, 0, 0])
+			action.set(1, [10, 0, 0])
 		1:
 			# Cook
 			pass
@@ -56,12 +58,12 @@ func set_action() -> void:
 	$"Enemy Attack 1".update_sprites()
 	$"Enemy Attack 2".update_sprites()
 	$"Enemy Attack 3".update_sprites()
-	chosenAction = action
+	chosenActions = action
 
 
-func get_action() -> Array:
-	$AnimationPlayer.play("Play Biscuits")
-	return chosenAction
+func get_actions() -> Array[Array]:
+	$AnimationPlayer.play("Play Biscuits (Player Player Player)")
+	return chosenActions
 
 
 func _on_area_2d_mouse_entered() -> void:

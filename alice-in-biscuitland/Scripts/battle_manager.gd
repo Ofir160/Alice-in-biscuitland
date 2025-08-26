@@ -9,6 +9,9 @@ extends Node
 @export var player : Player
 @export var enemy : Enemy
 
+var enemyActions : Array[Array]
+var actionProgress : int
+
 func _ready() -> void:
 	start_fight()
 
@@ -37,20 +40,36 @@ func start_player_turn() -> void:
 
 func end_player_turn() -> void:
 	enemy.defense = 0
+	enemyActions = []
+	
 	start_enemy_turn()
 
 
 func start_enemy_turn() -> void:
 	# Start the enemies turn
-	timer.start()
-	var action : Array = enemy.get_action()
 	
+	enemyActions = enemy.get_actions()
+	
+	timer.wait_time = 0.4
+	timer.start()
+			
+func play_enemy_action() -> void:
+	
+	var action : Array = enemyActions.get(actionProgress)
 	player.take_dryness(action.get(0))
 	enemy.add_defense(action.get(1))
 	if teacup.sip(player.thirst):
 		lose_fight()
 	else:
 		player.thirst = 0
+	actionProgress += 1
+	
+	if actionProgress < len(enemyActions):
+		timer.wait_time = 0.8
+		timer.start()
+	else:
+		timer.wait_time = 0.5
+		timer.start()
 	
 func end_enemy_turn() -> void:
 	start_player_turn()
@@ -112,4 +131,7 @@ func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit si
 	return false
 
 func _on_timer_timeout() -> void:
-	end_enemy_turn()
+	if actionProgress < len(enemyActions):
+		play_enemy_action()
+	else:
+		end_enemy_turn()
