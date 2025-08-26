@@ -57,8 +57,10 @@ func update_cards_to_play() -> void:
 	cardsToPlay -= 1
 	if cardsToPlay <= 0 || len(hand.biscuitStatHand) == 1:
 		# If you have played 3 cards or if you played the last card in your hand
+		print("Ended turn")
 		hand.end_turn(false)
 	else:
+		print("Played biscuit")
 		hand.discard_biscuit(false)
 		
 

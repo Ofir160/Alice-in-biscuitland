@@ -31,14 +31,16 @@ func add_defense(_defense : int) -> void:
 		
 
 func set_action() -> void:
-	var action : Array[Array]
-	action.append([0, 0, 0])
-	action.append([0, 0, 0])
+	var actions : Array[Array]
+	actions.append([0, 0, 0])
+	actions.append([0, 0, 0])
+	actions.append([0,0,0])
 	match index:
 		0:
 			# White rabbit
-			action.set(0, [10, 0, 0])
-			action.set(1, [10, 0, 0])
+			actions.set(0, [10, 0, 0])
+			actions.set(1, [10, 0, 0])
+			actions.set(2, [0, 0, 0])
 		1:
 			# Cook
 			pass
@@ -54,15 +56,38 @@ func set_action() -> void:
 		5:
 			# The Red Queen
 			pass
-	$AnimationPlayer.play("Fly In")
+	if len(actions) == 3:
+		pass
+		#$AnimationPlayer1.play("Fly 1")
+		#$AnimationPlayer2.play("Fly 2")
+		#$AnimationPlayer3.play("Fly 3")
+	elif len(actions) == 2:
+		pass
+		#$AnimationPlayer1.play("Fly 1")
+		#$AnimationPlayer2.play("Fly 2")
+	elif len(actions) == 1:
+		pass
+		#$AnimationPlayer1.play("Fly 1")
+		
 	$"Enemy Attack 1".update_sprites()
 	$"Enemy Attack 2".update_sprites()
 	$"Enemy Attack 3".update_sprites()
-	chosenActions = action
+	chosenActions = actions
 
 
 func get_actions() -> Array[Array]:
-	$AnimationPlayer.play("Play Biscuits (Player Player Player)")
+	if len(chosenActions) == 3:
+		pass
+		#$AnimationPlayer1.play("Play Biscuits Player1")
+		#$AnimationPlayer2.play("Play Biscuits Player2")
+		#$AnimationPlayer3.play("Play Biscuits Player3")
+	elif len(chosenActions) == 2:
+		pass
+		#$AnimationPlayer1.play("Play Biscuits Player1")
+		#$AnimationPlayer2.play("Play Biscuits Player2")
+	elif len(chosenActions) == 1:
+		pass
+		#$AnimationPlayer1.play("Play Biscuits Player1")
 	return chosenActions
 
 
