@@ -1,7 +1,7 @@
 class_name Hand
 extends Node2D
 
-signal BiscuitPlayed(biscuitStat : Array)
+signal BiscuitPlayed(biscuitStat : Array, dunked : bool, targettedEnemy : bool)
 signal BiscuitDunked(biscuitStat : Array)
 signal TurnEnded
 
@@ -112,11 +112,26 @@ func discard_biscuit(sunk : bool) -> void:
 	currentBiscuit.position = Vector2(0.0, 2000.0)
 	
 
-func end_turn() -> void:
+func end_turn(sunk : bool) -> void:
+	
+	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(currentBiscuit))
+	if sunk:
+		biscuitStatHand.erase(biscuitStat)
+	
 	discardPile.discard_array(biscuitStatHand)
 	biscuitStatHand.clear()
-	reset_display_biscuits_positions(0, true)
+	reset_display_biscuits_positions(1, true)
+	
+	for displayBiscuit in biscuitHand:
+		displayBiscuit.isDunked = false
+	
 	TurnEnded.emit()
+	
+	
+func reset_biscuit() -> void:
+	reset_display_biscuits_positions(len(biscuitStatHand), false)
+	currentBiscuit.reset()
+
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click"):
@@ -132,11 +147,23 @@ func _process(delta: float) -> void:
 			# If you are dragging a biscuit
 			if deckManager.battleManager.teacup.hovering:
 				# Dunked biscuit
-				currentBiscuit.isDunked = true
-				BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
-			elif deckManager.battleManager.table.hovering:
+				if currentBiscuit.isDunked:
+					currentBiscuit.reset()
+				else:
+					currentBiscuit.isDunked = true
+					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
+			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
-				BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
+				if currentBiscuit.onDunkSpecial == 0:
+					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
+				else:
+					currentBiscuit.reset()
+			elif deckManager.battleManager.enemy.hovering:
+				# Dropped biscuit on table
+				if currentBiscuit.onDunkSpecial == 0:
+					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
+				else:
+					currentBiscuit.reset()
 			else:
 				# Biscuit dropped
 				currentBiscuit.reset()

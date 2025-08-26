@@ -4,6 +4,7 @@ extends Node
 @export var battleManager : BattleManager
 @export var drawPile : DrawPile
 @export var hand : Hand
+@export var discardPile : DiscardPile
 @export var initialDeck : Array[Biscuit]
 @export var handBiscuits : Array[Biscuit]
 
@@ -22,25 +23,43 @@ func _ready() -> void:
 
 
 func on_biscuit_dunked(biscuitStat : Array) -> void:
-	update_cards_to_play(battleManager.dunk_biscuit(biscuitStat))
+	if battleManager.dunk_biscuit(biscuitStat):
+		# If the biscuit sunk
+		
+		if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
+			# If you sank your last card
+			battleManager.lose_fight() # Lose the fight
+			hand.end_turn(true) # clean up
+		else:
+			cardsToPlay -= 1
+			if cardsToPlay <= 0:
+				hand.end_turn(true)
+			else:
+				hand.discard_biscuit(true)
+	else:
+		# If the biscuit didn't sink
+		hand.reset_biscuit()
 	
 	
-func on_biscuit_played(biscuitStat : Array) -> void:
-	battleManager.play_biscuit(biscuitStat, false)
-	update_cards_to_play(false)
+func on_biscuit_played(biscuitStat : Array, dunked : bool, targetedEnemy : bool) -> void:
+	print("Played biscuit")
+	if battleManager.play_biscuit(biscuitStat, dunked, targetedEnemy):
+		# If the game is over because of that biscuit
+		return
+	else:
+		# Otherwise count that as a card played
+		update_cards_to_play()
 	
 
-func update_cards_to_play(sunk : bool) -> void:
+func update_cards_to_play() -> void:
+	# Checks whether to end the turn or to discard the biscuit
+	
 	cardsToPlay -= 1
-	if sunk:
-		hand.discard_biscuit(true)
-		if cardsToPlay <= 0:
-			hand.end_turn()
+	if cardsToPlay <= 0 || len(hand.biscuitStatHand) == 1:
+		# If you have played 3 cards or if you played the last card in your hand
+		hand.end_turn(false)
 	else:
-		if cardsToPlay <= 0:
-			hand.end_turn()
-		else:
-			hand.discard_biscuit(false)
+		hand.discard_biscuit(false)
 		
 
 func add_card(biscuit : Biscuit) -> void:

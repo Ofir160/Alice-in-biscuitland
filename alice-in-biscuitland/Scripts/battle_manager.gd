@@ -6,7 +6,6 @@ extends Node
 
 @export var cardsToPlay : int
 @export var teacup : Teacup
-@export var table : Table
 @export var player : Player
 @export var enemy : Enemy
 
@@ -66,29 +65,51 @@ func win_fight() -> void:
 	deckManager.hand.TurnEnded.disconnect(end_player_turn)
 	print("You wiiiiin")
 
-func play_biscuit(biscuitStat : Array, dunked : bool) -> void:
+func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go
+	
+	var victim = enemy if targettedEnemy else player
+	
 	if not dunked:
-		enemy.take_dryness(biscuitStat.get(3))
-		player.add_defense(biscuitStat.get(4))
+		print("Normal card played")
+		victim.take_dryness(biscuitStat.get(3))
+		victim.add_defense(biscuitStat.get(4))
 	else:
-		enemy.take_dryness(biscuitStat.get(6))
-		player.add_defense(biscuitStat.get(7))
-	if enemy.sip(enemy.thirst):
+		print("Dunked card played")
+		victim.take_dryness(biscuitStat.get(6))
+		victim.add_defense(biscuitStat.get(7))
+		
+	if enemy.sip(enemy.thirst): # Damages the enemy
+		# If the enemy died
 		win_fight()
+		deckManager.hand.end_turn(false)
+		return true
 	else:
 		enemy.thirst = 0
+		
+	if teacup.sip(player.thirst): # Damages the player
+		# If the player died
+		lose_fight()
+		deckManager.hand.end_turn(false)
+		return true
+	else:
+		player.thirst = 0
+	return false
 
 
 func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit sinks
 	# This is where all the biscuit dunking logic will go
 	
-	var dunkChance = 0.5
-	if randf() <= dunkChance:
-		play_biscuit(biscuitStat, true)
-		return false
-	else:
-		return true
+	match biscuitStat.get(9):
+		0:
+			var dunkChance = 0.5
+			if randf() <= dunkChance:
+				return true
+		1:
+			teacup.teaLevel = 100
+			teacup.get_node("Tea").self_modulate=Color(1,0.2,0.15,1)
+			return true
+	return false
 
 func _on_timer_timeout() -> void:
 	end_enemy_turn()

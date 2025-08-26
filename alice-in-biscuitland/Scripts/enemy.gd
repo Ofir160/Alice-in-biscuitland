@@ -36,8 +36,7 @@ func set_action() -> void:
 	match index:
 		0:
 			# White rabbit
-			action.set(0, 5)
-			action.set(1, 10)
+			action.set(0, 10)
 		1:
 			# Cook
 			pass
@@ -58,3 +57,11 @@ func set_action() -> void:
 
 func get_action() -> Array:
 	return chosenAction
+
+
+func _on_area_2d_mouse_entered() -> void:
+	hovering = true
+
+
+func _on_area_2d_mouse_exited() -> void:
+	hovering = false

@@ -5,10 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://pavq31380vg4" path="res://Scenes/draw_pile.tscn" id="2_bi3p6"]
 [ext_resource type="PackedScene" uid="uid://402nl5vb5nyi" path="res://Scenes/hand.tscn" id="3_s6uy8"]
 
-[node name="Deck Manager" type="Node" node_paths=PackedStringArray("drawPile", "hand")]
+[node name="Deck Manager" type="Node" node_paths=PackedStringArray("drawPile", "hand", "discardPile")]
 script = ExtResource("1_bi3p6")
 drawPile = NodePath("Draw Pile")
 hand = NodePath("Hand")
+discardPile = NodePath("Discard Pile")
 
 [node name="Discard Pile" parent="." node_paths=PackedStringArray("drawPile") instance=ExtResource("1_jqg0q")]
 drawPile = NodePath("../Draw Pile")
