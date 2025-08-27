@@ -56,6 +56,8 @@ func draw_cards(numberOfCards : int) -> void:
 		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
 		displayBiscuit.update_sprites()
 	reset_display_biscuits_positions(len(biscuitStatHand), true)
+	for i in len(biscuitStatHand):
+		biscuitHand.get(i).modulate = Color(1, 1, 1, 1)
 
 func reset_display_biscuits_positions(biscuitCount : int, updatePositions : bool) -> void:
 	for i in range(len(biscuitHand)):
@@ -65,9 +67,7 @@ func reset_display_biscuits_positions(biscuitCount : int, updatePositions : bool
 		else:
 			displayBiscuit.handPosition = Vector2(0, 2000.0)
 		if updatePositions:
-			displayBiscuit.modulate = Color(0, 0, 0, 0)
 			displayBiscuit.position = displayBiscuit.handPosition
-			displayBiscuit.modulate = Color(1, 1, 1, 1)
 
 func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 	var positions : Array[Vector2]
@@ -106,13 +106,12 @@ func discard_biscuit(sunk : bool) -> void:
 	biscuitHand.append(currentBiscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 	
-	currentBiscuit.modulate = Color(0 , 0, 0, 0)
-	currentBiscuit.position = Vector2(0.0, 2000.0)
+
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		displayBiscuit.reset()
 	currentBiscuit.position = Vector2(0.0, 2000.0)
-	currentBiscuit.modulate = Color(1, 1, 1, 1)
+
 	
 
 func end_turn(sunk : bool) -> void:
@@ -155,16 +154,19 @@ func _process(delta: float) -> void:
 					currentBiscuit.reset()
 				else:
 					currentBiscuit.isDunked = true
+					currentBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
+					currentBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
 				else:
 					currentBiscuit.reset()
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
+					currentBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
 				else:
 					currentBiscuit.reset()
