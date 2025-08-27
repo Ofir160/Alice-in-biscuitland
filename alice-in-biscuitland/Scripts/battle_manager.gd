@@ -77,12 +77,14 @@ func end_enemy_turn() -> void:
 
 func lose_fight() -> void:
 	# Lost the fight
-	deckManager.hand.TurnEnded.disconnect(end_player_turn)
+	if deckManager.hand.TurnEnded.is_connected(end_player_turn):
+		deckManager.hand.TurnEnded.disconnect(end_player_turn)
 
 
 func win_fight() -> void:
 	# Won the fight
-	deckManager.hand.TurnEnded.disconnect(end_player_turn)
+	if deckManager.hand.TurnEnded.is_connected(end_player_turn):
+		deckManager.hand.TurnEnded.disconnect(end_player_turn)
 
 func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go

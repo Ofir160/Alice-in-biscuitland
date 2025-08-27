@@ -34,8 +34,8 @@ func set_action() -> void:
 	match index:
 		0:
 			# White rabbit
-			actions.append([10, 0, 0, false])
-			actions.append([10, 0, 0, false])
+			actions.append([10, 0, 0, true])
+			actions.append([10, 0, 0, true])
 			actions.append([0, 10, 0, true])
 		1:
 			# Cook

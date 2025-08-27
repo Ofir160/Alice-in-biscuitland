@@ -109,6 +109,7 @@ func discard_biscuit(sunk : bool) -> void:
 
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
+		displayBiscuit.modulate = Color(1, 1, 1, 1)
 		displayBiscuit.reset()
 	currentBiscuit.position = Vector2(0.0, 2000.0)
 
@@ -154,19 +155,22 @@ func _process(delta: float) -> void:
 					currentBiscuit.reset()
 				else:
 					currentBiscuit.isDunked = true
-					currentBiscuit.modulate = Color(0, 0, 0, 0)
+					#for displayBiscuit in biscuitHand:
+						#displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
-					currentBiscuit.modulate = Color(0, 0, 0, 0)
+					for displayBiscuit in biscuitHand:
+						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
 				else:
 					currentBiscuit.reset()
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
-					currentBiscuit.modulate = Color(0, 0, 0, 0)
+					for displayBiscuit in biscuitHand:
+						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
 				else:
 					currentBiscuit.reset()

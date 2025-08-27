@@ -62,10 +62,10 @@ tracks/0/path = NodePath("Enemy Attack 1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.8, 2, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0)]
+"values": [Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, 200)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -102,10 +102,10 @@ tracks/0/path = NodePath("Enemy Attack 2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2.1, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-950, -100), Vector2(-950, -100), Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0)]
+"values": [Vector2(-950, -100), Vector2(-950, -100), Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -100)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -134,7 +134,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ite14"]
 resource_name = "Play Biscuits Enemy3"
-length = 2.8
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -142,10 +142,10 @@ tracks/0/path = NodePath("Enemy Attack 3:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.79, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-950, -400), Vector2(-950, -400), Vector2(-950, -100), Vector2(-950, -100), Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0)]
+"values": [Vector2(-950, -400), Vector2(-950, -400), Vector2(-950, -100), Vector2(-950, -100), Vector2(-950, 200), Vector2(-950, 200), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -400)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -154,10 +154,10 @@ tracks/1/path = NodePath("Enemy Attack 3:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6, 1.99, 2.4, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1.6, 1.99, 2.4, 2.8, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -166,7 +166,7 @@ tracks/2/path = NodePath("Enemy Attack 3:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2.75, 2.76),
+"times": PackedFloat32Array(0, 2.79, 2.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
