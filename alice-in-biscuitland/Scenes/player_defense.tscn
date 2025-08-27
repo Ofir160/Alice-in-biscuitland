@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0xorn7hcjj30"]
+
+[ext_resource type="Script" uid="uid://jtukn8nxynv4" path="res://Scripts/player_defense.gd" id="1_1u0yk"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_4y553"]
+
+[node name="Player Defense" type="Node2D" node_paths=PackedStringArray("defenseBar", "text")]
+script = ExtResource("1_1u0yk")
+defenseBar = NodePath("Player Defense Bar")
+text = NodePath("Text")
+
+[node name="Player Defense Bar" type="ProgressBar" parent="."]
+offset_left = 723.0
+offset_top = 499.0
+offset_right = 1123.0
+offset_bottom = 549.0
+max_value = 50.0
+rounded = true
+show_percentage = false
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_left = 864.0
+offset_top = 421.0
+offset_right = 992.0
+offset_bottom = 522.0
+theme_override_fonts/normal_font = ExtResource("2_4y553")
+theme_override_font_sizes/normal_font_size = 64
+text = "12/22
+"

@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 				chosenBiscuit = biscuit
 		if chosenBiscuit:
 			GameManager.add_biscuit(chosenBiscuit)
+			chosenBiscuit = null
 			for biscuit in biscuits:
 				biscuit.modulate = Color(0, 0, 0, 0)
 				biscuit.position = Vector2(0, 2000)

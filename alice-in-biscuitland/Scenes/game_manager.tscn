@@ -86,10 +86,9 @@ dunkedDryness = 30
 position = Vector2(1699, 1391)
 cardName = "Block"
 Description = "Adds 5 Defense. 10 If Dunked"
-dryness = 5
-defense = 0
+dryness = 0
 special = 0
-dunkedDryness = 10
+dunkedDefense = 10
 
 [node name="Fire" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
