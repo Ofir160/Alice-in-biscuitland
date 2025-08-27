@@ -19,6 +19,8 @@ func init() -> void:
 	hand.init()
 
 func on_biscuit_dunked(biscuitStat : Array) -> void:
+	# When you dunk a biscuit
+	
 	if battleManager.dunk_biscuit(biscuitStat):
 		# If the biscuit sunk
 		
@@ -34,10 +36,13 @@ func on_biscuit_dunked(biscuitStat : Array) -> void:
 				hand.discard_biscuit(true)
 	else:
 		# If the biscuit didn't sink
-		hand.reset_biscuit()
+		
+		hand.reset_biscuit() # Doesn't play the biscuit
 	
 	
 func on_biscuit_played(biscuitStat : Array, dunked : bool, targetedEnemy : bool) -> void:
+	# When you play a biscuit
+	
 	if battleManager.play_biscuit(biscuitStat, dunked, targetedEnemy):
 		# If the game is over because of that biscuit
 		return

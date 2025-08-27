@@ -108,7 +108,7 @@ func discard_biscuit(sunk : bool) -> void:
 	biscuitHand.erase(currentBiscuit)
 	biscuitHand.append(currentBiscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
-	
+
 
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
@@ -116,7 +116,6 @@ func discard_biscuit(sunk : bool) -> void:
 		displayBiscuit.reset()
 	currentBiscuit.position = Vector2(0.0, 2000.0)
 
-	
 
 func end_turn(sunk : bool) -> void:
 	
@@ -137,10 +136,39 @@ func end_turn(sunk : bool) -> void:
 	
 func reset_biscuit() -> void:
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
+	currentBiscuit.modulate = Color(1, 1, 1, 1)
 	currentBiscuit.reset()
 
 
+func set_biscuits() -> void:
+	for i in range(len(biscuitStatHand)):
+		var displayBiscuit : Biscuit = biscuitHand.get(i)
+		var biscuitStats : Array = biscuitStatHand.get(i)
+		
+		displayBiscuit.cardName = biscuitStats.get(0)
+		displayBiscuit.Description = biscuitStats.get(1)
+		displayBiscuit.Img = biscuitStats.get(2)
+		displayBiscuit.dryness = biscuitStats.get(3)
+		displayBiscuit.defense = biscuitStats.get(4)
+		displayBiscuit.special = biscuitStats.get(5)
+		displayBiscuit.dunkedDryness = biscuitStats.get(6)
+		displayBiscuit.dunkedDefense = biscuitStats.get(7)
+		displayBiscuit.dunkedSpecial = biscuitStats.get(8)
+		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
+
+
 func _process(delta: float) -> void:
+	
+	for i in range(len(biscuitStatHand)):
+		var biscuitStat = biscuitStatHand.get(i)
+		var biscuit = biscuitHand.get(i)
+		
+		if biscuit.cardName != biscuitStat.get(0):
+			# Try and fix mismatches
+			print("Mismatch!")
+			set_biscuits()
+			biscuit.update_sprites()
+	
 	if Input.is_action_just_pressed("Click"):
 		# When dragging
 		for biscuit in biscuitHand:
@@ -158,23 +186,26 @@ func _process(delta: float) -> void:
 					currentBiscuit.reset()
 				else:
 					currentBiscuit.isDunked = true
-					#for displayBiscuit in biscuitHand:
-						#displayBiscuit.modulate = Color(0, 0, 0, 0)
-					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)))
+					currentBiscuit.modulate = Color(0, 0, 0, 0)
+					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit))) # Dunks the biscuit
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
+					print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
+					# Plays the biscuit on the player
 				else:
 					currentBiscuit.reset()
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
+					print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
+					# Plays the biscuit on the enemy
 				else:
 					currentBiscuit.reset()
 			else:

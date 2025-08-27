@@ -102,10 +102,12 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 	
 	if not dunked:
 		# Normal card played
+		print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
 		victim.take_dryness(biscuitStat.get(3))
 		victim.add_defense(biscuitStat.get(4))
 	else:
 		# Dunked card played
+		print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
 		victim.take_dryness(biscuitStat.get(6))
 		victim.add_defense(biscuitStat.get(7))
 		

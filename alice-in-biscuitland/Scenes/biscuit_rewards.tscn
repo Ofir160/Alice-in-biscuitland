@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://wn4wj2eat0qo"]
+[gd_scene load_steps=7 format=3 uid="uid://wn4wj2eat0qo"]
 
 [ext_resource type="Script" uid="uid://nspyxxvt548s" path="res://Scripts/biscuits.gd" id="1_mduvw"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_xxs46"]
-[ext_resource type="Texture2D" uid="uid://dut6xyqr52kko" path="res://Assets/Sprites/UI/Continue Button.png" id="3_mbcbx"]
+[ext_resource type="Texture2D" uid="uid://cqnwwawl577uc" path="res://Assets/Sprites/UI/Continue Button.png" id="3_mbcbx"]
+[ext_resource type="Texture2D" uid="uid://cpl3lksuvp582" path="res://Assets/Sprites/UI/Continue Button Selected.png" id="4_l1xaj"]
 [ext_resource type="Script" uid="uid://250f6uhxrtft" path="res://Scripts/continue_button.gd" id="4_mbcbx"]
 [ext_resource type="Script" uid="uid://epyc5q1b2hjv" path="res://Scripts/biscuit_compendium.gd" id="5_wgthi"]
 
@@ -31,6 +32,7 @@ offset_right = 3190.0
 offset_bottom = 2161.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("3_mbcbx")
+texture_hover = ExtResource("4_l1xaj")
 script = ExtResource("4_mbcbx")
 
 [node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]

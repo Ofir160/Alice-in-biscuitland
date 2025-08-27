@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqnwwawl577uc"
-path="res://.godot/imported/Continue Button.png-ba5d5acf70c88bfc3d2576293126e8b2.ctex"
+uid="uid://cpl3lksuvp582"
+path="res://.godot/imported/Continue Button Selected.png-b3356833999df0b14bc2eb56434c4204.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Continue Button.png"
-dest_files=["res://.godot/imported/Continue Button.png-ba5d5acf70c88bfc3d2576293126e8b2.ctex"]
+source_file="res://Assets/Sprites/UI/Continue Button Selected.png"
+dest_files=["res://.godot/imported/Continue Button Selected.png-b3356833999df0b14bc2eb56434c4204.ctex"]
 
 [params]
 
