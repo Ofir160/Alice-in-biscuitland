@@ -68,22 +68,21 @@ func play_enemy_action() -> void:
 		timer.wait_time = 0.8
 		timer.start()
 	else:
-		timer.wait_time = 0.5
+		timer.wait_time = 0.8 # 0.8 is the time till the last card goes. So this must be bigger than 0.8
 		timer.start()
 	
 func end_enemy_turn() -> void:
-	enemy.reset()
 	start_player_turn()
 	
 
 func lose_fight() -> void:
+	# Lost the fight
 	deckManager.hand.TurnEnded.disconnect(end_player_turn)
-	print("You looose")
 
 
 func win_fight() -> void:
+	# Won the fight
 	deckManager.hand.TurnEnded.disconnect(end_player_turn)
-	print("You wiiiiin")
 
 func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go
@@ -91,11 +90,11 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 	var victim = enemy if targettedEnemy else player
 	
 	if not dunked:
-		print("Normal card played")
+		# Normal card played
 		victim.take_dryness(biscuitStat.get(3))
 		victim.add_defense(biscuitStat.get(4))
 	else:
-		print("Dunked card played")
+		# Dunked card played
 		victim.take_dryness(biscuitStat.get(6))
 		victim.add_defense(biscuitStat.get(7))
 		
@@ -125,7 +124,7 @@ func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit si
 			var dunkChance = 0.5
 			if randf() <= dunkChance:
 				return true
-		1:
+		1: # Fire
 			teacup.teaLevel = 100
 			teacup.get_node("Tea").self_modulate=Color(1,0.2,0.15,1)
 			return true
@@ -134,6 +133,11 @@ func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit si
 func _on_timer_timeout() -> void:
 	if actionProgress < len(enemyActions):
 		play_enemy_action()
+	elif actionProgress == len(enemyActions):
+		actionProgress += 1
+		enemy.reset()
+		timer.wait_time = 0.5
+		timer.start()
 	else:
 		actionProgress = 0
 		end_enemy_turn()

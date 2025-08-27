@@ -1,7 +1,7 @@
 class_name Enemy
 extends Node2D
 
-var chosenActions : Array[Array] # Dryness Defense Special
+var chosenActions : Array[Array] # Dryness Defense Special ToEnemy
 var index : int # Controls what the enemy is
 var hovering : bool = false
 
@@ -20,7 +20,6 @@ func take_dryness(dryness : int) -> void:
 
 func sip(amount : int) -> bool:
 	teaLevel -= amount
-	print(teaLevel)
 	if teaLevel <= 0:
 		return true
 	return false
@@ -32,15 +31,12 @@ func add_defense(_defense : int) -> void:
 
 func set_action() -> void:
 	var actions : Array[Array]
-	actions.append([0, 0, 0])
-	actions.append([0, 0, 0])
-	actions.append([0,0,0])
 	match index:
 		0:
 			# White rabbit
-			actions.set(0, [10, 0, 0])
-			actions.set(1, [10, 0, 0])
-			actions.set(2, [0, 0, 0])
+			actions.append([10, 0, 0, false])
+			actions.append([10, 0, 0, false])
+			actions.append([0, 10, 0, true])
 		1:
 			# Cook
 			pass
@@ -69,19 +65,28 @@ func set_action() -> void:
 	$"Enemy Attack 1".update_sprites()
 	$"Enemy Attack 2".update_sprites()
 	$"Enemy Attack 3".update_sprites()
+	$"Enemy Attack 1".modulate = Color(1, 1, 1, 1)
+	$"Enemy Attack 2".modulate = Color(1, 1, 1, 1)
+	$"Enemy Attack 3".modulate = Color(1, 1, 1, 1)
 	chosenActions = actions
 
 
 func get_actions() -> Array[Array]:
 	if len(chosenActions) == 3:
-		$AnimationPlayer1.play("Play Biscuits Player1")
-		$AnimationPlayer2.play("Play Biscuits Player2")
-		$AnimationPlayer3.play("Play Biscuits Player3")
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		$AnimationPlayer1.play(biscuit1Animation)
+		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).get(3) else "Play Biscuits Player2"
+		$AnimationPlayer2.play(biscuit2Animation)
+		var biscuit3Animation = "Play Biscuits Enemy3" if chosenActions.get(2).get(3) else "Play Biscuits Player3"
+		$AnimationPlayer3.play(biscuit3Animation)
 	elif len(chosenActions) == 2:
-		$AnimationPlayer1.play("Play Biscuits Player1")
-		$AnimationPlayer2.play("Play Biscuits Player2")
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		$AnimationPlayer1.play(biscuit1Animation)
+		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).get(3) else "Play Biscuits Player2"
+		$AnimationPlayer2.play(biscuit2Animation)
 	elif len(chosenActions) == 1:
-		$AnimationPlayer1.play("Play Biscuits Player1")
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		$AnimationPlayer1.play(biscuit1Animation)
 	return chosenActions
 
 
@@ -89,6 +94,13 @@ func reset() -> void:
 	$"Enemy Attack 1".scale = Vector2(1, 1)
 	$"Enemy Attack 2".scale = Vector2(1, 1)
 	$"Enemy Attack 3".scale = Vector2(1, 1)
+	$"Enemy Attack 1".modulate = Color(0, 0, 0, 0)
+	$"Enemy Attack 2".modulate = Color(0, 0, 0, 0)
+	$"Enemy Attack 3".modulate = Color(0, 0, 0, 0)
+	$"Enemy Attack 1".position = Vector2(-1370, 200)
+	$"Enemy Attack 2".position = Vector2(-1370, -100)
+	$"Enemy Attack 3".position = Vector2(-1370, -400)
+
 
 func _on_area_2d_mouse_entered() -> void:
 	hovering = true
