@@ -48,7 +48,7 @@ func end_player_turn() -> void:
 func start_enemy_turn() -> void:
 	# Start the enemies turn
 	
-	enemyActions = enemy.get_actions()
+	enemyActions = enemy.get_actions() # Starts the animations
 	
 	timer.wait_time = 0.4
 	timer.start()
@@ -72,6 +72,7 @@ func play_enemy_action() -> void:
 		timer.start()
 	
 func end_enemy_turn() -> void:
+	enemy.reset()
 	start_player_turn()
 	
 
@@ -134,4 +135,5 @@ func _on_timer_timeout() -> void:
 	if actionProgress < len(enemyActions):
 		play_enemy_action()
 	else:
+		actionProgress = 0
 		end_enemy_turn()

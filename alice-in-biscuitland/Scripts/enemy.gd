@@ -57,10 +57,9 @@ func set_action() -> void:
 			# The Red Queen
 			pass
 	if len(actions) == 3:
-		pass
-		#$AnimationPlayer1.play("Fly 1")
-		#$AnimationPlayer2.play("Fly 2")
-		#$AnimationPlayer3.play("Fly 3")
+		$AnimationPlayer1.play("Fly 1")
+		$AnimationPlayer2.play("Fly 2")
+		$AnimationPlayer3.play("Fly 3")
 	elif len(actions) == 2:
 		$AnimationPlayer1.play("Fly 1")
 		$AnimationPlayer2.play("Fly 2")
@@ -75,10 +74,9 @@ func set_action() -> void:
 
 func get_actions() -> Array[Array]:
 	if len(chosenActions) == 3:
-		pass
-		#$AnimationPlayer1.play("Play Biscuits Player1")
-		#$AnimationPlayer2.play("Play Biscuits Player2")
-		#$AnimationPlayer3.play("Play Biscuits Player3")
+		$AnimationPlayer1.play("Play Biscuits Player1")
+		$AnimationPlayer2.play("Play Biscuits Player2")
+		$AnimationPlayer3.play("Play Biscuits Player3")
 	elif len(chosenActions) == 2:
 		$AnimationPlayer1.play("Play Biscuits Player1")
 		$AnimationPlayer2.play("Play Biscuits Player2")
@@ -86,6 +84,11 @@ func get_actions() -> Array[Array]:
 		$AnimationPlayer1.play("Play Biscuits Player1")
 	return chosenActions
 
+
+func reset() -> void:
+	$"Enemy Attack 1".scale = Vector2(1, 1)
+	$"Enemy Attack 2".scale = Vector2(1, 1)
+	$"Enemy Attack 3".scale = Vector2(1, 1)
 
 func _on_area_2d_mouse_entered() -> void:
 	hovering = true
