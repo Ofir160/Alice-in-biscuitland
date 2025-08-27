@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://wn4wj2eat0qo"]
+
+[ext_resource type="Script" uid="uid://nspyxxvt548s" path="res://Scripts/biscuits.gd" id="1_mduvw"]
+[ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_xxs46"]
+[ext_resource type="Texture2D" uid="uid://dut6xyqr52kko" path="res://Assets/Sprites/UI/Continue Button.png" id="3_mbcbx"]
+[ext_resource type="Script" uid="uid://250f6uhxrtft" path="res://Scripts/continue_button.gd" id="4_mbcbx"]
+[ext_resource type="Script" uid="uid://epyc5q1b2hjv" path="res://Scripts/biscuit_compendium.gd" id="5_wgthi"]
+
+[node name="Biscuit Rewards" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Biscuits" type="Node" parent="." node_paths=PackedStringArray("biscuits", "biscuitCompendium")]
+script = ExtResource("1_mduvw")
+biscuits = [NodePath("1"), NodePath("2"), NodePath("3")]
+biscuitCompendium = NodePath("../BiscuitCompendium")
+
+[node name="1" parent="Biscuits" instance=ExtResource("1_xxs46")]
+position = Vector2(-400, 0)
+
+[node name="2" parent="Biscuits" instance=ExtResource("1_xxs46")]
+
+[node name="3" parent="Biscuits" instance=ExtResource("1_xxs46")]
+position = Vector2(400, 0)
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 458.0
+offset_top = 113.0
+offset_right = 3190.0
+offset_bottom = 2161.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("3_mbcbx")
+script = ExtResource("4_mbcbx")
+
+[node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]
+script = ExtResource("5_wgthi")
+biscuitCompendium = [NodePath("Biscuit"), NodePath("Biscuit2"), NodePath("Biscuit3")]
+
+[node name="Biscuit" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "The Big Biscuit"
+Description = "Deals 5 Damage. Adds 30 Defense. 3 Attack and 40 Defense If Dunked"
+dryness = 5
+defense = 30
+special = 0
+dunkedDryness = 3
+dunkedDefense = 40
+
+[node name="Biscuit2" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Defend"
+Description = "Adds 10 Defense. 20 If Dunked"
+dryness = 0
+defense = 10
+special = 0
+
+[node name="Biscuit3" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Fire"
+Description = "Refills tea"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 1
+
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

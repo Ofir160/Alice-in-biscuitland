@@ -1,30 +1,25 @@
 class_name Enemy
 extends Node2D
 
+@export var enemyTeacup : Teacup
+
 var chosenActions : Array[Array] # Dryness Defense Special ToEnemy
 var index : int # Controls what the enemy is
 var hovering : bool = false
 
-var thirst : int
 var defense : int
-var teaLevel : int
 
 
 func take_dryness(dryness : int) -> void:
+	var thirst : int = 0
 	if dryness <= defense:
 		defense = defense - dryness
 	else:
-		thirst += dryness - defense
+		thirst = dryness - defense
 		defense = 0
-		
+	enemyTeacup.sip(thirst)
 
-func sip(amount : int) -> bool:
-	teaLevel -= amount
-	if teaLevel <= 0:
-		return true
-	return false
-		 
-		
+	
 func add_defense(_defense : int) -> void:
 	defense += _defense
 		
@@ -34,7 +29,8 @@ func set_action() -> void:
 	match index:
 		0:
 			# White rabbit
-			actions.append([10, 0, 0, true])
+			actions.append([10, 0, 0, false])
+			actions.append([0, 10, 0, true])
 		1:
 			# Cook
 			pass
@@ -106,3 +102,26 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	hovering = false
+	
+	
+func get_health() -> int:
+	match index:
+		0:
+			# White rabbit
+			return 20
+		1:
+			# Cook
+			return 30
+		2:
+			# Mad Hatter
+			return 50
+		3:
+			# Cheshire cat
+			return 75
+		4:
+			# Jabberwocky
+			return 60
+		5:
+			# Her royal majesty
+			return 100
+	return 0

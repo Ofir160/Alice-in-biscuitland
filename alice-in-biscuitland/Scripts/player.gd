@@ -1,16 +1,19 @@
 class_name Player
 extends Node2D
 
-var thirst : int
+@export var teacup : Teacup
+
 var defense : int
 var hovering : bool
 
 func take_dryness(dryness : int) -> void:
+	var thirst : int
 	if dryness <= defense:
 		defense = defense - dryness
 	else:
-		thirst += dryness - defense
+		thirst = dryness - defense
 		defense = 0
+	teacup.sip(thirst)
 
 
 func add_defense(_defense : int) -> void:

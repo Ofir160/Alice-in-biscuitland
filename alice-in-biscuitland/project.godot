@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Alice in Biscuitland"
-run/main_scene="uid://c4vmrw7mh2obl"
+run/main_scene="uid://cpm1j1lob6p4b"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Assets/Sprites/icon.svg"
+
+[autoload]
+
+SceneSwitcher="*res://Scripts/scene_switcher.gd"
+GameManager="*res://Scenes/game_manager.tscn"
 
 [input]
 

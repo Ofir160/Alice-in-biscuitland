@@ -14,7 +14,7 @@ var biscuitHand : Array[Biscuit]
 var biscuitStatHand : Array[Array]
 var currentBiscuit : Biscuit
 
-func _ready() -> void:
+func init() -> void:
 	biscuitHand = deckManager.handBiscuits
 
 func draw_cards(numberOfCards : int) -> void:
@@ -54,7 +54,10 @@ func draw_cards(numberOfCards : int) -> void:
 		displayBiscuit.dunkedDefense = biscuitStats.get(7)
 		displayBiscuit.dunkedSpecial = biscuitStats.get(8)
 		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
-		displayBiscuit.update_sprites()
+	
+	for biscuit in biscuitHand:
+		biscuit.update_sprites()
+	
 	reset_display_biscuits_positions(len(biscuitStatHand), true)
 	for i in len(biscuitStatHand):
 		biscuitHand.get(i).modulate = Color(1, 1, 1, 1)

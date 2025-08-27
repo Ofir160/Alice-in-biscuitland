@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpm1j1lob6p4b"]
+
+[ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_oj352"]
+
+[sub_resource type="GDScript" id="GDScript_y5gpt"]
+script/source = "extends Node
+
+const battleScene = \"res://Scenes/battle.tscn\"
+const mapScene = \"res://Scenes/map.tscn\"
+const biscuitRewardScene = \"res://Scenes/biscuit_rewards.tscn\"
+
+@export var initialDeck : Array[Biscuit]
+@export var progress : int
+
+var currentDeck : Array[Array]
+
+func _ready() -> void:
+	for biscuit in initialDeck:
+		add_biscuit(biscuit)
+	SceneSwitcher.switch_scene(mapScene)
+
+
+func start_battle() -> void:
+	SceneSwitcher.switch_scene(battleScene)
+	
+
+func end_battle() -> void:
+	progress += 1
+	
+	if progress == 6:
+		print(\"Beat the whole game!\")
+	else:
+		SceneSwitcher.switch_scene(biscuitRewardScene)
+
+
+func chose_biscuit() -> void:
+	SceneSwitcher.switch_scene(mapScene)
+
+func lose_battle() -> void:
+	SceneSwitcher.switch_scene(mapScene)
+
+
+func add_biscuit(biscuit : Biscuit) -> void:
+	# Converts a biscuit into an array of its stats
+	
+	var biscuitStat := []
+	biscuitStat.append(biscuit.cardName)
+	biscuitStat.append(biscuit.Description)
+	biscuitStat.append(biscuit.Img)
+	biscuitStat.append(biscuit.dryness)
+	biscuitStat.append(biscuit.defense)
+	biscuitStat.append(biscuit.special)
+	biscuitStat.append(biscuit.dunkedDryness)
+	biscuitStat.append(biscuit.dunkedDefense)
+	biscuitStat.append(biscuit.dunkedSpecial)
+	biscuitStat.append(biscuit.onDunkSpecial)
+	
+	currentDeck.append(biscuitStat)
+"
+
+[node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
+script = SubResource("GDScript_y5gpt")
+initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Fire"), NodePath("InitialBiscuitsData/Strike")]
+
+[node name="InitialBiscuitsData" type="Node" parent="."]
+
+[node name="Hit" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Hit"
+Description = "Deals 6 Thirst. 12 If Dunked"
+dryness = 6
+defense = 0
+special = 0
+dunkedDryness = 12
+
+[node name="Strike" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Strike"
+Description = "Deals 1 Thirst. 30 If Dunked"
+dryness = 1
+defense = 0
+special = 0
+dunkedDryness = 30
+
+[node name="Block" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Block"
+Description = "Adds 5 Defense. 10 If Dunked"
+dryness = 5
+defense = 0
+special = 0
+dunkedDryness = 10
+
+[node name="Fire" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Fire"
+Description = "Refills Tea"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 1

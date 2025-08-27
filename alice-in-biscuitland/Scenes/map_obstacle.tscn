@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnrf1f2lj744j"]
+
+[ext_resource type="Script" uid="uid://cwn4dk2lijr8q" path="res://Scripts/map_obstacle.gd" id="1_sfcs8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odvxu"]
+size = Vector2(500, 200)
+
+[node name="map_obstacle" type="StaticBody2D"]
+script = ExtResource("1_sfcs8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_odvxu")

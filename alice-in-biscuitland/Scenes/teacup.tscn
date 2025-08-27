@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cavaphfau3v73"]
+[gd_scene load_steps=7 format=3 uid="uid://cavaphfau3v73"]
 
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
-[ext_resource type="Texture2D" uid="uid://bpt528lsjtejn" path="res://Assets/Sprites/placeholder.png" id="2_irbve"]
+[ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_irbve"]
+[ext_resource type="Texture2D" uid="uid://bb6ecy17vkt4j" path="res://Assets/Sprites/Teacup/Teamask.png" id="3_qboyo"]
+[ext_resource type="Texture2D" uid="uid://bouvycvyqinmd" path="res://Assets/Sprites/Teacup/Tea.png" id="4_v4f1s"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="5_kprad"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
 radius = 115.004
@@ -14,8 +17,34 @@ script = ExtResource("1_re2n1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_qboyo")
 
-[node name="Placeholder" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_irbve")
+offset = Vector2(250, 0)
+flip_h = true
+
+[node name="TeaMask" type="Sprite2D" parent="."]
+clip_children = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_qboyo")
+offset = Vector2(250, 0)
+flip_h = true
+
+[node name="Tea" type="Sprite2D" parent="TeaMask"]
+position = Vector2(-250, 0)
+texture = ExtResource("4_v4f1s")
+offset = Vector2(500, 0)
+flip_h = true
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_left = -56.0
+offset_top = -45.0
+offset_right = 120.0
+offset_bottom = 68.0
+theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
+theme_override_fonts/normal_font = ExtResource("5_kprad")
+theme_override_font_sizes/normal_font_size = 64
+text = "10/12"
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

@@ -1,8 +1,34 @@
 extends CharacterBody2D
+
+@onready var camera: Camera2D = $Camera2D
+
 @export var crossing=false
 @export var cross_direction=0
 @export var bTween=false
+
 var speed= 500
+
+
+func _ready() -> void:
+	match GameManager.progress:
+		0:
+			# White Rabbit / Just spawned in
+			position = Vector2(-1011, -2035)
+		1:
+			# Killed the white rabbit
+			position = Vector2(-13, -1921)
+		2:
+			# Killed the cook
+			position = Vector2(1012, -2042)
+		3:
+			# Killed the mad hatter
+			position = Vector2(-938, -540)
+		4:
+			# Killed cheshire cat
+			position = Vector2(1218, -567)
+		5:
+			# Killed jabberwocky
+			position = Vector2(-1216, 1664)
 
 func _process(delta: float) -> void:
 	if bTween:

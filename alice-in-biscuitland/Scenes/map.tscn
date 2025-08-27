@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://r7wouctlfokv"]
+[gd_scene load_steps=14 format=3 uid="uid://r7wouctlfokv"]
 
 [ext_resource type="Texture2D" uid="uid://cm4l4wy66sdrf" path="res://Assets/Backgrounds/map.png" id="1_26yhd"]
 [ext_resource type="Texture2D" uid="uid://d28u7h7e6kxwx" path="res://Assets/Sprites/icon.svg" id="1_ci6au"]
 [ext_resource type="Script" uid="uid://bdcdlen21e5i4" path="res://Scripts/alice.gd" id="2_p3ir5"]
+[ext_resource type="PackedScene" uid="uid://i7admbudl2vt" path="res://Scenes/map_enemy.tscn" id="4_myvm1"]
+[ext_resource type="PackedScene" uid="uid://dnrf1f2lj744j" path="res://Scenes/map_obstacle.tscn" id="5_q0mm3"]
 
 [sub_resource type="Animation" id="Animation_p3ir5"]
 resource_name = "Cross"
@@ -34,7 +36,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_myvm1"]
-length = 0.1
+length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,10 +44,10 @@ tracks/0/path = NodePath("Alice:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333),
+"times": PackedFloat32Array(0, 0.01),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-628, -1951), Vector2(-628, -1951)]
+"values": [Vector2(-1011, -2035), Vector2(-1011, -2035)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -54,10 +56,10 @@ tracks/1/path = NodePath("Alice:crossing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333),
+"times": PackedFloat32Array(0, 0.01),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q0mm3"]
@@ -72,26 +74,49 @@ size = Vector2(36.4286, 33.4286)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myvm1"]
 size = Vector2(24.1429, 42.7142)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0mm3"]
+size = Vector2(600, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_np2xp"]
+size = Vector2(20, 1000)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26yhd"]
 size = Vector2(70, 70)
 
 [node name="Map" type="Node2D"]
 
 [node name="background" type="Sprite2D" parent="."]
+position = Vector2(66, -63)
 scale = Vector2(7, 7)
 texture = ExtResource("1_26yhd")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="background"]
+[node name="Intersection" type="Node" parent="background"]
 
-[node name="River" type="CollisionPolygon2D" parent="background/StaticBody2D"]
-polygon = PackedVector2Array(-254.286, -173, -232, -177.571, -163, -191.571, -128.143, -195.714, -103.143, -193, -73.8571, -188.143, -47.4286, -178.714, -29.5714, -168.714, -22.1429, -148.714, 1.28571, -126.143, 36, -91.5714, 53.8571, -78.1429, 66.8571, -69.2857, 112, -57.7143, 146.857, -53.2857, 226.857, -45.8571, 268.857, -38.1429, 264.429, 19.5714, 222, 2.42857, 151, -14.2857, 79, -37.2857, 50.5714, -48.2857, 6.85714, -79.5714, -36.2857, -110.143, -49.5714, -132.286, -71.7143, -147.286, -109.143, -153.571, -160.714, -150.571, -242.143, -138.429, -260.429, -132.143, -263.714, -172.857)
+[node name="RiverBody" type="StaticBody2D" parent="background"]
+collision_layer = 2
+
+[node name="River" type="CollisionPolygon2D" parent="background/RiverBody"]
+polygon = PackedVector2Array(-254.286, -173, -232, -177.571, -163, -191.571, -128.143, -195.714, -103.143, -193, -73.8571, -188.143, -47.4286, -178.714, -29.5714, -168.714, -22.1429, -148.714, 1.28571, -126.143, 36, -91.5714, 53.8571, -78.1429, 66.8571, -69.2857, 104.857, -126.857, 154.286, -143, 230.143, -148.286, 251.429, -82.8571, 246.857, -55.2857, 268.857, -38.1429, 264.429, 19.5714, 222, 2.42857, 212, -74, 217.571, -133.429, 153.143, -129.286, 115, -105.429, 82.7143, -58.8571, 50.5714, -48.2857, 6.85714, -79.5714, -36.2857, -110.143, -49.5714, -132.286, -71.7143, -147.286, -109.143, -153.571, -160.714, -150.571, -242.143, -138.429, -260.429, -132.143, -263.714, -172.857)
+
+[node name="PathBody" type="StaticBody2D" parent="background"]
+position = Vector2(-144.571, -345.571)
+scale = Vector2(1, 1)
+collision_layer = 2
+
+[node name="Path" type="CollisionPolygon2D" parent="background/PathBody"]
+polygon = PackedVector2Array(28.2857, 6.71429, 14.8534, 3.5258, 0, 0, 0, 0, -19.7143, 3, -38.1429, 10.5714, -49.7143, 28.1429, -53.7143, 48, -50.5714, 66.4286, -42.8571, 80.8571, -31.7143, 95.7143, -18.2857, 106.571, -2.71428, 108.143, 15, 105.714, 27.8571, 98.4286, 43.7143, 92.2857, 54, 98.4286, 76.7143, 103, 103.571, 103.714, 124.143, 100.714, 146.143, 95.1429, 168.143, 85.7143, 183.857, 79.7143, 197.714, 71.5714, 219.857, 70.1429, 239.857, 76.4286, 255.714, 86.2857, 264.857, 98.2857, 267, 111.143, 266.571, 119.857, 255.429, 134.286, 227.857, 153.143, 180.714, 167.857, 163.714, 173.571, 145, 184.857, 117.286, 174.143, 133.571, 169.857, 154.286, 163.429, 193.286, 153.857, 235, 136.143, 254.286, 117.286, 259.429, 109.143, 258, 98.1429, 246.286, 88.1429, 230.857, 81.4286, 214.571, 78, 195.714, 82.4286, 180, 91.8571, 164.571, 99.1429, 144.286, 108, 120.571, 116.571, 92.7143, 116.143, 67.4286, 115.429, 46.2857, 111.286, 28.1429, 114.286, 9.42857, 121.286, -13.8571, 120.143, -33.4286, 112.286, -45.5714, 98.4286, -57.2857, 82.8571, -63.7143, 61.1429, -65.1429, 40.2857, -57, 14.1429, -36.2857, -4.71429, -18, -14, 22, -17.4286, 60.2857, 3.42856, 67.5714, 36, 130.714, 31.5714, 142.429, 28.8571, 160.143, 26.8571, 187, 19, 212.857, 16.8571, 237, 4.57141, 251.857, -2.71429, 273.857, -8.57144, 289.857, -9, 307.143, -3.71429, 328.571, 2.42856, 345.571, 13.5714, 355, 36.2857, 360, 58.8571, 360.286, 81.4286, 347.143, 104.429, 319.286, 120.429, 325, 154.286, 308.714, 195, 249.571, 210.571, 193.429, 231.286, 167.286, 234.571, 153.429, 221.286, 166.857, 214.286, 213, 203.286, 255.714, 182.429, 285.143, 160.857, 303.857, 124, 305.714, 115.714, 305, 108.143, 302.429, 96.1429, 296.429, 82.8571, 279.857, 62.5714, 258.143, 41.8571, 248.429, 33.2857, 239.429, 25.2857, 229.857, 26.8571, 218.571, 27.5714, 197.143, 26.1429, 171.429, 33.2857, 142.857, 40.1429, 114, 54.7143, 86.2857, 58.4286, 67.1429, 59.2857, 55.7143, 50.2857, 44.7143, 23.7143)
+
+[node name="Path1" type="CollisionPolygon2D" parent="background/PathBody"]
+polygon = PackedVector2Array(32.8571, 239.286, 5.42857, 247.143, -25.7143, 260, -52.5714, 273.143, -71.2857, 287.571, -89, 305.714, -94, 334, -87.7143, 365.857, -70.2857, 389.143, -41.5714, 401.714, -7, 412.857, 35, 422.286, 72.7143, 424.714, 107.571, 421, 151.714, 413, 193, 402.714, 228, 392.571, 269.143, 388.857, 297.286, 402.714, 316, 426, 325.857, 457, 322.143, 477.286, 298.571, 493.286, 257.571, 492.286, 224.429, 495, 198.714, 496.714, 170.571, 500.571, 146.571, 509.286, 126.571, 531.143, 109.857, 556.286, 71.2857, 535.714, 34.2857, 525.571, -1, 520.857, -29.5714, 531.571, -49.8571, 559.571, -47.5714, 597.714, -36.8571, 630.857, -13.5714, 651.714, 12.5714, 661.429, 36.5714, 661.714, 63.5714, 664.857, 85.5714, 652, 96.4286, 637.571, 107.857, 621.714, 117.857, 608.857, 132.286, 622.857, 144.286, 634.429, 166.857, 647.429, 187.143, 660.286, 208.143, 674.714, 230.429, 689.429, 257.143, 691.857, 278, 695.429, 301.857, 706.857, 322.429, 708.286, 340.571, 703.571, 353.286, 692.429, 360.429, 680, 363.143, 664.143, 362.429, 648, 349.286, 636.429, 333.143, 631.714, 317.286, 629.143, 300, 632, 285, 640.857, 277.143, 645.857, 269.286, 652.857, 252.429, 643, 236.286, 637.571, 222.143, 631.429, 210.571, 623.429, 200.143, 614, 189.857, 607.714, 176.429, 601.429, 164.286, 595.429, 156.857, 583.857, 152.857, 572.429, 165.143, 561.714, 178.571, 554.286, 206.429, 546.429, 239.714, 540.286, 272.143, 540.143, 306.143, 541.286, 334.714, 532, 360.286, 516.286, 375.429, 492, 382.714, 465.143, 379, 441.143, 367.857, 420.571, 354.429, 398.857, 342.286, 380.143, 323.857, 366, 342.714, 302.857, 343.714, 240.857, 297.143, 237.857, 265.143, 274.571, 256.143, 345.429, 225.857, 346.286, 203.143, 353, 165.286, 361, 120.857, 376.429, 82.1429, 384.143, 46.5714, 389, 8.28572, 384.571, -18.1429, 373.571, -39.7143, 360.571, -47.1429, 336.429, -39, 316.143, -19, 303.429, 3.85715, 294.857, 18.8571, 298.571, 45.7143, 278.857, 71.7143, 262.429, 93, 248.286, 101.714, 234.143, 111.429, 241.571, 120, 253.286, 149.714, 271.286, 162.857, 306.714, 137.143, 336.857, 109.857, 349.571, 76, 360.143, 52, 358.857, -1.42857, 315.286, -31.1429, 331.571, -30.4286, 350.714, -17.2857, 360.143, 15.2857, 368.714, 48.7143, 369.857, 81.7143, 366.714, 121.571, 345.857, 159.143, 343.429, 203.571, 337.857, 223.857, 332.857, 244.571, 272.429, 298.286, 221.714, 354.429, 221.143, 356.143, 350, 361.571, 376.571, 380.429, 403.429, 389.143, 421.714, 393.429, 450.286, 392.714, 479.143, 381.571, 510.714, 357.429, 533.714, 325.857, 549, 292.714, 559.286, 267.429, 557.571, 237.286, 563.143, 208.429, 563.857, 165.857, 570.286, 171.714, 578.714, 183.143, 585.143, 195.286, 594.571, 203.429, 603.286, 211.571, 610.857, 219.571, 618, 234.143, 625.857, 256.857, 635.286, 268, 628.857, 280.143, 623.857, 300.571, 618.571, 321.429, 616.857, 349.714, 621, 372.286, 636.429, 373.286, 658.429, 372.857, 675.286, 369.857, 692, 361.429, 706.143, 346, 717.714, 314.143, 722.429, 293.857, 720.286, 267.857, 713.286, 240.857, 706.857, 190.714, 691.571, 168.857, 666.571, 140.571, 649.857, 124, 628.857, 119, 643.143, 86.7143, 671.286, 58.5714, 679.571, 23.7143, 680.429, -6.57143, 676.857, -38.8571, 661.714, -70.2857, 633.429, -86.2857, 588.857, -80.2857, 535.143, -33.8571, 505.857, 0.857147, 498.714, 44.4286, 505.857, 90.2857, 524.143, 113.571, 509.286, 147.143, 493.714, 171.857, 488.286, 199.143, 482.286, 225.286, 479.286, 266.714, 479.857, 288.714, 479, 296.857, 452.857, 274.857, 416.286, 226, 424, 186, 422.857, 139.143, 438.857, 100.857, 445.571, 54.2857, 450.143, 17, 440.571, -26.2857, 425.429, -58.1429, 411.143, -92.7143, 389.571, -106.571, 361.714, -107, 321, -99, 292.286, -82.4286, 268.857, -63.7143, 256, -30, 234.429, 15.4286, 211.857, 61.7143, 198.143, 62.5714, 225.571)
+
+[node name="Path2" type="CollisionPolygon2D" parent="background/PathBody"]
+polygon = PackedVector2Array(-4.42857, 570.571, 5.71429, 564.429, 19.2857, 563.571, 38.1429, 567.714, 57.1429, 575.286, 69, 582, 82.1429, 592, 67.1429, 602.714, 55.1429, 610.143, 36.4286, 621.286, 25, 619.571, 12.5714, 612.286, 2.57143, 597.857, -1.57143, 584)
 
 [node name="Bridge" type="AnimationPlayer" parent="background"]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_q0mm3")
 }
-autoplay = "RESET"
 speed_scale = 0.7
 
 [node name="TweenTimer" type="Timer" parent="background/Bridge"]
@@ -110,12 +135,44 @@ position = Vector2(-54.2143, -136.571)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_myvm1")
 
+[node name="Borders" type="Node" parent="background"]
+
+[node name="UpperBorder" type="StaticBody2D" parent="background/Borders"]
+position = Vector2(66, -2877)
+scale = Vector2(7, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Borders/UpperBorder"]
+position = Vector2(-0.285714, 1.28568)
+shape = SubResource("RectangleShape2D_q0mm3")
+
+[node name="LowerBorder" type="StaticBody2D" parent="background/Borders"]
+position = Vector2(66, 2730)
+scale = Vector2(7, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Borders/LowerBorder"]
+position = Vector2(-0.285714, 1.28568)
+shape = SubResource("RectangleShape2D_q0mm3")
+
+[node name="LeftBorder" type="StaticBody2D" parent="background/Borders"]
+position = Vector2(-1831, -63)
+scale = Vector2(7, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Borders/LeftBorder"]
+shape = SubResource("RectangleShape2D_np2xp")
+
+[node name="RightBorder" type="StaticBody2D" parent="background/Borders"]
+position = Vector2(1963, -63)
+scale = Vector2(7, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="background/Borders/RightBorder"]
+shape = SubResource("RectangleShape2D_np2xp")
+
 [node name="Alice" type="CharacterBody2D" parent="."]
-position = Vector2(-628, -1951)
+position = Vector2(-1011, -2035)
+collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("2_p3ir5")
-crossing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Alice"]
 shape = SubResource("RectangleShape2D_26yhd")
@@ -126,13 +183,46 @@ texture = ExtResource("1_ci6au")
 
 [node name="Camera2D" type="Camera2D" parent="Alice"]
 zoom = Vector2(0.5, 0.5)
-limit_left = -1800
-limit_top = -2700
-limit_right = 1800
-limit_bottom = 2700
-limit_smoothed = true
-position_smoothing_enabled = true
+limit_left = -1700
+limit_top = -2600
+limit_right = 1700
+limit_bottom = 2600
 editor_draw_limits = true
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="White Rabbit" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(-13, -1921)
+
+[node name="Cook" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(1012, -2042)
+index = 1
+
+[node name="Mad Hatter" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(-938, -540)
+index = 2
+
+[node name="Cheshire Cat" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(1218, -567)
+index = 3
+
+[node name="Jabberwocky" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(-1216, 1664)
+index = 4
+
+[node name="The Red Queen" parent="Enemies" instance=ExtResource("4_myvm1")]
+position = Vector2(1224, 2257)
+index = 5
+
+[node name="Palace Obstacle" parent="." instance=ExtResource("5_q0mm3")]
+position = Vector2(327, 1904)
+rotation = 2.16608
+progressNeeded = 5
+
+[node name="Chesire Cat Obstacle" parent="." instance=ExtResource("5_q0mm3")]
+position = Vector2(1446, 446)
+rotation = 2.6206
+progressNeeded = 4
 
 [connection signal="timeout" from="background/Bridge/TweenTimer" to="Alice" method="_on_bridge_time"]
 [connection signal="body_entered" from="background/Bridge1" to="Alice" method="_on_bridge_entered"]
