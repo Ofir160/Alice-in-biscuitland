@@ -155,6 +155,7 @@ func set_biscuits() -> void:
 		displayBiscuit.dunkedDefense = biscuitStats.get(7)
 		displayBiscuit.dunkedSpecial = biscuitStats.get(8)
 		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
+		displayBiscuit.update_sprites()
 
 
 func _process(delta: float) -> void:
@@ -167,7 +168,6 @@ func _process(delta: float) -> void:
 			# Try and fix mismatches
 			print("Mismatch!")
 			set_biscuits()
-			biscuit.update_sprites()
 	
 	if Input.is_action_just_pressed("Click"):
 		# When dragging

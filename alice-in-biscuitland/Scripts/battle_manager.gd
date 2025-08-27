@@ -38,9 +38,15 @@ func start_fight() -> void:
 func start_player_turn() -> void:
 	# Start the players turn
 	player.defense = 0
+	
 	deckManager.hand.draw_cards(5)
-	deckManager.cardsToPlay = cardsToPlay
+	
+	if player.has_state(1):
+		deckManager.cardsToPlay = 5
+	else:
+		deckManager.cardsToPlay = cardsToPlay
 	enemy.set_action()
+	player.step_timers()
 
 
 func end_player_turn() -> void:
@@ -60,7 +66,10 @@ func start_enemy_turn() -> void:
 func play_enemy_action() -> void:
 	
 	var action : Array = enemyActions.get(actionProgress)
-	player.take_dryness(action.get(0))
+	if player.has_state(2):
+		player.take_dryness(action.get(0) * 2)
+	else:
+		player.take_dryness(action.get(0))
 	enemy.add_defense(action.get(1))
 	if teacup.check_tea():
 		lose_fight()
@@ -103,13 +112,70 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 	if not dunked:
 		# Normal card played
 		print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
-		victim.take_dryness(biscuitStat.get(3))
-		victim.add_defense(biscuitStat.get(4))
+		
+		if player.has_state(2):
+			victim.take_dryness(biscuitStat.get(3) * 2)
+		elif player.has_state(3):
+			victim.take_dryness(biscuitStat.get(3) / 2)
+		else:
+			victim.take_dryness(biscuitStat.get(3))
+		if player.has_state(4) and not targettedEnemy:
+			pass
+		elif player.has_state(3):
+			victim.add_defense(biscuitStat.get(4) * 2)
+		else:
+			victim.add_defense(biscuitStat.get(4))
+		
+		match biscuitStat.get(5):
+			0:
+				pass
+			1:
+				# Smore
+				player.add_state_for_turns(1, 1, biscuitStat)
+			2:
+				# Make it bigger
+				player.add_state_for_turns(2, 2, biscuitStat)
+				player.remove_state(3)
+			3:
+				# Make it smaller
+				player.add_state_for_turns(3, 2, biscuitStat)
+				player.remove_state(2)
+			4:
+				# Untouchable
+				player.add_state_for_turns(4, 2, biscuitStat)
 	else:
 		# Dunked card played
 		print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
-		victim.take_dryness(biscuitStat.get(6))
-		victim.add_defense(biscuitStat.get(7))
+		if player.has_state(2):
+			victim.take_dryness(biscuitStat.get(6) * 2)
+		elif player.has_state(3):
+			victim.take_dryness(biscuitStat.get(6) / 2)
+		else:
+			victim.take_dryness(biscuitStat.get(6))
+		if player.has_state(4) and not targettedEnemy:
+			pass
+		elif player.has_state(3):
+			victim.add_defense(biscuitStat.get(7) * 2)
+		else:
+			victim.add_defense(biscuitStat.get(7))
+			
+		match biscuitStat.get(8):
+			0:
+				pass
+			1:
+				# Smore
+				player.add_state_for_turns(1, 1, biscuitStat)
+			2:
+				# Make it bigger
+				player.add_state_for_turns(2, 2, biscuitStat)
+				player.remove_state(3)
+			3:
+				# Make it smaller
+				player.add_state_for_turns(3, 2, biscuitStat)
+				player.remove_state(2)
+			4:
+				# Untouchable
+				player.add_state_for_turns(4, 2, biscuitStat)
 		
 	if enemyTeacup.check_tea(): # Damages the enemy
 		# If the enemy died

@@ -86,8 +86,10 @@ special = 0
 [node name="Player Teacup" parent="Battle Manager" instance=ExtResource("3_1ruyk")]
 position = Vector2(-450, 50)
 
+[node name="Player Defense" parent="Battle Manager" node_paths=PackedStringArray("player") instance=ExtResource("8_qeyqd")]
+player = NodePath("../Player")
+
 [node name="Player" parent="Battle Manager" node_paths=PackedStringArray("teacup") instance=ExtResource("5_pd5xk")]
-position = Vector2(-966, 465)
 teacup = NodePath("../Player Teacup")
 
 [node name="Timer" type="Timer" parent="Battle Manager"]
@@ -97,13 +99,10 @@ one_shot = true
 [node name="Enemy Teacup" parent="Battle Manager" instance=ExtResource("6_qeyqd")]
 position = Vector2(450, 50)
 
+[node name="Enemy Defense" parent="Battle Manager" node_paths=PackedStringArray("enemy") instance=ExtResource("9_k7mbx")]
+enemy = NodePath("../Enemy")
+
 [node name="Enemy" parent="Battle Manager" node_paths=PackedStringArray("enemyTeacup") instance=ExtResource("4_f6xt6")]
 enemyTeacup = NodePath("../Enemy Teacup")
-
-[node name="Player Defense" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_qeyqd")]
-player = NodePath("../Battle Manager/Player")
-
-[node name="Enemy Defense" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("9_k7mbx")]
-enemy = NodePath("../Battle Manager/Enemy")
 
 [connection signal="timeout" from="Battle Manager/Timer" to="Battle Manager" method="_on_timer_timeout"]

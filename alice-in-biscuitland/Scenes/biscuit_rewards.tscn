@@ -37,33 +37,62 @@ script = ExtResource("4_mbcbx")
 
 [node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]
 script = ExtResource("5_wgthi")
-biscuitCompendium = [NodePath("Biscuit"), NodePath("Biscuit2"), NodePath("Biscuit3")]
+biscuitCompendium = [NodePath("Big Biscuit"), NodePath("Defend"), NodePath("Refill")]
 
-[node name="Biscuit" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+[node name="Big Biscuit" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "The Big Biscuit"
-Description = "Deals 5 Damage. Adds 30 Defense. 3 Attack and 40 Defense If Dunked"
+Description = "Deals 5 Damage. Adds 30 Defense"
 dryness = 5
 defense = 30
 special = 0
 dunkedDryness = 3
 dunkedDefense = 40
 
-[node name="Biscuit2" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+[node name="Defend" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Defend"
 Description = "Adds 10 Defense. 20 If Dunked"
 dryness = 0
 defense = 10
 special = 0
+dunkedDefense = 20
 
-[node name="Biscuit3" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+[node name="Refill" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
-cardName = "Fire"
+cardName = "Refill"
 Description = "Refills tea"
 dryness = 0
 defense = 0
 special = 0
 onDunkSpecial = 1
+
+[node name="S\'more" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "S'more"
+Description = "On your next turn you must play all cards"
+Img = "res://Assets/Sprites/Biscuits/S'more.png"
+dryness = 0
+defense = 0
+special = 1
+dunkedSpecial = 1
+
+[node name="Make it bigger" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Make it bigger"
+Description = "Enemy thirst x2. Your Thirst x2"
+dryness = 0
+defense = 0
+special = 2
+dunkedSpecial = 2
+
+[node name="Make it smaller" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Make it smaller"
+Description = "Enemy thirst /2. Your Thirst /2. Defence x2"
+dryness = 0
+defense = 0
+special = 3
+dunkedSpecial = 3
 
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

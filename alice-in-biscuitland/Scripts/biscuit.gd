@@ -3,6 +3,7 @@ extends Node2D
 
 @export var timeToReset : float
 @export var hoverRight : bool
+@export var hoverLeft : bool
 
 @export var cardName:="";
 @export var Description:="";
@@ -47,19 +48,23 @@ func update_sprites():
 
 func _on_area_2d_mouse_entered() -> void:
 	if not dragged:
-		if not hoverRight:
-			$AnimationPlayer.play("appear")
-		else:
+		if hoverRight:
 			$AnimationPlayer.play("appear_right")
+		elif hoverLeft:
+			$AnimationPlayer.play("appear_left")
+		else:
+			$AnimationPlayer.play("appear")
 	hovered = true;
 
 
 func _on_area_2d_mouse_exited() -> void:
 	if not dragged:
-		if not hoverRight:
-			$AnimationPlayer.play("vanish")
-		else:
+		if hoverRight:
 			$AnimationPlayer.play("vanish_left")
+		elif hoverLeft:
+			$AnimationPlayer.play("vanish_right")
+		else:
+			$AnimationPlayer.play("vanish")
 	hovered = false
 	
 	

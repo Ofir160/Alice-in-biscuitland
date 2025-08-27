@@ -60,7 +60,7 @@ func add_biscuit(biscuit : Biscuit) -> void:
 
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
-initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Fire"), NodePath("InitialBiscuitsData/Strike")]
+initialDeck = [NodePath("InitialBiscuitsData/S\'more"), NodePath("InitialBiscuitsData/S\'more"), NodePath("InitialBiscuitsData/Untouchable"), NodePath("InitialBiscuitsData/Untouchable"), NodePath("InitialBiscuitsData/Make it bigger")]
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
@@ -72,6 +72,16 @@ dryness = 6
 defense = 0
 special = 0
 dunkedDryness = 12
+
+[node name="S\'more" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "S'more"
+Description = "On your next turn you must play all cards"
+Img = "res://Assets/Sprites/Biscuits/S'more.png"
+dryness = 0
+defense = 0
+special = 1
+dunkedSpecial = 1
 
 [node name="Strike" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
@@ -90,11 +100,29 @@ dryness = 0
 special = 0
 dunkedDefense = 10
 
-[node name="Fire" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+[node name="Refill" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Fire"
+cardName = "Refills"
 Description = "Refills Tea"
 dryness = 0
 defense = 0
 special = 0
 onDunkSpecial = 1
+
+[node name="Untouchable" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Untouchable"
+Description = "Adds 30 Defense. You cannot gain defence for the next turn"
+dryness = 0
+defense = 30
+dunkedDefense = 40
+dunkedSpecial = 4
+
+[node name="Make it bigger" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Make it bigger"
+Description = "Enemy thirst x2. Your Thirst x2"
+dryness = 0
+defense = 0
+special = 2
+dunkedSpecial = 2
