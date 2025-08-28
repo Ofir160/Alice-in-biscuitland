@@ -97,6 +97,51 @@ tracks/0/keys = {
 "values": [Vector2(950, 200), Vector2(1370, 200)]
 }
 
+[sub_resource type="Animation" id="Animation_gymyn"]
+resource_name = "Fly Up 2 - 1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("State 1:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(950, -100), Vector2(950, -400)]
+}
+
+[sub_resource type="Animation" id="Animation_pu2lt"]
+resource_name = "Fly Up 3 - 1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("State 1:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(950, 200), Vector2(950, -400)]
+}
+
+[sub_resource type="Animation" id="Animation_tx1dd"]
+resource_name = "Fly Up 3 - 2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("State 2:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(950, 200), Vector2(950, -100)]
+}
+
 [sub_resource type="Animation" id="Animation_6t5aa"]
 length = 0.001
 tracks/0/type = "value"
@@ -134,51 +179,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1370, 200)]
-}
-
-[sub_resource type="Animation" id="Animation_tx1dd"]
-resource_name = "Fly Up 3 - 2"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("State 2:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(950, 200), Vector2(950, -100)]
-}
-
-[sub_resource type="Animation" id="Animation_gymyn"]
-resource_name = "Fly Up 2 - 1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("State 1:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(950, -100), Vector2(950, -400)]
-}
-
-[sub_resource type="Animation" id="Animation_pu2lt"]
-resource_name = "Fly Up 3 - 1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("State 1:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(950, 200), Vector2(950, -400)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3smsa"]
