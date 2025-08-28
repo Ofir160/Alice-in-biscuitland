@@ -60,7 +60,7 @@ func add_biscuit(biscuit : Biscuit) -> void:
 
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
-initialDeck = [NodePath("InitialBiscuitsData/S\'more"), NodePath("InitialBiscuitsData/S\'more"), NodePath("InitialBiscuitsData/Untouchable"), NodePath("InitialBiscuitsData/Untouchable"), NodePath("InitialBiscuitsData/Make it bigger")]
+initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Sacrifice"), NodePath("InitialBiscuitsData/Sacrifice")]
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
@@ -76,7 +76,7 @@ dunkedDryness = 12
 [node name="S\'more" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "S'more"
-Description = "On your next turn you must play all cards"
+Description = "On your next turn you must play all biscuits"
 Img = "res://Assets/Sprites/Biscuits/S'more.png"
 dryness = 0
 defense = 0
@@ -95,10 +95,10 @@ dunkedDryness = 30
 [node name="Block" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Block"
-Description = "Adds 5 Defense. 10 If Dunked"
+Description = "Adds 5 Defense. 8 If Dunked"
 dryness = 0
 special = 0
-dunkedDefense = 10
+dunkedDefense = 8
 
 [node name="Refill" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
@@ -112,7 +112,7 @@ onDunkSpecial = 1
 [node name="Untouchable" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Untouchable"
-Description = "Adds 30 Defense. You cannot gain defence for the next turn"
+Description = "Adds 30 Defense. You cannot gain defence next turn"
 dryness = 0
 defense = 30
 dunkedDefense = 40
@@ -126,3 +126,40 @@ dryness = 0
 defense = 0
 special = 2
 dunkedSpecial = 2
+
+[node name="Jaffa Cake" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Jaffa Cake"
+Description = "Not a biscuit!. 50% chance to not do anything"
+dryness = 0
+defense = 0
+special = 5
+dunkedSpecial = 5
+
+[node name="Gambler\'s Cookie" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Gambler's Cookie"
+Description = "Random defence. Random thirst"
+dryness = 0
+defense = 0
+special = 6
+dunkedSpecial = 6
+
+[node name="Fire" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Fire"
+Description = "Set's tea on fire. Whenever you sink a defense card into tea increase attack power"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 2
+
+[node name="Sacrifice" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Sacrifice"
+Description = "Deals 15 thirst. Sinks all cards in hand"
+dryness = 15
+defense = 0
+special = 7
+dunkedDryness = 30
+dunkedSpecial = 7

@@ -70,7 +70,7 @@ onDunkSpecial = 1
 [node name="S\'more" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "S'more"
-Description = "On your next turn you must play all cards"
+Description = "On your next turn you must play all biscuits"
 Img = "res://Assets/Sprites/Biscuits/S'more.png"
 dryness = 0
 defense = 0

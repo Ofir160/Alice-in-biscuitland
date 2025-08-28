@@ -37,6 +37,9 @@ func start_fight() -> void:
 
 func start_player_turn() -> void:
 	# Start the players turn
+	
+	player.step_timers()
+	
 	player.defense = 0
 	
 	deckManager.hand.draw_cards(5)
@@ -46,7 +49,6 @@ func start_player_turn() -> void:
 	else:
 		deckManager.cardsToPlay = cardsToPlay
 	enemy.set_action()
-	player.step_timers()
 
 
 func end_player_turn() -> void:
@@ -104,6 +106,23 @@ func win_fight() -> void:
 	wonGame = true
 
 
+func add_defence(amount : int, victim : Variant, targettedEnemy : bool) -> void:
+	if player.has_state(4) and not targettedEnemy:
+		pass
+	elif player.has_state(3):
+		victim.add_defense((amount + player.defensePower) * 2)
+	else:
+		victim.add_defense(amount + player.defensePower)
+
+
+func deal_dryness(amount : int, victim : Variant, targettedEnemy : bool) -> void:
+	if player.has_state(2):
+		victim.take_dryness((amount + player.attackPower) * 2)
+	elif player.has_state(3):
+		victim.take_dryness((amount + player.attackPower) / 2)
+	else:
+		victim.take_dryness(amount + player.attackPower)
+
 func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go
 	
@@ -111,71 +130,95 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 	
 	if not dunked:
 		# Normal card played
-		print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
+		#print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
 		
-		if player.has_state(2):
-			victim.take_dryness(biscuitStat.get(3) * 2)
-		elif player.has_state(3):
-			victim.take_dryness(biscuitStat.get(3) / 2)
-		else:
-			victim.take_dryness(biscuitStat.get(3))
-		if player.has_state(4) and not targettedEnemy:
-			pass
-		elif player.has_state(3):
-			victim.add_defense(biscuitStat.get(4) * 2)
-		else:
-			victim.add_defense(biscuitStat.get(4))
+		deal_dryness(biscuitStat.get(3), victim, targettedEnemy)
+		add_defence(biscuitStat.get(4), victim, targettedEnemy)
 		
 		match biscuitStat.get(5):
 			0:
 				pass
 			1:
 				# Smore
-				player.add_state_for_turns(1, 1, biscuitStat)
+				var stats = biscuitStat.duplicate()
+				stats.set(1, "Must Play All Biscuits")
+				player.add_state(1, stats, 1)
 			2:
 				# Make it bigger
-				player.add_state_for_turns(2, 2, biscuitStat)
+				player.add_state_for_turns(2, biscuitStat, 2)
 				player.remove_state(3)
 			3:
 				# Make it smaller
-				player.add_state_for_turns(3, 2, biscuitStat)
+				player.add_state_for_turns(3, biscuitStat, 2)
 				player.remove_state(2)
 			4:
 				# Untouchable
-				player.add_state_for_turns(4, 2, biscuitStat)
+				var stats = biscuitStat.duplicate()
+				stats.set(1, "Cannot Gain Defence")
+				player.add_state(4, stats, 1)
+			5:
+				# Jaffa Cake
+				var chance = 0.5
+				if randf() >= chance:
+					add_defence(10, victim, targettedEnemy)
+				else:
+					pass
+			6:
+				# Gambler's Cookie
+				var dryness = randi_range(3, 15)
+				deal_dryness(dryness, victim, targettedEnemy)
+				var defence = randi_range(3, 15)
+				add_defence(defence, victim, targettedEnemy)
+			7:
+				# Sacrifice
+				deckManager.cardsToPlay = len(deckManager.hand.biscuitStatHand)
+				
+				for i in range(len(deckManager.hand.biscuitStatHand)):
+					print(i)
+
 	else:
 		# Dunked card played
-		print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
-		if player.has_state(2):
-			victim.take_dryness(biscuitStat.get(6) * 2)
-		elif player.has_state(3):
-			victim.take_dryness(biscuitStat.get(6) / 2)
-		else:
-			victim.take_dryness(biscuitStat.get(6))
-		if player.has_state(4) and not targettedEnemy:
-			pass
-		elif player.has_state(3):
-			victim.add_defense(biscuitStat.get(7) * 2)
-		else:
-			victim.add_defense(biscuitStat.get(7))
+		#print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
+		deal_dryness(biscuitStat.get(6), victim, targettedEnemy)
+		add_defence(biscuitStat.get(7), victim, targettedEnemy)
 			
 		match biscuitStat.get(8):
 			0:
 				pass
 			1:
 				# Smore
-				player.add_state_for_turns(1, 1, biscuitStat)
+				var stats = biscuitStat.duplicate()
+				stats.set(1, "Must Play All Biscuits")
+				player.add_state(1, stats, 1)
 			2:
 				# Make it bigger
-				player.add_state_for_turns(2, 2, biscuitStat)
+				player.add_state_for_turns(2, biscuitStat, 2)
 				player.remove_state(3)
 			3:
 				# Make it smaller
-				player.add_state_for_turns(3, 2, biscuitStat)
+				player.add_state_for_turns(3, biscuitStat, 2)
 				player.remove_state(2)
 			4:
 				# Untouchable
-				player.add_state_for_turns(4, 2, biscuitStat)
+				var stats = biscuitStat.duplicate()
+				stats.set(1, "Cannot Gain Defence")
+				player.add_state(4, stats, 1)
+			5:
+				# Jaffa cake
+				var chance = 0.5
+				if randf() >= chance:
+					add_defence(20, victim, targettedEnemy)
+				else:
+					pass
+			6:
+				# Gambler's Cookie
+				var dryness = randi_range(10, 30)
+				deal_dryness(dryness, victim, targettedEnemy)
+				var defence = randi_range(10, 30)
+				add_defence(defence, victim, targettedEnemy)
+			7:
+				# Sacrifice
+				deckManager.cardsToPlay = len(deckManager.hand.biscuitStatHand) - 1
 		
 	if enemyTeacup.check_tea(): # Damages the enemy
 		# If the enemy died
@@ -196,12 +239,25 @@ func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit si
 	
 	match biscuitStat.get(9):
 		0:
-			var dunkChance = 0.5
-			if randf() <= dunkChance:
+			if randf() <= teacup.dunkChance:
+				if teacup.check_tea_state(1):
+					if biscuitStat.get(4) != 0:
+						player.attackPower += 1
 				return true
-		1: # Fire
+		1:
+			# Refill
 			teacup.teaLevel = 50
 			teacup.get_node("TeaMask/Tea").self_modulate=Color(1,0.2,0.15,1)
+			teacup.set_tea_state(0)
+			return true
+		2: 
+			# Fire
+			teacup.set_tea_state(1)
+			teacup.dunkChance = 0.5
+			return true
+		3:
+			# Ice
+			teacup.set_tea_state(2)
 			return true
 	return false
 

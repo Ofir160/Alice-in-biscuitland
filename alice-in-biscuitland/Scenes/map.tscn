@@ -100,7 +100,6 @@ polygon = PackedVector2Array(-254.286, -173, -232, -177.571, -163, -191.571, -12
 
 [node name="PathBody" type="StaticBody2D" parent="background"]
 position = Vector2(-144.571, -345.571)
-scale = Vector2(1, 1)
 collision_layer = 2
 
 [node name="Path" type="CollisionPolygon2D" parent="background/PathBody"]
@@ -182,7 +181,6 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_ci6au")
 
 [node name="Camera2D" type="Camera2D" parent="Alice"]
-zoom = Vector2(0.5, 0.5)
 limit_left = -1700
 limit_top = -2600
 limit_right = 1700

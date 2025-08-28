@@ -33,6 +33,7 @@ func on_biscuit_dunked(biscuitStat : Array) -> void:
 			if cardsToPlay <= 0:
 				hand.end_turn(true)
 			else:
+				print("Sunk Biscuit")
 				hand.discard_biscuit(true)
 	else:
 		# If the biscuit didn't sink

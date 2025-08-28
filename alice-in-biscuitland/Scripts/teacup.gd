@@ -3,8 +3,10 @@ extends Node2D
 
 var maxTea : int
 var teaLevel : int
+var dunkChance : float = 0.3
 
 var hovering : bool = false
+var teacup_state : int # 0 if normal. 1 if fire. 2 if Ice. 3 If we have time :p
 
 func _on_area_2d_mouse_entered() -> void:
 	hovering = true
@@ -23,7 +25,14 @@ func check_tea() -> bool:
 		teaLevel = 0
 		return true
 	return false
-	
+
+
+func check_tea_state(state : int) -> bool:
+	return state == teacup_state
+
+func set_tea_state(state : int) -> void:
+	teacup_state = state
+
 
 func reset_tea() -> void:
 	teaLevel = maxTea

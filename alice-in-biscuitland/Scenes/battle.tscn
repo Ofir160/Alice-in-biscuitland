@@ -13,7 +13,6 @@
 [node name="Battle" type="Node"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
 
 [node name="Battle Manager" parent="." node_paths=PackedStringArray("teacup", "enemyTeacup", "player", "enemy") instance=ExtResource("2_f6xt6")]
 cardsToPlay = 3

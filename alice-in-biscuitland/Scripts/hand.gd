@@ -84,8 +84,8 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 		var middle_index = biscuitCount / 2.0 - 0.5
 		
 		for i in range(0, int(middle_index + 0.5)):
-			positions.set(int(middle_index - i - 0.5), Vector2(-300.0 * i - 150.0, 450.0))
-			positions.set(int(middle_index + i + 0.5), Vector2(300.0 * i + 150.0, 450.0))
+			positions.set(int(middle_index - i - 0.5), Vector2(-200.0 * i - 100.0, 400.0))
+			positions.set(int(middle_index + i + 0.5), Vector2(200.0 * i + 100.0, 400.0))
 		
 	else:
 		# Odd amount of cards
@@ -93,8 +93,8 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 		var middle_index = biscuitCount / 2
 		
 		for i in range(middle_index + 1):
-			positions.set(middle_index - i, Vector2(-300.0 * i, 450.0))
-			positions.set(middle_index + i, Vector2(300.0 * i, 450.0))
+			positions.set(middle_index - i, Vector2(-200.0 * i, 400.0))
+			positions.set(middle_index + i, Vector2(200.0 * i, 400.0))
 	
 	return positions
 
@@ -191,7 +191,7 @@ func _process(delta: float) -> void:
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
-					print("Card Played: " + str(currentBiscuit.cardName))
+					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
@@ -201,7 +201,7 @@ func _process(delta: float) -> void:
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
-					print("Card Played: " + str(currentBiscuit.cardName))
+					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
