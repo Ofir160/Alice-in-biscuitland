@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccu3allyakt4m"
-path="res://.godot/imported/Untitled_Artwork-1 2.png-15ce872cd1f56cbe6c6896bf1e8edf8e.ctex"
+uid="uid://b82iyuih5uwyh"
+path="res://.godot/imported/Lotus Biscoff.png-0e190ffa7c4cdca2456654ef5f36e547.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Biscuits/Untitled_Artwork-1 2.png"
-dest_files=["res://.godot/imported/Untitled_Artwork-1 2.png-15ce872cd1f56cbe6c6896bf1e8edf8e.ctex"]
+source_file="res://Assets/Sprites/Biscuits/Lotus Biscoff.png"
+dest_files=["res://.godot/imported/Lotus Biscoff.png-0e190ffa7c4cdca2456654ef5f36e547.ctex"]
 
 [params]
 

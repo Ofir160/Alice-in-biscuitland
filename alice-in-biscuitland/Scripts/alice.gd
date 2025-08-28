@@ -18,15 +18,12 @@ func _ready() -> void:
 			# Killed the white rabbit
 			position = Vector2(-13, -1921)
 		2:
-			# Killed the cook
-			position = Vector2(1012, -2042)
-		3:
 			# Killed the mad hatter
 			position = Vector2(-938, -540)
-		4:
+		3:
 			# Killed cheshire cat
 			position = Vector2(1218, -567)
-		5:
+		4:
 			# Killed jabberwocky
 			position = Vector2(-1216, 1664)
 

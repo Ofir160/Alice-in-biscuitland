@@ -2,13 +2,13 @@ class_name Enemy
 extends Node2D
 
 @export var enemyTeacup : Teacup
+@export var biscuits : Array[Biscuit]
 
-var chosenActions : Array[Array] # Dryness Defense Special ToEnemy
+var chosenActions : Array[Array] # Dryness Defense Special ToEnemy Name Description
 var index : int # Controls what the enemy is
 var hovering : bool = false
 
 var defense : int
-
 
 func take_dryness(dryness : int) -> void:
 	var thirst : int = 0
@@ -29,21 +29,18 @@ func set_action() -> void:
 	match index:
 		0:
 			# White rabbit
-			actions.append([10, 0, 0, false])
-			actions.append([0, 10, 0, true])
+			actions.append([10, 0, 0, false, "Whack", "Deals 10 Thirst", "res://Assets/Sprites/Biscuits/Nice.png"])
+			actions.append([0, 8, 0, true, "Parry", "Adds 8 Defense", "res://Assets/Sprites/Biscuits/Rich Tea.png"])
 		1:
-			# Cook
-			pass
-		2:
 			# Mad hatter
 			pass
-		3:
+		2:
 			# Cheshire cat
 			pass
-		4:
+		3:
 			# Jabberwocky
 			pass
-		5:
+		4:
 			# The Red Queen
 			pass
 	if len(actions) == 3:
@@ -56,12 +53,18 @@ func set_action() -> void:
 	elif len(actions) == 1:
 		$AnimationPlayer1.play("Fly 1")
 		
-	$"Enemy Attack 1".update_sprites()
-	$"Enemy Attack 2".update_sprites()
-	$"Enemy Attack 3".update_sprites()
-	$"Enemy Attack 1".modulate = Color(1, 1, 1, 1)
-	$"Enemy Attack 2".modulate = Color(1, 1, 1, 1)
-	$"Enemy Attack 3".modulate = Color(1, 1, 1, 1)
+	for i in range(len(actions)):
+		var biscuit : Biscuit = biscuits.get(i)
+		biscuit.cardName = actions.get(i).get(4)
+		biscuit.Description = actions.get(i).get(5)
+		biscuit.Img = actions.get(i).get(6)
+	
+	biscuits.get(0).update_sprites()
+	biscuits.get(1).update_sprites()
+	biscuits.get(2).update_sprites()
+	biscuits.get(0).modulate = Color(1, 1, 1, 1)
+	biscuits.get(1).modulate = Color(1, 1, 1, 1)
+	biscuits.get(2).modulate = Color(1, 1, 1, 1)
 	chosenActions = actions
 
 
@@ -84,16 +87,22 @@ func get_actions() -> Array[Array]:
 	return chosenActions
 
 
+func attacking() -> bool:
+	for action in chosenActions:
+		if action.get(0) != 0 and not action.get(3):
+			return true
+	return false
+
 func reset() -> void:
-	$"Enemy Attack 1".scale = Vector2(1, 1)
-	$"Enemy Attack 2".scale = Vector2(1, 1)
-	$"Enemy Attack 3".scale = Vector2(1, 1)
-	$"Enemy Attack 1".modulate = Color(0, 0, 0, 0)
-	$"Enemy Attack 2".modulate = Color(0, 0, 0, 0)
-	$"Enemy Attack 3".modulate = Color(0, 0, 0, 0)
-	$"Enemy Attack 1".position = Vector2(-1370, 200)
-	$"Enemy Attack 2".position = Vector2(-1370, -100)
-	$"Enemy Attack 3".position = Vector2(-1370, -400)
+	biscuits.get(0).scale = Vector2(1, 1)
+	biscuits.get(1).scale = Vector2(1, 1)
+	biscuits.get(2).scale = Vector2(1, 1)
+	biscuits.get(0).modulate = Color(0, 0, 0, 0)
+	biscuits.get(1).modulate = Color(0, 0, 0, 0)
+	biscuits.get(2).modulate = Color(0, 0, 0, 0)
+	biscuits.get(0).position = Vector2(-1370, 250)
+	biscuits.get(1).position = Vector2(-1370, -50)
+	biscuits.get(2).position = Vector2(-1370, -350)
 
 
 func _on_area_2d_mouse_entered() -> void:
@@ -108,20 +117,17 @@ func get_health() -> int:
 	match index:
 		0:
 			# White rabbit
-			return 20
+			return 25
 		1:
-			# Cook
-			return 30
-		2:
 			# Mad Hatter
 			return 50
-		3:
+		2:
 			# Cheshire cat
 			return 75
-		4:
+		3:
 			# Jabberwocky
-			return 60
-		5:
+			return 80
+		4:
 			# Her royal majesty
 			return 100
 	return 0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3qqa4jct8ldn"
-path="res://.godot/imported/Untitled_Artwork-2 2.png-dc0d77a573f58e9e4bd7bb8cf2aa6b57.ctex"
+uid="uid://bpyp8l0mc7k0u"
+path="res://.godot/imported/Party Ring Pink.png-84dbc0eb808d4c813d91dee13ce31b73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Biscuits/Untitled_Artwork-2 2.png"
-dest_files=["res://.godot/imported/Untitled_Artwork-2 2.png-dc0d77a573f58e9e4bd7bb8cf2aa6b57.ctex"]
+source_file="res://Assets/Sprites/Biscuits/Party Ring Pink.png"
+dest_files=["res://.godot/imported/Party Ring Pink.png-84dbc0eb808d4c813d91dee13ce31b73.ctex"]
 
 [params]
 

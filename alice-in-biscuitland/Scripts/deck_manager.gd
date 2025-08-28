@@ -23,18 +23,24 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	
 	if battleManager.dunk_biscuit(biscuit):
 		# If the biscuit sunk
-		
-		if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
-			# If you sank your last card
-			battleManager.lose_fight() # Lose the fight
-			hand.end_turn(biscuit, true) # clean up
-		else:
+		if biscuit.onDunkSpecial == 4:
+			# Fireproof
 			cardsToPlay -= 1
 			if cardsToPlay <= 0:
-				hand.end_turn(biscuit, true)
+				hand.end_turn(biscuit, false)
 			else:
-				print("Sunk Biscuit")
-				hand.discard_biscuit(biscuit, true)
+				hand.discard_biscuit(biscuit, false)
+		else:
+			if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
+				# If you sank your last card
+				battleManager.lose_fight() # Lose the fight
+				hand.end_turn(biscuit, true) # clean up
+			else:
+				cardsToPlay -= 1
+				if cardsToPlay <= 0:
+					hand.end_turn(biscuit, true)
+				else:
+					hand.discard_biscuit(biscuit, true)
 	else:
 		# If the biscuit didn't sink
 		
@@ -56,7 +62,6 @@ func update_cards_to_play(biscuit : Biscuit) -> void:
 	# Checks whether to end the turn or to discard the biscuit
 	cardsToPlay -= 1
 	if cardsToPlay <= 0 || len(hand.biscuitStatHand) == 1:
-		print("Hi")
 		# If you have played 3 cards or if you played the last card in your hand
 		hand.end_turn(biscuit, false)
 	else:

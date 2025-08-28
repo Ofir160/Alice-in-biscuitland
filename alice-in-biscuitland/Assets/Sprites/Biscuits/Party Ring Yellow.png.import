@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df2ijv4g48dnl"
-path="res://.godot/imported/Alice's hands drawing.png-330d04fcd47a35ceb4142ee32e2184f2.ctex"
+uid="uid://c7jiq7pdn0a64"
+path="res://.godot/imported/Party Ring Yellow.png-71b6cc43d4d0737903ffa7951339453a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Alice's hands drawing.png"
-dest_files=["res://.godot/imported/Alice's hands drawing.png-330d04fcd47a35ceb4142ee32e2184f2.ctex"]
+source_file="res://Assets/Sprites/Biscuits/Party Ring Yellow.png"
+dest_files=["res://.godot/imported/Party Ring Yellow.png-71b6cc43d4d0737903ffa7951339453a.ctex"]
 
 [params]
 

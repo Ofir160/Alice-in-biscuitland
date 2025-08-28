@@ -19,7 +19,7 @@ config/icon="res://Assets/Sprites/icon.svg"
 
 SceneSwitcher="*res://Scripts/scene_switcher.gd"
 GameManager="*res://Scenes/game_manager.tscn"
-BiscuitHelper="*res://biscuit_helper.gd"
+BiscuitHelper="*res://Scripts/biscuit_helper.gd"
 
 [display]
 

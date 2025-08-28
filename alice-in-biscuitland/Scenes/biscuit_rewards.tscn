@@ -37,7 +37,7 @@ script = ExtResource("4_mbcbx")
 
 [node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]
 script = ExtResource("5_wgthi")
-biscuitCompendium = [NodePath("Big Biscuit"), NodePath("Defend"), NodePath("Refill")]
+biscuitCompendium = [NodePath("Big Biscuit"), NodePath("Defend"), NodePath("Refill"), NodePath("S\'more"), NodePath("Make it bigger"), NodePath("Make it smaller"), NodePath("Untouchable"), NodePath("Jaffa Cake"), NodePath("Gambler\'s Cookie"), NodePath("Fire"), NodePath("Sacrifice"), NodePath("Fireproof"), NodePath("Ragebait"), NodePath("Ice"), NodePath("Frost"), NodePath("Superfreeze"), NodePath("Renewal")]
 
 [node name="Big Biscuit" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
@@ -61,7 +61,7 @@ dunkedDefense = 20
 [node name="Refill" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Refill"
-Description = "Refills tea"
+Description = "Refills tea by 10"
 dryness = 0
 defense = 0
 special = 0
@@ -94,5 +94,108 @@ dryness = 0
 defense = 0
 special = 3
 dunkedSpecial = 3
+
+[node name="Untouchable" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Untouchable"
+Description = "Adds 30 Defense. You cannot gain defence next turn"
+dryness = 0
+defense = 30
+dunkedDefense = 40
+dunkedSpecial = 4
+
+[node name="Jaffa Cake" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Jaffa Cake"
+Description = "Not a biscuit!. 50% chance to not do anything"
+dryness = 0
+defense = 0
+special = 5
+dunkedSpecial = 5
+
+[node name="Gambler\'s Cookie" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Gambler's Cookie"
+Description = "Random Defence. Random Thirst"
+dryness = 0
+defense = 0
+special = 6
+dunkedSpecial = 6
+
+[node name="Fire" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Fire"
+Description = "Set's tea on fire. Whenever you sink a defense card into tea increase attack power"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 2
+
+[node name="Sacrifice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Sacrifice"
+Description = "Deals 15 Thirst. Sinks all cards in hand"
+dryness = 15
+defense = 0
+special = 7
+dunkedDryness = 30
+dunkedSpecial = 7
+
+[node name="Fireproof" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Fireproof"
+Description = "Adds 8 Defense. Goes back to discard pile if sunk"
+dryness = 0
+defense = 8
+special = 0
+dunkedDefense = 12
+onDunkSpecial = 4
+
+[node name="Ragebait" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Ragebait"
+Description = "Deals 8 Thirst. If enemy intends on attacking set's tea on fire"
+dryness = 8
+defense = 0
+special = 8
+dunkedDryness = 16
+dunkedSpecial = 8
+
+[node name="Ice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Ice"
+Description = "Freezes tea. Dunking defense cards into tea increases defense power"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 3
+
+[node name="Frost" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Frost"
+Description = "Prevents the next defense card from sinking in tea"
+dryness = 0
+defense = 0
+special = 9
+dunkedSpecial = 9
+
+[node name="Superfreeze" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Superfreeze"
+Description = "Add 6 Defense. Defense Power applies 3 times to this biscuit"
+dryness = 0
+defense = 0
+special = 10
+dunkedSpecial = 10
+
+[node name="Renewal" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Renewal"
+Description = "Deal 8 Thirst. Refills tea by 5. Sets tea to normal temperature"
+dryness = 8
+defense = 0
+special = 11
+dunkedDryness = 16
+dunkedSpecial = 11
 
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

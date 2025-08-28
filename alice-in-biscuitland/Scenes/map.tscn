@@ -192,35 +192,31 @@ editor_draw_limits = true
 [node name="White Rabbit" parent="Enemies" instance=ExtResource("4_myvm1")]
 position = Vector2(-13, -1921)
 
-[node name="Cook" parent="Enemies" instance=ExtResource("4_myvm1")]
-position = Vector2(1012, -2042)
-index = 1
-
 [node name="Mad Hatter" parent="Enemies" instance=ExtResource("4_myvm1")]
 position = Vector2(-938, -540)
-index = 2
+index = 1
 
 [node name="Cheshire Cat" parent="Enemies" instance=ExtResource("4_myvm1")]
 position = Vector2(1218, -567)
-index = 3
+index = 2
 
 [node name="Jabberwocky" parent="Enemies" instance=ExtResource("4_myvm1")]
 position = Vector2(-1216, 1664)
-index = 4
+index = 3
 
 [node name="The Red Queen" parent="Enemies" instance=ExtResource("4_myvm1")]
 position = Vector2(1224, 2257)
-index = 5
+index = 4
 
 [node name="Palace Obstacle" parent="." instance=ExtResource("5_q0mm3")]
 position = Vector2(327, 1904)
 rotation = 2.16608
-progressNeeded = 5
+progressNeeded = 4
 
 [node name="Chesire Cat Obstacle" parent="." instance=ExtResource("5_q0mm3")]
 position = Vector2(1446, 446)
 rotation = 2.6206
-progressNeeded = 4
+progressNeeded = 3
 
 [connection signal="timeout" from="background/Bridge/TweenTimer" to="Alice" method="_on_bridge_time"]
 [connection signal="body_entered" from="background/Bridge1" to="Alice" method="_on_bridge_entered"]

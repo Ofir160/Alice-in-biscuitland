@@ -381,8 +381,9 @@ _data = {
 &"RESET": SubResource("Animation_ww2ai")
 }
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("biscuits")]
 script = ExtResource("1_1f0kj")
+biscuits = [NodePath("Enemy Attack 1"), NodePath("Enemy Attack 2"), NodePath("Enemy Attack 3")]
 
 [node name="Placeholder" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)

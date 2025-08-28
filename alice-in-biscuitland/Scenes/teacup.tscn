@@ -1,16 +1,111 @@
-[gd_scene load_steps=7 format=3 uid="uid://cavaphfau3v73"]
+[gd_scene load_steps=13 format=3 uid="uid://cavaphfau3v73"]
 
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
 [ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_irbve"]
 [ext_resource type="Texture2D" uid="uid://bb6ecy17vkt4j" path="res://Assets/Sprites/Teacup/Teamask.png" id="3_qboyo"]
 [ext_resource type="Texture2D" uid="uid://bouvycvyqinmd" path="res://Assets/Sprites/Teacup/Tea.png" id="4_v4f1s"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="5_kprad"]
+[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="6_f25l7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
 radius = 115.004
 
+[sub_resource type="QuadMesh" id="QuadMesh_2ebul"]
+size = Vector2(400, 200)
+
+[sub_resource type="Animation" id="Animation_f25l7"]
+resource_name = "appear"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2ebul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_khuc2"]
+resource_name = "vanish"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(0, -300), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_khuc2"]
+_data = {
+&"RESET": SubResource("Animation_2ebul"),
+&"appear": SubResource("Animation_f25l7"),
+&"vanish": SubResource("Animation_khuc2")
+}
+
 [node name="Teacup" type="Node2D"]
 script = ExtResource("1_re2n1")
+playerTeacup = true
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -42,10 +137,38 @@ offset_left = -56.0
 offset_top = -45.0
 offset_right = 120.0
 offset_bottom = 68.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
 theme_override_fonts/normal_font = ExtResource("5_kprad")
 theme_override_font_sizes/normal_font_size = 64
 text = "10/12"
+
+[node name="description" type="MeshInstance2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.301961)
+mesh = SubResource("QuadMesh_2ebul")
+
+[node name="text" type="RichTextLabel" parent="description"]
+z_index = 1
+offset_left = -185.0
+offset_top = -139.0
+offset_right = 191.0
+offset_bottom = 141.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("5_kprad")
+theme_override_fonts/bold_font = ExtResource("6_f25l7")
+theme_override_font_sizes/normal_font_size = 32
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_khuc2")
+}
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
