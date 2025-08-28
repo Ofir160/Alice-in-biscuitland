@@ -123,19 +123,20 @@ func deal_dryness(amount : int, victim : Variant, targettedEnemy : bool) -> void
 	else:
 		victim.take_dryness(amount + player.attackPower)
 
-func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> bool:
+func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go
 	
 	var victim = enemy if targettedEnemy else player
+	var biscuitStat = BiscuitHelper.get_biscuit_stats(biscuit)
 	
-	if not dunked:
+	if not biscuit.isDunked:
 		# Normal card played
 		#print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
 		
-		deal_dryness(biscuitStat.get(3), victim, targettedEnemy)
-		add_defence(biscuitStat.get(4), victim, targettedEnemy)
+		deal_dryness(biscuit.dryness, victim, targettedEnemy)
+		add_defence(biscuit.defense, victim, targettedEnemy)
 		
-		match biscuitStat.get(5):
+		match biscuit.special:
 			0:
 				pass
 			1:
@@ -172,17 +173,25 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 			7:
 				# Sacrifice
 				deckManager.cardsToPlay = len(deckManager.hand.biscuitStatHand)
-				
+				var target : int = 0
 				for i in range(len(deckManager.hand.biscuitStatHand)):
-					print(i)
+					var currentBiscuit : Biscuit = deckManager.hand.biscuitHand.get(target)
+					if currentBiscuit != biscuit:
+						print(i)
+						teacup.dunkChance = 1
+						deckManager.on_biscuit_dunked(currentBiscuit)
+					else:
+						target += 1
+						continue
+						
 
 	else:
 		# Dunked card played
 		#print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
-		deal_dryness(biscuitStat.get(6), victim, targettedEnemy)
-		add_defence(biscuitStat.get(7), victim, targettedEnemy)
+		deal_dryness(biscuit.dunkedDryness, victim, targettedEnemy)
+		add_defence(biscuit.dunkedDefense, victim, targettedEnemy)
 			
-		match biscuitStat.get(8):
+		match biscuit.dunkedSpecial:
 			0:
 				pass
 			1:
@@ -223,25 +232,25 @@ func play_biscuit(biscuitStat : Array, dunked : bool, targettedEnemy : bool) -> 
 	if enemyTeacup.check_tea(): # Damages the enemy
 		# If the enemy died
 		win_fight()
-		deckManager.hand.end_turn(false)
+		deckManager.hand.end_turn(biscuit, false)
 		return true
 		
 	if teacup.check_tea(): # Damages the player
 		# If the player died
 		lose_fight()
-		deckManager.hand.end_turn(false)
+		deckManager.hand.end_turn(biscuit, false)
 		return true
 	return false
 
 
-func dunk_biscuit(biscuitStat : Array) -> bool: # Returns true if the biscuit sinks
+func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sinks
 	# This is where all the biscuit dunking logic will go
 	
-	match biscuitStat.get(9):
+	match biscuit.onDunkSpecial:
 		0:
 			if randf() <= teacup.dunkChance:
 				if teacup.check_tea_state(1):
-					if biscuitStat.get(4) != 0:
+					if biscuit.defense != 0:
 						player.attackPower += 1
 				return true
 		1:

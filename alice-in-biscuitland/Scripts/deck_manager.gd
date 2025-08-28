@@ -18,47 +18,47 @@ func init() -> void:
 	hand.BiscuitPlayed.connect(on_biscuit_played)
 	hand.init()
 
-func on_biscuit_dunked(biscuitStat : Array) -> void:
+func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	# When you dunk a biscuit
 	
-	if battleManager.dunk_biscuit(biscuitStat):
+	if battleManager.dunk_biscuit(biscuit):
 		# If the biscuit sunk
 		
 		if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
 			# If you sank your last card
 			battleManager.lose_fight() # Lose the fight
-			hand.end_turn(true) # clean up
+			hand.end_turn(biscuit, true) # clean up
 		else:
 			cardsToPlay -= 1
 			if cardsToPlay <= 0:
-				hand.end_turn(true)
+				hand.end_turn(biscuit, true)
 			else:
 				print("Sunk Biscuit")
-				hand.discard_biscuit(true)
+				hand.discard_biscuit(biscuit, true)
 	else:
 		# If the biscuit didn't sink
 		
 		hand.reset_biscuit() # Doesn't play the biscuit
 	
 	
-func on_biscuit_played(biscuitStat : Array, dunked : bool, targetedEnemy : bool) -> void:
+func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 	# When you play a biscuit
 	
-	if battleManager.play_biscuit(biscuitStat, dunked, targetedEnemy):
+	if battleManager.play_biscuit(biscuit, targetedEnemy):
 		# If the game is over because of that biscuit
 		return
 	else:
 		# Otherwise count that as a card played
-		update_cards_to_play()
+		update_cards_to_play(biscuit)
 	
 
-func update_cards_to_play() -> void:
+func update_cards_to_play(biscuit : Biscuit) -> void:
 	# Checks whether to end the turn or to discard the biscuit
-	
 	cardsToPlay -= 1
 	if cardsToPlay <= 0 || len(hand.biscuitStatHand) == 1:
+		print("Hi")
 		# If you have played 3 cards or if you played the last card in your hand
-		hand.end_turn(false)
+		hand.end_turn(biscuit, false)
 	else:
-		hand.discard_biscuit(false)
+		hand.discard_biscuit(biscuit, false)
 		

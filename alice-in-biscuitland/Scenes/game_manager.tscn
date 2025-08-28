@@ -43,18 +43,7 @@ func lose_battle() -> void:
 func add_biscuit(biscuit : Biscuit) -> void:
 	# Converts a biscuit into an array of its stats
 	
-	var biscuitStat := []
-	biscuitStat.append(biscuit.cardName)
-	biscuitStat.append(biscuit.Description)
-	biscuitStat.append(biscuit.Img)
-	biscuitStat.append(biscuit.dryness)
-	biscuitStat.append(biscuit.defense)
-	biscuitStat.append(biscuit.special)
-	biscuitStat.append(biscuit.dunkedDryness)
-	biscuitStat.append(biscuit.dunkedDefense)
-	biscuitStat.append(biscuit.dunkedSpecial)
-	biscuitStat.append(biscuit.onDunkSpecial)
-	
+	var biscuitStat = BiscuitHelper.get_biscuit_stats(biscuit)
 	currentDeck.append(biscuitStat)
 "
 

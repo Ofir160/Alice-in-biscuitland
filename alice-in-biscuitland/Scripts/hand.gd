@@ -1,8 +1,8 @@
 class_name Hand
 extends Node2D
 
-signal BiscuitPlayed(biscuitStat : Array, dunked : bool, targettedEnemy : bool)
-signal BiscuitDunked(biscuitStat : Array)
+signal BiscuitPlayed(biscuit : Biscuit, targettedEnemy : bool)
+signal BiscuitDunked(biscuit : Biscuit)
 signal TurnEnded
 
 @export var deckManager : DeckManager
@@ -44,16 +44,7 @@ func draw_cards(numberOfCards : int) -> void:
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		var biscuitStats : Array = biscuitStatHand.get(i)
 		
-		displayBiscuit.cardName = biscuitStats.get(0)
-		displayBiscuit.Description = biscuitStats.get(1)
-		displayBiscuit.Img = biscuitStats.get(2)
-		displayBiscuit.dryness = biscuitStats.get(3)
-		displayBiscuit.defense = biscuitStats.get(4)
-		displayBiscuit.special = biscuitStats.get(5)
-		displayBiscuit.dunkedDryness = biscuitStats.get(6)
-		displayBiscuit.dunkedDefense = biscuitStats.get(7)
-		displayBiscuit.dunkedSpecial = biscuitStats.get(8)
-		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
+		BiscuitHelper.set_biscuit_stats(displayBiscuit, biscuitStats)
 	
 	for biscuit in biscuitHand:
 		biscuit.update_sprites()
@@ -98,15 +89,15 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 	
 	return positions
 
-func discard_biscuit(sunk : bool) -> void:
-	
-	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(currentBiscuit))
+func discard_biscuit(biscuit : Biscuit, sunk : bool) -> void:
+	var index : int = biscuitHand.find(biscuit)
+	var biscuitStat : Array = biscuitStatHand.get(index)
 	if not sunk:
 		discardPile.discard(biscuitStat) # Discard the biscuit
 	
 	biscuitStatHand.erase(biscuitStat)
-	biscuitHand.erase(currentBiscuit)
-	biscuitHand.append(currentBiscuit)
+	biscuitHand.erase(biscuit)
+	biscuitHand.append(biscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 
 
@@ -114,18 +105,19 @@ func discard_biscuit(sunk : bool) -> void:
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		displayBiscuit.modulate = Color(1, 1, 1, 1)
 		displayBiscuit.reset()
-	currentBiscuit.position = Vector2(0.0, 2000.0)
+	biscuit.position = Vector2(0.0, 2000.0)
 
 
-func end_turn(sunk : bool) -> void:
-	
-	var biscuitStat : Array = biscuitStatHand.get(biscuitHand.find(currentBiscuit))
+func end_turn(biscuit : Biscuit, sunk : bool) -> void:
+	var index : int = biscuitHand.find(biscuit)
+	var biscuitStat : Array = biscuitStatHand.get(index)
 	if sunk:
 		biscuitStatHand.erase(biscuitStat)
 	
 	discardPile.discard_array(biscuitStatHand)
 	biscuitStatHand.clear()
 	for displayBiscuit in biscuitHand:
+		displayBiscuit.resetting = false
 		displayBiscuit.position = Vector2(0, 2000.0)
 	
 	for displayBiscuit in biscuitHand:
@@ -145,17 +137,7 @@ func set_biscuits() -> void:
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		var biscuitStats : Array = biscuitStatHand.get(i)
 		
-		displayBiscuit.cardName = biscuitStats.get(0)
-		displayBiscuit.Description = biscuitStats.get(1)
-		displayBiscuit.Img = biscuitStats.get(2)
-		displayBiscuit.dryness = biscuitStats.get(3)
-		displayBiscuit.defense = biscuitStats.get(4)
-		displayBiscuit.special = biscuitStats.get(5)
-		displayBiscuit.dunkedDryness = biscuitStats.get(6)
-		displayBiscuit.dunkedDefense = biscuitStats.get(7)
-		displayBiscuit.dunkedSpecial = biscuitStats.get(8)
-		displayBiscuit.onDunkSpecial = biscuitStats.get(9)
-		displayBiscuit.update_sprites()
+		BiscuitHelper.set_biscuit_stats(displayBiscuit, biscuitStats)
 
 
 func _process(delta: float) -> void:
@@ -187,14 +169,14 @@ func _process(delta: float) -> void:
 				else:
 					currentBiscuit.isDunked = true
 					currentBiscuit.modulate = Color(0, 0, 0, 0)
-					BiscuitDunked.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit))) # Dunks the biscuit
+					BiscuitDunked.emit(currentBiscuit) # Dunks the biscuit
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
 					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
-					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, false)
+					BiscuitPlayed.emit(currentBiscuit, false)
 					# Plays the biscuit on the player
 				else:
 					currentBiscuit.reset()
@@ -204,7 +186,7 @@ func _process(delta: float) -> void:
 					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
-					BiscuitPlayed.emit(biscuitStatHand.get(biscuitHand.find(currentBiscuit)), currentBiscuit.isDunked, true)
+					BiscuitPlayed.emit(currentBiscuit, true)
 					# Plays the biscuit on the enemy
 				else:
 					currentBiscuit.reset()
