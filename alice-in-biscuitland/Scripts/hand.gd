@@ -13,6 +13,9 @@ signal TurnEnded
 var biscuitHand : Array[Biscuit] 
 var biscuitStatHand : Array[Array]
 var currentBiscuit : Biscuit
+var draggingDisabled : bool
+var resetAfterPlay : bool = true
+var setHandPositions : bool = true
 
 func init() -> void:
 	biscuitHand = deckManager.handBiscuits
@@ -57,10 +60,12 @@ func reset_display_biscuits_positions(biscuitCount : int, updatePositions : bool
 	for i in range(len(biscuitHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		if i < len(biscuitStatHand):
-			displayBiscuit.handPosition = calculate_biscuit_display_positions(biscuitCount).get(i)
+			if setHandPositions:
+				displayBiscuit.handPosition = calculate_biscuit_display_positions(biscuitCount).get(i)
 		else:
-			displayBiscuit.handPosition = Vector2(0, 2000.0)
-		if updatePositions:
+			if setHandPositions:
+				displayBiscuit.handPosition = Vector2(0, 2000.0)
+		if updatePositions and setHandPositions:
 			displayBiscuit.position = displayBiscuit.handPosition
 
 func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
@@ -75,8 +80,8 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 		var middle_index = biscuitCount / 2.0 - 0.5
 		
 		for i in range(0, int(middle_index + 0.5)):
-			positions.set(int(middle_index - i - 0.5), Vector2(-200.0 * i - 100.0, 400.0))
-			positions.set(int(middle_index + i + 0.5), Vector2(200.0 * i + 100.0, 400.0))
+			positions.set(int(middle_index - i - 0.5), Vector2(-200.0 * i - 100.0, 230.0))
+			positions.set(int(middle_index + i + 0.5), Vector2(200.0 * i + 100.0, 230.0))
 		
 	else:
 		# Odd amount of cards
@@ -84,8 +89,8 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 		var middle_index = biscuitCount / 2
 		
 		for i in range(middle_index + 1):
-			positions.set(middle_index - i, Vector2(-200.0 * i, 400.0))
-			positions.set(middle_index + i, Vector2(200.0 * i, 400.0))
+			positions.set(middle_index - i, Vector2(-200.0 * i, 230.0))
+			positions.set(middle_index + i, Vector2(200.0 * i, 230.0))
 	
 	return positions
 
@@ -100,11 +105,11 @@ func discard_biscuit(biscuit : Biscuit, sunk : bool) -> void:
 	biscuitHand.append(biscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 
-
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		displayBiscuit.modulate = Color(1, 1, 1, 1)
-		displayBiscuit.reset()
+		if resetAfterPlay:
+			displayBiscuit.reset()
 	biscuit.position = Vector2(0.0, 2000.0)
 
 
@@ -126,10 +131,10 @@ func end_turn(biscuit : Biscuit, sunk : bool) -> void:
 	TurnEnded.emit()
 	
 	
-func reset_biscuit() -> void:
+func reset_biscuit(biscuit : Biscuit) -> void:
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
-	currentBiscuit.modulate = Color(1, 1, 1, 1)
-	currentBiscuit.reset()
+	biscuit.modulate = Color(1, 1, 1, 1)
+	biscuit.reset()
 
 
 func set_biscuits() -> void:
@@ -154,7 +159,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click"):
 		# When dragging
 		for biscuit in biscuitHand:
-			if biscuit.hovered:
+			if biscuit.hovered and not draggingDisabled:
 				currentBiscuit = biscuit
 				biscuit.z_index = 10
 				biscuit.dragged = true
@@ -194,7 +199,7 @@ func _process(delta: float) -> void:
 				# Biscuit dropped
 				currentBiscuit.reset()
 				
-			currentBiscuit.z_index = 0
+			currentBiscuit.z_index = 9
 			currentBiscuit.dragged = false
 			currentBiscuit = null
 	if currentBiscuit:

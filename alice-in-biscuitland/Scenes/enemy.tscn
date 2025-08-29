@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgf7afl2xqsgs"]
+[gd_scene load_steps=15 format=3 uid="uid://dgf7afl2xqsgs"]
 
 [ext_resource type="Script" uid="uid://dwybwf4sdhc0y" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://d28u7h7e6kxwx" path="res://Assets/Sprites/icon.svg" id="2_1f0kj"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="3_v54tr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
@@ -19,7 +18,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1370, 250), Vector2(-800, 250)]
+"values": [Vector2(-1370, 50), Vector2(-800, 50)]
 }
 
 [sub_resource type="Animation" id="Animation_r5faq"]
@@ -34,7 +33,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.25, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1370, -50), Vector2(-800, -50)]
+"values": [Vector2(-1370, -160), Vector2(-800, -160)]
 }
 
 [sub_resource type="Animation" id="Animation_e57h2"]
@@ -49,12 +48,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1370, -350), Vector2(-950, -350)]
+"values": [Vector2(-1370, -370), Vector2(-950, -370)]
 }
 
 [sub_resource type="Animation" id="Animation_apx2k"]
 resource_name = "Play Biscuits Enemy1"
-length = 2.8
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -62,10 +61,10 @@ tracks/0/path = NodePath("Enemy Attack 1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.21),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 1.96667, 3, 3.01, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, 250), Vector2(-800, 250), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, 250)]
+"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, 50), Vector2(-1370, 50)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -74,7 +73,7 @@ tracks/1/path = NodePath("Enemy Attack 1:scale")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 2.8),
+"times": PackedFloat32Array(0, 1, 2, 3, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
@@ -86,7 +85,7 @@ tracks/2/path = NodePath("Enemy Attack 1:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.19, 1.2),
+"times": PackedFloat32Array(0, 2.99, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -94,7 +93,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_v54tr"]
 resource_name = "Play Biscuits Enemy2"
-length = 2.8
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -102,10 +101,10 @@ tracks/0/path = NodePath("Enemy Attack 2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 5.01),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -50), Vector2(-800, -50), Vector2(-800, 250), Vector2(-800, 250), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -50)]
+"values": [Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -160)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -114,7 +113,7 @@ tracks/1/path = NodePath("Enemy Attack 2:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 2, 2.8),
+"times": PackedFloat32Array(0, 2, 3, 4, 5, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
@@ -126,7 +125,7 @@ tracks/2/path = NodePath("Enemy Attack 2:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.99, 2),
+"times": PackedFloat32Array(0, 4.99, 5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -134,7 +133,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ite14"]
 resource_name = "Play Biscuits Enemy3"
-length = 3.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -142,10 +141,10 @@ tracks/0/path = NodePath("Enemy Attack 3:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.79, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 8.99),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -350), Vector2(-800, -350), Vector2(-800, -50), Vector2(-800, -50), Vector2(-800, 250), Vector2(-800, 250), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -350)]
+"values": [Vector2(-800, -370), Vector2(-800, -370), Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 0), Vector2(0, 0), Vector2(-1370, -370), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -154,7 +153,7 @@ tracks/1/path = NodePath("Enemy Attack 3:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6, 1.99, 2.4, 2.8, 3),
+"times": PackedFloat32Array(0, 4, 5, 6, 7, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
@@ -166,7 +165,7 @@ tracks/2/path = NodePath("Enemy Attack 3:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2.79, 2.8),
+"times": PackedFloat32Array(0, 6.99, 7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -174,7 +173,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_4qy08"]
 resource_name = "Play Biscuits Player1"
-length = 2.8
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -182,10 +181,10 @@ tracks/0/path = NodePath("Enemy Attack 1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 2.8),
+"times": PackedFloat32Array(0, 1, 2, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, 250), Vector2(-800, 250), Vector2(-1370, 250), Vector2(-1370, 250)]
+"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 475), Vector2(0, 475)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -194,15 +193,27 @@ tracks/1/path = NodePath("Enemy Attack 1:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 2.8),
+"times": PackedFloat32Array(0, 1, 2, 3, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy Attack 1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.99, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_tq1cn"]
 resource_name = "Play Biscuits Player2"
-length = 2.8
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -210,10 +221,10 @@ tracks/0/path = NodePath("Enemy Attack 2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2.8),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -50), Vector2(-800, -50), Vector2(-800, 250), Vector2(-800, 250), Vector2(-1370, 250), Vector2(-1370, 250)]
+"values": [Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 475), Vector2(0, 475)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -222,15 +233,27 @@ tracks/1/path = NodePath("Enemy Attack 2:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 2, 2.8),
+"times": PackedFloat32Array(0, 2, 3, 4, 5, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy Attack 2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.99, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2m8t8"]
 resource_name = "Play Biscuits Player3"
-length = 2.8
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -238,10 +261,10 @@ tracks/0/path = NodePath("Enemy Attack 3:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2, 2.4, 2.8),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -350), Vector2(-800, -350), Vector2(-800, -50), Vector2(-800, -50), Vector2(-800, 250), Vector2(-800, 250), Vector2(-1370, 250), Vector2(-1370, 250)]
+"values": [Vector2(-800, -370), Vector2(-800, -370), Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 475), Vector2(0, 475)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -250,10 +273,22 @@ tracks/1/path = NodePath("Enemy Attack 3:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6, 1.99, 2.4, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Enemy Attack 3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6.99, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ww2ai"]
@@ -268,7 +303,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1370, 250)]
+"values": [Vector2(-1370, 50)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -280,7 +315,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1370, -50)]
+"values": [Vector2(-1370, -160)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -292,7 +327,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1370, -350)]
+"values": [Vector2(-1370, -370)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -385,10 +420,13 @@ _data = {
 script = ExtResource("1_1f0kj")
 biscuits = [NodePath("Enemy Attack 1"), NodePath("Enemy Attack 2"), NodePath("Enemy Attack 3")]
 
-[node name="Placeholder" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(0, -200)
-texture = ExtResource("2_1f0kj")
+[node name="Above" type="Sprite2D" parent="."]
+z_index = 3
+scale = Vector2(0.527, 0.527)
+
+[node name="Below" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.527, 0.527)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -200)
@@ -412,18 +450,18 @@ libraries = {
 }
 
 [node name="Enemy Attack 1" parent="." instance=ExtResource("3_v54tr")]
-z_index = 2
-position = Vector2(-1370, 250)
+z_index = 8
+position = Vector2(-1370, 50)
 hoverRight = true
 
 [node name="Enemy Attack 2" parent="." instance=ExtResource("3_v54tr")]
-z_index = 2
-position = Vector2(-1370, -50)
+z_index = 8
+position = Vector2(-1370, -160)
 hoverRight = true
 
 [node name="Enemy Attack 3" parent="." instance=ExtResource("3_v54tr")]
-z_index = 2
-position = Vector2(-1370, -350)
+z_index = 8
+position = Vector2(-1370, -370)
 hoverRight = true
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

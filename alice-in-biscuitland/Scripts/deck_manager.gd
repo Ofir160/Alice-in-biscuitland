@@ -6,8 +6,13 @@ extends Node
 @export var hand : Hand
 @export var discardPile : DiscardPile
 @export var handBiscuits : Array[Biscuit]
+@export var animationBiscuit : Sprite2D
+@export var dunkAnimation : AnimationPlayer
+@onready var timer: Timer = $Timer
 
 var cardsToPlay : int
+var biscuitSunk : bool
+var currentBiscuit : Biscuit
 
 # Each biscuit is represented as an array of values
 # The order of the values determine what they are used for
@@ -23,30 +28,29 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	
 	if battleManager.dunk_biscuit(biscuit):
 		# If the biscuit sunk
-		if biscuit.onDunkSpecial == 4:
-			# Fireproof
-			cardsToPlay -= 1
-			if cardsToPlay <= 0:
-				hand.end_turn(biscuit, false)
-			else:
-				hand.discard_biscuit(biscuit, false)
-		else:
-			if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
-				# If you sank your last card
-				battleManager.lose_fight() # Lose the fight
-				hand.end_turn(biscuit, true) # clean up
-			else:
-				cardsToPlay -= 1
-				if cardsToPlay <= 0:
-					hand.end_turn(biscuit, true)
-				else:
-					hand.discard_biscuit(biscuit, true)
+		biscuitSunk = true
+		currentBiscuit = biscuit
+		currentBiscuit.modulate = Color(0, 0, 0, 0)
+		
+		animationBiscuit.texture = load(currentBiscuit.Img)
+		
+		dunkAnimation.play("Sink")
+
+		timer.start()
 	else:
 		# If the biscuit didn't sink
+		biscuitSunk = false
+		currentBiscuit = biscuit
+		currentBiscuit.modulate = Color(0, 0, 0, 0)
+		currentBiscuit.position = Vector2(-645, 220)
 		
-		hand.reset_biscuit() # Doesn't play the biscuit
-	
-	
+		animationBiscuit.texture = load(currentBiscuit.Img)
+		
+		dunkAnimation.play("Dunk")
+
+		timer.start()
+
+
 func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 	# When you play a biscuit
 	
@@ -67,3 +71,27 @@ func update_cards_to_play(biscuit : Biscuit) -> void:
 	else:
 		hand.discard_biscuit(biscuit, false)
 		
+
+
+func _on_timer_timeout() -> void:
+	if biscuitSunk:
+		if currentBiscuit.onDunkSpecial == 4:
+			# Fireproof
+			cardsToPlay -= 1
+			if cardsToPlay <= 0:
+				hand.end_turn(currentBiscuit, false)
+			else:
+				hand.discard_biscuit(currentBiscuit, false)
+		else:
+			if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
+				# If you sank your last card
+				battleManager.lose_fight() # Lose the fight
+				hand.end_turn(currentBiscuit, true) # clean up
+			else:
+				cardsToPlay -= 1
+				if cardsToPlay <= 0:
+					hand.end_turn(currentBiscuit, true)
+				else:
+					hand.discard_biscuit(currentBiscuit, true)
+	else:
+		hand.reset_biscuit(currentBiscuit) # Doesn't play the biscuit

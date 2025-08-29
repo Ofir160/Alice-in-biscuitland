@@ -2,10 +2,14 @@ class_name Teacup
 extends Node2D
 
 @export var playerTeacup : bool
+@export var normalTexture : Texture2D
+@export var iceTexture : Texture2D
+@export var fireTexture : Texture2D
+@export var progressBar : ProgressBar
 
 var maxTea : int
 var teaLevel : int
-var dunkChance : float = 0.5
+var dunkChance : float = 0
 
 var hovering : bool = false
 var teacup_state : int # 0 if normal. 1 if fire. 2 if Ice. 3 If we have time :p
@@ -45,17 +49,19 @@ func set_tea_state(state : int) -> void:
 	teacup_state = state
 	match state:
 		0:
-			pass
+			$TeaMask/Tea.texture = normalTexture
 		1:
+			$TeaMask/Tea.texture = fireTexture
 			$description/text.text = "Whenever you sink a defense card into tea increase attack power. Increases sinking chance"
 		2:
+			$TeaMask/Tea.texture = iceTexture
 			$description/text.text = "Dunking defense cards into tea increases defense power. Decreases sinking chance"
 
 
 func reset_tea() -> void:
 	teaLevel = maxTea
 	$TeaMask/Tea.position.y = (1-float(teaLevel) / maxTea) * 1000.0
-	$TeaMask/Tea.self_modulate=Color(1, 1, 1, 1)
+	$TeaMask/Tea.self_modulate= Color(1, 1, 1, 1)
 	$Text.text = str(teaLevel) + "/" + str(maxTea)
 
 
@@ -63,3 +69,6 @@ func _process(_delta: float) -> void:
 	$TeaMask/Tea.position.y=lerp($TeaMask/Tea.position.y, (1-float(teaLevel) / maxTea) * 1000.0 ,0.1)
 	$TeaMask/Tea.self_modulate=lerp($TeaMask/Tea.self_modulate,Color(1, 1, 1, 1),0.02)
 	$Text.text = str(teaLevel) + "/" + str(maxTea)
+	if playerTeacup:
+		progressBar.value = dunkChance * 100.0
+		$DunkMask.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 140.0

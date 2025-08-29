@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_6bjv8"]
 [ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_2x0hg"]
 [ext_resource type="Texture2D" uid="uid://bb6ecy17vkt4j" path="res://Assets/Sprites/Teacup/Teamask.png" id="3_owuav"]
-[ext_resource type="Texture2D" uid="uid://bouvycvyqinmd" path="res://Assets/Sprites/Teacup/Tea.png" id="4_kmc7t"]
+[ext_resource type="Texture2D" uid="uid://50hyyaemvhov" path="res://Assets/Sprites/Teacup/tea.png" id="4_6bjv8"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="5_8mmcs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
@@ -11,6 +11,9 @@ radius = 115.004
 
 [node name="Enemy Teacup" type="Node2D"]
 script = ExtResource("1_6bjv8")
+normalTexture = ExtResource("4_6bjv8")
+iceTexture = ExtResource("4_6bjv8")
+fireTexture = ExtResource("4_6bjv8")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -30,8 +33,8 @@ texture = ExtResource("3_owuav")
 offset = Vector2(-250, 0)
 
 [node name="Tea" type="Sprite2D" parent="TeaMask"]
-position = Vector2(-250, 0)
-texture = ExtResource("4_kmc7t")
+position = Vector2(-255, 0)
+texture = ExtResource("4_6bjv8")
 
 [node name="Text" type="RichTextLabel" parent="."]
 offset_left = -56.0

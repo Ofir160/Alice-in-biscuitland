@@ -1,17 +1,49 @@
-[gd_scene load_steps=13 format=3 uid="uid://cavaphfau3v73"]
+[gd_scene load_steps=21 format=3 uid="uid://cavaphfau3v73"]
 
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
 [ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_irbve"]
 [ext_resource type="Texture2D" uid="uid://bb6ecy17vkt4j" path="res://Assets/Sprites/Teacup/Teamask.png" id="3_qboyo"]
-[ext_resource type="Texture2D" uid="uid://bouvycvyqinmd" path="res://Assets/Sprites/Teacup/Tea.png" id="4_v4f1s"]
+[ext_resource type="Texture2D" uid="uid://50hyyaemvhov" path="res://Assets/Sprites/Teacup/tea.png" id="4_f25l7"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="5_kprad"]
 [ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="6_f25l7"]
+[ext_resource type="Texture2D" uid="uid://c3e2pbkvd2pm0" path="res://Assets/Sprites/Teacup/Fire.png" id="7_cgf0c"]
+[ext_resource type="Texture2D" uid="uid://3dgiqp7pwisx" path="res://Assets/Sprites/Teacup/Frozen.png" id="8_rf5rc"]
+[ext_resource type="Texture2D" uid="uid://dg1i0t51u2a8k" path="res://Assets/Sprites/Teacup/Fully Fire.png" id="9_rf5rc"]
+[ext_resource type="Texture2D" uid="uid://c5al84smwl2fl" path="res://Assets/Sprites/Teacup/Fully Frozen.png" id="9_wyv0a"]
+[ext_resource type="Texture2D" uid="uid://ctd2wc8xvx5d7" path="res://Assets/Sprites/Teacup/Natural.png" id="10_jlq1e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
 radius = 115.004
 
 [sub_resource type="QuadMesh" id="QuadMesh_2ebul"]
 size = Vector2(400, 200)
+
+[sub_resource type="Animation" id="Animation_2ebul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_f25l7"]
 resource_name = "appear"
@@ -39,33 +71,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_2ebul"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("description:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("description:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_khuc2"]
@@ -103,9 +108,62 @@ _data = {
 &"vanish": SubResource("Animation_khuc2")
 }
 
-[node name="Teacup" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_sumvu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_cgf0c")
+}],
+"loop": true,
+"name": &"Fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_rf5rc")
+}],
+"loop": true,
+"name": &"Frozen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_rf5rc")
+}],
+"loop": true,
+"name": &"Fully Fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_wyv0a")
+}],
+"loop": true,
+"name": &"Fully Frozen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_jlq1e")
+}],
+"loop": true,
+"name": &"Natural",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf5rc"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv0a"]
+bg_color = Color(0.94, 0.94, 0.94, 1)
+
+[node name="Teacup" type="Node2D" node_paths=PackedStringArray("progressBar")]
 script = ExtResource("1_re2n1")
 playerTeacup = true
+normalTexture = ExtResource("4_f25l7")
+iceTexture = ExtResource("4_f25l7")
+fireTexture = ExtResource("4_f25l7")
+progressBar = NodePath("ProgressBar")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -127,16 +185,17 @@ offset = Vector2(250, 0)
 flip_h = true
 
 [node name="Tea" type="Sprite2D" parent="TeaMask"]
-position = Vector2(-250, 0)
-texture = ExtResource("4_v4f1s")
-offset = Vector2(500, 0)
+position = Vector2(6, 0)
+texture = ExtResource("4_f25l7")
+offset = Vector2(250, 0)
 flip_h = true
 
 [node name="Text" type="RichTextLabel" parent="."]
-offset_left = -56.0
-offset_top = -45.0
-offset_right = 120.0
-offset_bottom = 68.0
+z_index = 2
+offset_left = -63.0
+offset_top = -48.0
+offset_right = 113.0
+offset_bottom = 65.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
 theme_override_fonts/normal_font = ExtResource("5_kprad")
@@ -169,6 +228,27 @@ vertical_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_khuc2")
 }
+
+[node name="Thermometer" type="AnimatedSprite2D" parent="."]
+position = Vector2(-230, 0)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_sumvu")
+animation = &"Fire"
+autoplay = "Natural"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+self_modulate = Color(0.360784, 0.14902, 0.0784314, 1)
+z_index = 1
+offset_left = -237.0
+offset_top = -127.0
+offset_right = -219.0
+offset_bottom = 49.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rf5rc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wyv0a")
+step = 50.0
+value = 50.0
+fill_mode = 3
+show_percentage = false
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

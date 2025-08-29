@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bouvycvyqinmd"
-path="res://.godot/imported/Tea.png-4a1fe648362e260d329da1a8bdd75ab1.ctex"
+uid="uid://50hyyaemvhov"
+path="res://.godot/imported/tea.png-d0abf4f905711e7308f3028bfd221fe9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Teacup/Tea.png"
-dest_files=["res://.godot/imported/Tea.png-4a1fe648362e260d329da1a8bdd75ab1.ctex"]
+source_file="res://Assets/Sprites/Teacup/tea.png"
+dest_files=["res://.godot/imported/tea.png-d0abf4f905711e7308f3028bfd221fe9.ctex"]
 
 [params]
 

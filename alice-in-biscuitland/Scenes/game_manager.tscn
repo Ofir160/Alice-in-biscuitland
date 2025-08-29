@@ -49,7 +49,7 @@ func add_biscuit(biscuit : Biscuit) -> void:
 
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
-initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Strike")]
+initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Sacrifice"), NodePath("InitialBiscuitsData/Sacrifice"), NodePath("InitialBiscuitsData/Sacrifice"), NodePath("InitialBiscuitsData/Sacrifice"), NodePath("InitialBiscuitsData/Sacrifice")]
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
@@ -57,6 +57,7 @@ initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsDat
 position = Vector2(1699, 1391)
 cardName = "Hit"
 Description = "Deals 6 Thirst. 12 if Dunked"
+Img = "res://Assets/Sprites/Biscuits/Nice.png"
 dryness = 6
 defense = 0
 special = 0
@@ -66,6 +67,7 @@ dunkedDryness = 12
 position = Vector2(1699, 1391)
 cardName = "Strike"
 Description = "Deals 1 Thirst. 30 if Dunked"
+Img = "res://Assets/Sprites/Biscuits/Bourbon.png"
 dryness = 1
 defense = 0
 special = 0
@@ -75,6 +77,18 @@ dunkedDryness = 30
 position = Vector2(1699, 1391)
 cardName = "Block"
 Description = "Adds 5 Defense. 8 if Dunked"
+Img = "res://Assets/Sprites/Biscuits/Rich Tea.png"
 dryness = 0
 special = 0
 dunkedDefense = 8
+
+[node name="Sacrifice" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
+position = Vector2(1699, 1391)
+cardName = "Sacrifice"
+Description = "Deals 15 Thirst. Sinks all cards in hand"
+Img = "res://Assets/Sprites/Biscuits/Fox.png"
+dryness = 15
+defense = 0
+special = 7
+dunkedDryness = 30
+dunkedSpecial = 7

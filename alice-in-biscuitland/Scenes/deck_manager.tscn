@@ -20,3 +20,9 @@ drawPile = NodePath("../Draw Pile")
 deckManager = NodePath("..")
 discardPile = NodePath("../Discard Pile")
 drawPile = NodePath("../Draw Pile")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

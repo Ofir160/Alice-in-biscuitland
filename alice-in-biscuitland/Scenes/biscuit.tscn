@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnsbihxciabxh" path="res://Scripts/biscuit.gd" id="1_06a0o"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_06a0o"]
-[ext_resource type="Texture2D" uid="uid://bpt528lsjtejn" path="res://Assets/Sprites/placeholder.png" id="2_obm7r"]
+[ext_resource type="Texture2D" uid="uid://b3qqa4jct8ldn" path="res://Assets/Sprites/Biscuits/Bourbon.png" id="2_obm7r"]
 [ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="3_8ptjb"]
 
 [sub_resource type="Animation" id="Animation_8ptjb"]
@@ -472,10 +472,11 @@ size = Vector2(400, 200)
 size = Vector2(250, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06a0o"]
-size = Vector2(250, 275)
+size = Vector2(150, 200)
 
 [node name="Biscuit" type="Node2D"]
 script = ExtResource("1_06a0o")
+timeToReset = 0.5
 cardName = "My name"
 Description = "WHATEVER we WANT"
 Img = "res://Assets/Sprites/placeholder.png"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://c51ytetp1qhe2"]
 
 [ext_resource type="Script" uid="uid://dkli5qsa385yp" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://d28u7h7e6kxwx" path="res://Assets/Sprites/icon.svg" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://df2ijv4g48dnl" path="res://Assets/Sprites/Player/Alice's hands drawing.png" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="3_6t5aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1370, -350), Vector2(800, -350)]
+"values": [Vector2(1370, -370), Vector2(800, -370)]
 }
 
 [sub_resource type="Animation" id="Animation_fkybt"]
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.25, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1370, -50), Vector2(800, -50)]
+"values": [Vector2(1370, -160), Vector2(800, -160)]
 }
 
 [sub_resource type="Animation" id="Animation_x3wgy"]
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1370, 250), Vector2(800, 250)]
+"values": [Vector2(1370, 50), Vector2(800, 50)]
 }
 
 [sub_resource type="Animation" id="Animation_3smsa"]
@@ -64,7 +64,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, -350), Vector2(1370, -350)]
+"values": [Vector2(800, -370), Vector2(1370, -370)]
 }
 
 [sub_resource type="Animation" id="Animation_8erm5"]
@@ -79,7 +79,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.25, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, -50), Vector2(1370, -50)]
+"values": [Vector2(800, -160), Vector2(1370, -160)]
 }
 
 [sub_resource type="Animation" id="Animation_f1ek2"]
@@ -94,7 +94,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, 250), Vector2(1370, 250)]
+"values": [Vector2(800, 50), Vector2(1370, 50)]
 }
 
 [sub_resource type="Animation" id="Animation_gymyn"]
@@ -109,7 +109,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, -50), Vector2(800, -350)]
+"values": [Vector2(800, -160), Vector2(800, -370)]
 }
 
 [sub_resource type="Animation" id="Animation_pu2lt"]
@@ -121,10 +121,10 @@ tracks/0/path = NodePath("State 1:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, 250), Vector2(800, -350)]
+"values": [Vector2(800, 50), Vector2(800, -370)]
 }
 
 [sub_resource type="Animation" id="Animation_tx1dd"]
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(800, 250), Vector2(800, -50)]
+"values": [Vector2(800, 50), Vector2(800, -160)]
 }
 
 [sub_resource type="Animation" id="Animation_6t5aa"]
@@ -154,7 +154,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1370, -350)]
+"values": [Vector2(1370, -370)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,7 +166,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1370, -50)]
+"values": [Vector2(1370, -160)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -178,7 +178,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1370, 250)]
+"values": [Vector2(1370, 50)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3smsa"]
@@ -199,12 +199,14 @@ _data = {
 script = ExtResource("1_cvnsp")
 displayBiscuits = [NodePath("Player State Biscuits/State 1"), NodePath("Player State Biscuits/State 2"), NodePath("Player State Biscuits/State 3")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-800, 400)
-texture = ExtResource("1_v0iea")
+[node name="Alice Hands" type="Sprite2D" parent="."]
+position = Vector2(0, 475)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_6t5aa")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(-800, 400)
+z_index = 1
+position = Vector2(0, 450)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_cvnsp")
@@ -227,15 +229,18 @@ libraries = {
 }
 
 [node name="State 1" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
-position = Vector2(1370, -350)
+z_index = 8
+position = Vector2(1370, -370)
 hoverLeft = true
 
 [node name="State 2" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
-position = Vector2(1370, -50)
+z_index = 8
+position = Vector2(1370, -160)
 hoverLeft = true
 
 [node name="State 3" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
-position = Vector2(1370, 250)
+z_index = 8
+position = Vector2(1370, 50)
 hoverLeft = true
 
 [node name="Timer" type="Timer" parent="Player State Biscuits"]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dif5q1wkji74a"]
+
+[ext_resource type="Script" uid="uid://b708vh7vxxtxb" path="res://Scripts/thirst_power.gd" id="1_atuil"]
+[ext_resource type="Texture2D" uid="uid://c5d2epmvwoh4" path="res://Assets/Sprites/Player/Attack Power.png" id="1_l3hkb"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_vvoqt"]
+
+[node name="Thirst Power" type="Node2D"]
+script = ExtResource("1_atuil")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_l3hkb")
+offset = Vector2(-8, 200)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -12.0
+offset_top = -51.0
+offset_right = 43.0
+offset_bottom = 131.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_vvoqt")
+theme_override_font_sizes/normal_font_size = 64
+text = "5"

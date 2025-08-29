@@ -1,14 +1,41 @@
 class_name Enemy
 extends Node2D
 
+const whiteRabbit = preload("res://Assets/Sprites/Enemies/White Rabbit.png")
+const madHatter = preload("res://Assets/Sprites/Enemies/Mad hatter.png")
+const jabberwockyAbove = preload("res://Assets/Sprites/Enemies/Jabberwocky above.png")
+const jabberwockyBelow = preload("res://Assets/Sprites/Enemies/Jabberwocky below.png")
+const redQueen = preload("res://Assets/Sprites/Enemies/Red Queen.png")
+
 @export var enemyTeacup : Teacup
 @export var biscuits : Array[Biscuit]
+@onready var below: Sprite2D = $Below
+@onready var above: Sprite2D = $Above
+
 
 var chosenActions : Array[Array] # Dryness Defense Special ToEnemy Name Description
 var index : int # Controls what the enemy is
 var hovering : bool = false
 
 var defense : int
+
+
+func set_sprite() -> void:
+	match index:
+		0:
+			# White Rabbit 
+			below.texture = whiteRabbit
+		1:
+			# Mad Hatter
+			below.texture = madHatter
+		2:
+			pass
+		3:
+			# Jabberwocky
+			above.texture = jabberwockyAbove
+			below.texture = jabberwockyBelow
+		4:
+			below.texture = redQueen
 
 func take_dryness(dryness : int) -> void:
 	var thirst : int = 0
