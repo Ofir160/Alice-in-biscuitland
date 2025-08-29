@@ -115,14 +115,12 @@ func play_enemy_action() -> void:
 		3:
 			enemy.defensePower += 1
 		4:
-			enemy.attackPower += 1
-			enemy.defensePower += 1
-		5:
 			deal_enemy_thirst(randi_range(3, 10) + enemy.attackPower)
-		6:
+		5:
 			add_enemy_defense(randi_range(3, 10) + enemy.defensePower)
-		7:
+		6:
 			enemy.attackPower += randi_range(0, 3)
+		7:
 			enemy.defensePower += randi_range(0, 3)
 		8:
 			var stats : Array = [action.get(4), action.get(5), action.get(6)]

@@ -9,7 +9,7 @@ extends Node2D
 
 var maxTea : int
 var teaLevel : int
-var dunkChance : float = 0
+var dunkChance : float = 0.5
 
 var hovering : bool = false
 var teacup_state : int # 0 if normal. 1 if fire. 2 if Ice. 3 If we have time :p

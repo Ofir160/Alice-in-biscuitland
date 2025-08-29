@@ -50,34 +50,36 @@ func add_biscuit(biscuit : Biscuit) -> void:
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
 initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Strike")]
+progress = 1
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
 [node name="Hit" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Hit"
-Description = "Deals 6 Thirst. 12 if Dunked"
+Description = "Deals 3 Thirst. 6 if Dunked"
 Img = "res://Assets/Sprites/Biscuits/Nice.png"
-dryness = 6
+dryness = 3
 defense = 0
 special = 0
-dunkedDryness = 12
+dunkedDryness = 6
 
 [node name="Strike" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Strike"
-Description = "Deals 1 Thirst. 30 if Dunked"
+Description = "Deals 1 Thirst. 15 if Dunked"
 Img = "res://Assets/Sprites/Biscuits/Bourbon.png"
 dryness = 1
 defense = 0
 special = 0
-dunkedDryness = 30
+dunkedDryness = 15
 
 [node name="Block" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Block"
-Description = "Adds 5 Defense. 8 if Dunked"
+Description = "Adds 3 Defense. 7 if Dunked"
 Img = "res://Assets/Sprites/Biscuits/Rich Tea.png"
 dryness = 0
+defense = 3
 special = 0
-dunkedDefense = 8
+dunkedDefense = 7
