@@ -1,17 +1,14 @@
 extends Node2D
 
-@export var player : Player
+@export var enemy : Enemy
 @onready var text: RichTextLabel = $RichTextLabel
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var description: RichTextLabel = $description/Description
 
 
 func _process(delta: float) -> void:
-	text.text = str(player.attackPower)
-	if player.attackPower < 0:
-		description.text = "Decreases Thirst biscuits by " + str(-player.attackPower)
-	else:
-		description.text = "Increases Thirst biscuits by " + str(player.attackPower)
+	text.text = str(enemy.defensePower)
+	description.text = "Increases Enemy Defense biscuits by " + str(enemy.defensePower)
 
 
 func _on_area_2d_mouse_entered() -> void:

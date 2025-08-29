@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://6v35upfnowg1"]
+[gd_scene load_steps=10 format=3 uid="uid://257j7gsm7grk"]
 
-[ext_resource type="Texture2D" uid="uid://dare3xhlh5obj" path="res://Assets/Sprites/Player/Defense Power.png" id="1_6itvo"]
-[ext_resource type="Script" uid="uid://dru0pbbi43f4t" path="res://Scripts/defense_power.gd" id="1_cv46l"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_fnej4"]
+[ext_resource type="Script" uid="uid://hhcjqij2lvas" path="res://Scripts/thirst_power_enemy.gd" id="1_cmxoe"]
+[ext_resource type="Texture2D" uid="uid://qov5e0g2c84d" path="res://Assets/Sprites/Enemies/Attack Power Enemy.png" id="2_cmxoe"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_f2wq8"]
 
 [sub_resource type="Animation" id="Animation_jhs4f"]
 length = 0.001
@@ -94,19 +94,19 @@ _data = {
 &"vanish": SubResource("Animation_hkiem")
 }
 
-[sub_resource type="QuadMesh" id="QuadMesh_j20op"]
-size = Vector2(200, 150)
+[sub_resource type="QuadMesh" id="QuadMesh_vvoqt"]
+size = Vector2(225, 75)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wjxe1"]
-radius = 75.2396
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvoqt"]
+radius = 26.0192
 
-[node name="Defense Power" type="Node2D"]
-script = ExtResource("1_cv46l")
+[node name="Thirst Power" type="Node2D"]
+script = ExtResource("1_cmxoe")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_6itvo")
-offset = Vector2(-8, 100)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_cmxoe")
+offset = Vector2(-8, 200)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -12.0
@@ -114,7 +114,7 @@ offset_top = -51.0
 offset_right = 43.0
 offset_bottom = 131.0
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_fnej4")
+theme_override_fonts/normal_font = ExtResource("3_f2wq8")
 theme_override_font_sizes/normal_font_size = 64
 text = "5"
 
@@ -127,22 +127,22 @@ libraries = {
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.301961)
 position = Vector2(0, -100)
-mesh = SubResource("QuadMesh_j20op")
+mesh = SubResource("QuadMesh_vvoqt")
 
 [node name="Description" type="RichTextLabel" parent="description"]
-offset_left = -92.0
-offset_top = -47.0
-offset_right = 115.0
-offset_bottom = 81.0
+offset_left = -102.0
+offset_top = -12.0
+offset_right = 107.0
+offset_bottom = 111.0
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_fnej4")
-theme_override_font_sizes/normal_font_size = 32
-text = "Increases Defense biscuits by 1"
+theme_override_fonts/normal_font = ExtResource("3_f2wq8")
+theme_override_font_sizes/normal_font_size = 16
+text = "Increases Enemy Thirst biscuits by 1"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_wjxe1")
+shape = SubResource("CircleShape2D_vvoqt")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

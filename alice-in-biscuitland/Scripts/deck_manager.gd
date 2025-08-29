@@ -6,8 +6,10 @@ extends Node
 @export var hand : Hand
 @export var discardPile : DiscardPile
 @export var handBiscuits : Array[Biscuit]
-@export var animationBiscuit : Sprite2D
 @export var dunkAnimation : AnimationPlayer
+@export var eatAnimation : AnimationPlayer
+@export var dunkAnimationBiscuit : Sprite2D
+@export var eatAnimationBiscuit : Sprite2D
 @onready var timer: Timer = $Timer
 
 var cardsToPlay : int
@@ -32,7 +34,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 		currentBiscuit = biscuit
 		currentBiscuit.modulate = Color(0, 0, 0, 0)
 		
-		animationBiscuit.texture = load(currentBiscuit.Img)
+		dunkAnimationBiscuit.texture = load(currentBiscuit.Img)
 		
 		dunkAnimation.play("Sink")
 
@@ -44,7 +46,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 		currentBiscuit.modulate = Color(0, 0, 0, 0)
 		currentBiscuit.position = Vector2(-645, 220)
 		
-		animationBiscuit.texture = load(currentBiscuit.Img)
+		dunkAnimationBiscuit.texture = load(currentBiscuit.Img)
 		
 		dunkAnimation.play("Dunk")
 
@@ -59,8 +61,17 @@ func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 		return
 	else:
 		# Otherwise count that as a card played
-		update_cards_to_play(biscuit)
-	
+		
+		eatAnimationBiscuit.texture = load(biscuit.Img)
+		
+		if targetedEnemy:
+			eatAnimation.play("Enemy")
+		else:
+			eatAnimation.play("Player")
+		currentBiscuit = biscuit
+		currentBiscuit.modulate = Color(0, 0, 0, 0)
+		update_cards_to_play(currentBiscuit)
+		
 
 func update_cards_to_play(biscuit : Biscuit) -> void:
 	# Checks whether to end the turn or to discard the biscuit

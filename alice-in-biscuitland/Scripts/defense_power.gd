@@ -7,11 +7,11 @@ extends Node2D
 
 
 func _process(delta: float) -> void:
-	text.text = str(player.attackPower)
-	if player.attackPower < 0:
-		description.text = "Decreases Thirst biscuits by " + str(-player.attackPower)
+	text.text = str(player.defensePower)
+	if player.defensePower < 0:
+		description.text = "Decreases Defense biscuits by " + str(-player.defensePower)
 	else:
-		description.text = "Increases Thirst biscuits by " + str(player.attackPower)
+		description.text = "Increases Defense biscuits by " + str(player.defensePower)
 
 
 func _on_area_2d_mouse_entered() -> void:

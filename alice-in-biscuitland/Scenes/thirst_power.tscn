@@ -1,8 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://dif5q1wkji74a"]
+[gd_scene load_steps=10 format=3 uid="uid://dif5q1wkji74a"]
 
 [ext_resource type="Script" uid="uid://b708vh7vxxtxb" path="res://Scripts/thirst_power.gd" id="1_atuil"]
 [ext_resource type="Texture2D" uid="uid://c5d2epmvwoh4" path="res://Assets/Sprites/Player/Attack Power.png" id="1_l3hkb"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_vvoqt"]
+
+[sub_resource type="Animation" id="Animation_jhs4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+
+[sub_resource type="Animation" id="Animation_vvoqt"]
+resource_name = "appear"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, -175)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hkiem"]
+resource_name = "vanish"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("description:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -175), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jhs4f"]
+_data = {
+&"RESET": SubResource("Animation_jhs4f"),
+&"appear": SubResource("Animation_vvoqt"),
+&"vanish": SubResource("Animation_hkiem")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_vvoqt"]
+size = Vector2(200, 150)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvoqt"]
+radius = 52.3927
 
 [node name="Thirst Power" type="Node2D"]
 script = ExtResource("1_atuil")
@@ -21,3 +117,31 @@ mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_vvoqt")
 theme_override_font_sizes/normal_font_size = 64
 text = "5"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jhs4f")
+}
+
+[node name="description" type="MeshInstance2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.301961)
+position = Vector2(0, -100)
+mesh = SubResource("QuadMesh_vvoqt")
+
+[node name="Description" type="RichTextLabel" parent="description"]
+offset_left = -87.0
+offset_top = -50.0
+offset_right = 105.0
+offset_bottom = 61.0
+theme_override_fonts/normal_font = ExtResource("3_vvoqt")
+theme_override_font_sizes/normal_font_size = 32
+text = "Increases Thirst biscuits by 1"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vvoqt")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

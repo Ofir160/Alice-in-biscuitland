@@ -29,7 +29,7 @@ func _ready() -> void:
 
 func start_fight() -> void:
 	enemy.index = GameManager.progress # Sets what enemy we are fighting
-	enemy.set_sprite()
+	enemy.init()
 	deckManager.drawPile.drawPile = GameManager.currentDeck.duplicate()
 	deckManager.drawPile.shuffle()
 	deckManager.hand.TurnEnded.connect(end_player_turn)
@@ -51,10 +51,21 @@ func start_player_turn() -> void:
 	
 	deckManager.hand.draw_cards(5)
 	
-	if player.has_state(1):
+	if player.has_state(6):
+		var amount = randi_range(1, 5)
+		var biscuit : Biscuit = player.displayBiscuits.get(player.states.find(6))
+		biscuit.Description = "Must play " + str(amount) + " Biscuits this turn"
+		biscuit.update_sprites()
+		
+		deckManager.cardsToPlay = amount
+	elif player.has_state(1):
 		deckManager.cardsToPlay = 5
 	else:
 		deckManager.cardsToPlay = cardsToPlay
+		
+	if enemy.index == 0 and enemy.specialState:
+		enemy.attackPower += 1
+		
 	enemy.set_action()
 
 
@@ -72,14 +83,77 @@ func start_enemy_turn() -> void:
 	timer.wait_time = 3
 	timer.start()
 			
+
+func deal_enemy_thirst(amount : int) -> void:
+	if player.has_state(2):
+		player.take_dryness(amount * 2)
+	else:
+		player.take_dryness(amount)
+			
+			
+func add_enemy_defense(amount : int) -> void:
+	enemy.add_defense(amount)
+			
+			
 func play_enemy_action() -> void:
 	
 	var action : Array = enemyActions.get(actionProgress)
-	if player.has_state(2):
-		player.take_dryness(action.get(0) * 2)
-	else:
-		player.take_dryness(action.get(0))
-	enemy.add_defense(action.get(1))
+	
+	if action.get(0) > 0:
+		deal_enemy_thirst(action.get(0) + enemy.attackPower)
+		
+	if action.get(1) > 0:
+		enemy.add_defense(action.get(1) + enemy.defensePower)
+	
+	match action.get(2):
+		0:
+			pass
+		1:
+			enemy.specialState = true
+		2:
+			enemy.attackPower += 1
+		3:
+			enemy.defensePower += 1
+		4:
+			enemy.attackPower += 1
+			enemy.defensePower += 1
+		5:
+			deal_enemy_thirst(randi_range(3, 10) + enemy.attackPower)
+		6:
+			add_enemy_defense(randi_range(3, 10) + enemy.defensePower)
+		7:
+			enemy.attackPower += randi_range(0, 3)
+			enemy.defensePower += randi_range(0, 3)
+		8:
+			var stats : Array = [action.get(4), action.get(5), action.get(6)]
+			player.add_state(6, stats, 1)
+		9:
+			player.attackPower -= 1
+			player.defensePower -= 1
+		10:
+			var stats : Array = [action.get(4), "Does nothing", action.get(6), 0, 0, 0, 0, 0, 0, 0]
+			deckManager.hand.discardPile.discard(stats)
+		11:
+			var stats : Array = [action.get(4), action.get(5), action.get(6)]
+			player.add_state(7, stats, 0)
+			teacup.dunkChance = 1.0
+			teacup.get_node("Thermometer").play("Fully Fire")
+		12:
+			enemy.attackPower += 3
+		13:
+			player.defensePower -= 1
+		14:
+			enemy.attackPower += 5
+			enemy.specialState = true
+		15:
+			enemy.enemyTeacup.teaLevel += 10
+		16:
+			enemy.redQueenGuardCount += 1
+			enemy.redQueenGuardCount = clampi(enemy.redQueenGuardCount, 0, 3)
+		17:
+			deal_enemy_thirst((3 + enemy.attackPower) * enemy.redQueenGuardCount)
+			
+	
 	if teacup.check_tea():
 		lose_fight()
 	actionProgress += 1
@@ -114,21 +188,28 @@ func win_fight() -> void:
 
 
 func add_defence(amount : int, victim : Variant, targettedEnemy : bool) -> void:
-	if player.has_state(4) and not targettedEnemy:
-		pass
-	elif player.has_state(3):
-		victim.add_defense(amount * 2)
-	else:
-		victim.add_defense(amount)
-
+	if amount > 0:
+		if player.has_state(4) and not targettedEnemy:
+			pass
+		elif player.has_state(3):
+			victim.add_defense(amount * 2)
+		else:
+			victim.add_defense(amount)
 
 func deal_dryness(amount : int, victim : Variant, targettedEnemy : bool) -> void:
-	if player.has_state(2):
-		victim.take_dryness(amount * 2)
-	elif player.has_state(3):
-		victim.take_dryness(amount / 2)
-	else:
-		victim.take_dryness(amount)
+	if amount > 0:
+		if victim == enemy and enemy.index == 2 and enemy.specialState:
+			enemy.descriptionAnimation.play("vanish")
+			enemy.specialState = false
+		else:
+			if victim == enemy and enemy.index == 3 and enemy.specialState:
+				enemy.attackPower += 1
+			if player.has_state(2):
+				victim.take_dryness(amount * 2)
+			elif player.has_state(3):
+				victim.take_dryness(amount / 2)
+			else:
+				victim.take_dryness(amount)
 
 func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 	# This is where all the biscuit logic will go
@@ -138,7 +219,6 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 	
 	if not biscuit.isDunked:
 		# Normal card played
-		#print("Damage:" + str(biscuitStat.get(3)) + " Defense: " + str(biscuitStat.get(4)))
 		if biscuit.dryness != 0:
 			deal_dryness(biscuit.dryness + player.attackPower, victim, targettedEnemy)
 		if biscuit.defense != 0:
@@ -216,7 +296,10 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 				player.add_state(5, stats, 0)
 			10:
 				# Superfreeze
-				add_defence(6 + player.defensePower * 3, victim, targettedEnemy)
+				if player.defensePower < 0:
+					add_defence(6 + player.defensePower, victim, targettedEnemy)
+				else:
+					add_defence(6 + player.defensePower * 3, victim, targettedEnemy)
 			11:
 				# Renewal
 				teacup.add_tea(5)
@@ -224,7 +307,6 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 
 	else:
 		# Dunked card played
-		#print("Damage:" + str(biscuitStat.get(6)) + " Defense: " + str(biscuitStat.get(7)))
 		if biscuit.dunkedDryness != 0:
 			deal_dryness(biscuit.dunkedDryness + player.attackPower, victim, targettedEnemy)
 		if biscuit.dunkedDefense != 0:
@@ -303,7 +385,10 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 				player.add_state(5, stats, 0)
 			10:
 				# Superfreeze
-				add_defence(12 + player.defensePower * 3, victim, targettedEnemy)
+				if player.defensePower < 0:
+					add_defence(12 + player.defensePower, victim, targettedEnemy)
+				else:
+					add_defence(12 + player.defensePower * 3, victim, targettedEnemy)
 			11:
 				# Renewal
 				teacup.add_tea(8)
@@ -322,7 +407,6 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 		deckManager.hand.end_turn(biscuit, false)
 		return true
 	return false
-
 
 func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sinks
 	# This is where all the biscuit dunking logic will go
@@ -371,6 +455,17 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 			teacup.get_node("Thermometer").play("Natural")
 			teacup.dunkChance = 0.5
 		player.remove_state(5)
+	if player.has_state(7):
+		if teacup.check_tea_state(1):
+			teacup.get_node("Thermometer").play("Fire")
+			teacup.dunkChance = 0.6
+		elif teacup.check_tea_state(2):
+			teacup.get_node("Thermometer").play("Frozen")
+			teacup.dunkChance = 0.3
+		else:
+			teacup.get_node("Thermometer").play("Natural")
+			teacup.dunkChance = 0.5
+		player.remove_state(7)
 				
 	if biscuit.defense != 0 and teacup.check_tea_state(2):
 		player.defensePower += 1
@@ -393,7 +488,6 @@ func _on_timer_timeout() -> void:
 	else:
 		actionProgress = 0
 		end_enemy_turn()
-
 
 func _on_sacrifice_timer_timeout() -> void:
 	if sacrificeIterations > 0:

@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://6v35upfnowg1"]
+[gd_scene load_steps=10 format=3 uid="uid://b18bnkti57bgc"]
 
-[ext_resource type="Texture2D" uid="uid://dare3xhlh5obj" path="res://Assets/Sprites/Player/Defense Power.png" id="1_6itvo"]
-[ext_resource type="Script" uid="uid://dru0pbbi43f4t" path="res://Scripts/defense_power.gd" id="1_cv46l"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_fnej4"]
+[ext_resource type="Script" uid="uid://3di53cwvfrfd" path="res://Scripts/defense_power_enemy.gd" id="1_kt0ee"]
+[ext_resource type="Texture2D" uid="uid://shlfg5ipgapc" path="res://Assets/Sprites/Enemies/Defense Power Enemy.png" id="2_kt0ee"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_vglfw"]
 
 [sub_resource type="Animation" id="Animation_jhs4f"]
 length = 0.001
@@ -95,17 +95,17 @@ _data = {
 }
 
 [sub_resource type="QuadMesh" id="QuadMesh_j20op"]
-size = Vector2(200, 150)
+size = Vector2(225, 75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wjxe1"]
-radius = 75.2396
+radius = 37.054
 
 [node name="Defense Power" type="Node2D"]
-script = ExtResource("1_cv46l")
+script = ExtResource("1_kt0ee")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_6itvo")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_kt0ee")
 offset = Vector2(-8, 100)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -114,7 +114,7 @@ offset_top = -51.0
 offset_right = 43.0
 offset_bottom = 131.0
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_fnej4")
+theme_override_fonts/normal_font = ExtResource("3_vglfw")
 theme_override_font_sizes/normal_font_size = 64
 text = "5"
 
@@ -130,14 +130,14 @@ position = Vector2(0, -100)
 mesh = SubResource("QuadMesh_j20op")
 
 [node name="Description" type="RichTextLabel" parent="description"]
-offset_left = -92.0
-offset_top = -47.0
-offset_right = 115.0
-offset_bottom = 81.0
+offset_left = -103.0
+offset_top = -11.0
+offset_right = 121.0
+offset_bottom = 130.0
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_fnej4")
-theme_override_font_sizes/normal_font_size = 32
-text = "Increases Defense biscuits by 1"
+theme_override_fonts/normal_font = ExtResource("3_vglfw")
+theme_override_font_sizes/normal_font_size = 16
+text = "Increases Enemy Defense biscuits by 1"
 
 [node name="Area2D" type="Area2D" parent="."]
 

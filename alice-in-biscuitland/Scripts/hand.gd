@@ -176,9 +176,8 @@ func _process(delta: float) -> void:
 					currentBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitDunked.emit(currentBiscuit) # Dunks the biscuit
 			elif deckManager.battleManager.player.hovering:
-				# Dropped biscuit on table
+				# Dropped biscuit on hands
 				if currentBiscuit.onDunkSpecial == 0:
-					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(currentBiscuit, false)
@@ -188,7 +187,6 @@ func _process(delta: float) -> void:
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
 				if currentBiscuit.onDunkSpecial == 0:
-					#print("Card Played: " + str(currentBiscuit.cardName))
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(currentBiscuit, true)

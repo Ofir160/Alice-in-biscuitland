@@ -33,7 +33,6 @@ func take_dryness(dryness : int) -> void:
 func add_defense(_defense : int) -> void:
 	defense += _defense
 	
-	
 func add_state(state : int, biscuitStat : Array, inTurns : int) -> void:
 	if inTurns == 0:
 		if len(states) == 0:
@@ -68,18 +67,10 @@ func add_state(state : int, biscuitStat : Array, inTurns : int) -> void:
 		data.append(biscuitStat)
 		addTimers.set(state, data)
 	
-	
 func set_biscuit(displayBiscuit : Biscuit, biscuitStats : Array) -> void:
 	displayBiscuit.cardName = biscuitStats.get(0)
 	displayBiscuit.Description = biscuitStats.get(1)
 	displayBiscuit.Img = biscuitStats.get(2)
-	displayBiscuit.dryness = biscuitStats.get(3)
-	displayBiscuit.defense = biscuitStats.get(4)
-	displayBiscuit.special = biscuitStats.get(5)
-	displayBiscuit.dunkedDryness = biscuitStats.get(6)
-	displayBiscuit.dunkedDefense = biscuitStats.get(7)
-	displayBiscuit.dunkedSpecial = biscuitStats.get(8)
-	displayBiscuit.onDunkSpecial = biscuitStats.get(9)
 	displayBiscuit.modulate = Color(1, 1, 1, 1)
 	displayBiscuit.update_sprites()
 	
@@ -91,20 +82,12 @@ func copy_biscuit(biscuit1 : Biscuit, biscuit2 : Biscuit) -> void:
 	biscuit1.cardName = biscuit2.cardName
 	biscuit1.Description = biscuit2.Description
 	biscuit1.Img = biscuit2.Img
-	biscuit1.dryness = biscuit2.dryness
-	biscuit1.defense = biscuit2.defense
-	biscuit1.special = biscuit2.special
-	biscuit1.dunkedDryness = biscuit2.dunkedDryness
-	biscuit1.dunkedDefense = biscuit2.dunkedDefense
-	biscuit1.dunkedSpecial = biscuit2.dunkedSpecial
-	biscuit1.onDunkSpecial = biscuit2.onDunkSpecial
 	biscuit1.modulate = Color(1, 1, 1, 1)
 	biscuit2.modulate = Color(0, 0, 0, 0)
 	
 	biscuit1.position = biscuit2.position
 	biscuit2.position = biscuit1position
 	biscuit1.update_sprites()
-	
 	
 func add_state_for_turns(state : int, biscuitStat : Array, turns : int) -> void:
 	if not has_state(state):
