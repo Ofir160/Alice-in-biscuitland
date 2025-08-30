@@ -29,6 +29,9 @@ var handPosition : Vector2
 var droppedPosition : Vector2
 var elapsedTime : float
 
+var effectiveDryness : int
+var effectiveDefense : int
+
 func _process(delta: float) -> void:
 	if resetting:
 		elapsedTime += delta

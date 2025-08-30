@@ -6,7 +6,10 @@ extends CharacterBody2D
 @export var crossing=false
 @export var cross_direction=0
 @export var bTween=false
+@onready var sprite: AnimatedSprite2D = $Sprite
+
 var atEnemy : bool
+var moving : bool
 
 var speed= 500
 
@@ -42,6 +45,17 @@ func _process(delta: float) -> void:
 	velocity.x=(Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left"))
 	velocity.y=(Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up"))
 	velocity=velocity.normalized()*speed
+	
+	if velocity.x >= 0.0:
+		sprite.flip_h = false
+	else:
+		sprite.flip_h = true
+	
+	if abs(velocity.length()) <= 0.01:
+		sprite.play("Idle")
+	else:
+		sprite.play("Walking")
+	
 func _physics_process(delta: float) -> void:
 	if not crossing:
 		move_and_slide()

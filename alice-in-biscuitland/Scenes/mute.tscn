@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1ji347rr0lb8"]
+
+[ext_resource type="Texture2D" uid="uid://bitoamoahn5f8" path="res://Assets/Sprites/UI/Unmute.png" id="1_f8mi4"]
+[ext_resource type="Texture2D" uid="uid://c4o3k8p471pjg" path="res://Assets/Sprites/UI/Mute.png" id="2_r62ur"]
+[ext_resource type="Script" uid="uid://ciwgbehrqygqx" path="res://Scripts/mute.gd" id="3_y6d0y"]
+
+[node name="Mute" type="TextureButton"]
+offset_left = 427.0
+offset_top = -541.0
+offset_right = 600.0
+offset_bottom = -362.0
+scale = Vector2(0.6, 0.6)
+toggle_mode = true
+texture_normal = ExtResource("1_f8mi4")
+texture_pressed = ExtResource("2_r62ur")
+script = ExtResource("3_y6d0y")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

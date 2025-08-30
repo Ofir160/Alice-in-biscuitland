@@ -112,7 +112,6 @@ func discard_biscuit(biscuit : Biscuit, sunk : bool) -> void:
 			displayBiscuit.reset()
 	biscuit.position = Vector2(0.0, 2000.0)
 
-
 func end_turn(biscuit : Biscuit, sunk : bool) -> void:
 	var index : int = biscuitHand.find(biscuit)
 	var biscuitStat : Array = biscuitStatHand.get(index)
@@ -130,12 +129,10 @@ func end_turn(biscuit : Biscuit, sunk : bool) -> void:
 	
 	TurnEnded.emit()
 	
-	
 func reset_biscuit(biscuit : Biscuit) -> void:
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
 	biscuit.modulate = Color(1, 1, 1, 1)
 	biscuit.reset()
-
 
 func set_biscuits() -> void:
 	for i in range(len(biscuitStatHand)):
@@ -143,7 +140,6 @@ func set_biscuits() -> void:
 		var biscuitStats : Array = biscuitStatHand.get(i)
 		
 		BiscuitHelper.set_biscuit_stats(displayBiscuit, biscuitStats)
-
 
 func _process(delta: float) -> void:
 	

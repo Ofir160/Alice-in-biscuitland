@@ -113,6 +113,7 @@ func set_sprite() -> void:
 			below.texture = whiteRabbit
 		1:
 			# Mad Hatter
+			
 			below.texture = madHatter
 		2:
 			above.texture = cheshireCat
@@ -551,6 +552,8 @@ func set_action() -> void:
 		biscuit.cardName = actions.get(i).get(4)
 		biscuit.Description = actions.get(i).get(5)
 		biscuit.Img = actions.get(i).get(6)
+		biscuit.dryness = actions.get(i).get(0)
+		biscuit.defense = actions.get(i).get(1)
 	
 	biscuits.get(0).update_sprites()
 	biscuits.get(1).update_sprites()
@@ -581,6 +584,7 @@ func get_actions() -> Array[Array]:
 func set_dialogue() -> void:
 	match index:
 		0:
+			dialogueCounter = 55
 			match dialogueCounter:
 				0:
 					deckManager.hand.draggingDisabled = true

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://i7admbudl2vt"]
+[gd_scene load_steps=4 format=3 uid="uid://i7admbudl2vt"]
 
 [ext_resource type="Script" uid="uid://df2ycvctvgghn" path="res://Scripts/map_enemy.gd" id="1_bbged"]
+[ext_resource type="Texture2D" uid="uid://dw51e4i7h3s3e" path="res://Assets/Sprites/Enemies/Enter battle sign.png" id="2_p645y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rwa8s"]
 radius = 200.0
@@ -9,10 +10,30 @@ radius = 200.0
 script = ExtResource("1_bbged")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_rwa8s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
+[node name="TextureButton" type="TextureButton" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 6
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -325.0
+offset_right = 1640.0
+offset_bottom = 755.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("2_p645y")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

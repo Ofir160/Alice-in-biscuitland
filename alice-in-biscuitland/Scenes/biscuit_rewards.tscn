@@ -14,10 +14,11 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Biscuits" type="Node" parent="." node_paths=PackedStringArray("biscuits", "biscuitCompendium")]
+[node name="Biscuits" type="Node" parent="." node_paths=PackedStringArray("biscuits", "biscuitCompendium", "sfx")]
 script = ExtResource("1_mduvw")
 biscuits = [NodePath("1"), NodePath("2"), NodePath("3")]
 biscuitCompendium = NodePath("../BiscuitCompendium")
+sfx = NodePath("../SFX")
 
 [node name="1" parent="Biscuits" instance=ExtResource("1_xxs46")]
 z_index = 1

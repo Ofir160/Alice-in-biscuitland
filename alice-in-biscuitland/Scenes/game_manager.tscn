@@ -82,7 +82,6 @@ func add_biscuit(biscuit : Biscuit) -> void:
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
 initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Strike")]
-progress = 1
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=45 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
 [ext_resource type="PackedScene" uid="uid://buxd6cop4cing" path="res://Scenes/battle_manager.tscn" id="2_f6xt6"]
@@ -19,7 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://257j7gsm7grk" path="res://Scenes/thirst_power_enemy.tscn" id="13_486ce"]
 [ext_resource type="PackedScene" uid="uid://b18bnkti57bgc" path="res://Scenes/defense_power_enemy.tscn" id="14_387br"]
 [ext_resource type="PackedScene" uid="uid://6v35upfnowg1" path="res://Scenes/defense_power.tscn" id="15_vd41i"]
+[ext_resource type="AudioStream" uid="uid://m2m4cbur24g4" path="res://Assets/Audio/SFX/defense boop.mp3" id="19_kcxpu"]
 [ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="20_387br"]
+[ext_resource type="AudioStream" uid="uid://kuoi8edgom7u" path="res://Assets/Audio/SFX/thirst.mp3" id="20_hgaye"]
+[ext_resource type="PackedScene" uid="uid://c1ji347rr0lb8" path="res://Scenes/mute.tscn" id="23_hgaye"]
 
 [sub_resource type="Animation" id="Animation_7vlph"]
 resource_name = "Enemy"
@@ -381,7 +384,7 @@ dunkAnimation = NodePath("../Player Teacup/BiscuitDunk")
 eatAnimation = NodePath("Eat Animation")
 dunkAnimationBiscuit = NodePath("../Player Teacup/DunkMask/Animation Biscuit")
 eatAnimationBiscuit = NodePath("Eat Mask/Animation Biscuit")
-sfx = NodePath("../../SFX")
+sfx = NodePath("../EatDunk Sound")
 
 [node name="Eat Animation" type="AnimationPlayer" parent="Battle Manager/Deck Manager"]
 libraries = {
@@ -575,6 +578,18 @@ libraries = {
 &"": SubResource("AnimationLibrary_emx8f")
 }
 
+[node name="Defense Sound" type="AudioStreamPlayer2D" parent="Battle Manager"]
+stream = ExtResource("19_kcxpu")
+volume_db = 6.0
+bus = &"SFX"
+
+[node name="Thirst Sound" type="AudioStreamPlayer2D" parent="Battle Manager"]
+stream = ExtResource("20_hgaye")
+volume_db = -6.0
+bus = &"SFX"
+
+[node name="EatDunk Sound" type="AudioStreamPlayer2D" parent="Battle Manager"]
+
 [node name="Background" type="Node" parent="."]
 
 [node name="Table" type="Sprite2D" parent="Background"]
@@ -586,8 +601,7 @@ texture = ExtResource("10_k7mbx")
 scale = Vector2(0.527, 0.527)
 texture = ExtResource("11_upb72")
 
-[node name="SFX" type="AudioStreamPlayer2D" parent="."]
-bus = &"SFX"
+[node name="Mute" parent="." instance=ExtResource("23_hgaye")]
 
 [connection signal="timeout" from="Battle Manager/Timer" to="Battle Manager" method="_on_timer_timeout"]
 [connection signal="timeout" from="Battle Manager/Enemy Turn Start Timer" to="Battle Manager" method="_on_enemy_turn_start_timer_timeout"]

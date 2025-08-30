@@ -1,10 +1,14 @@
 class_name BattleManager
 extends Node
 
+const defense = preload("res://Assets/Audio/SFX/defense boop.mp3")
+
 @onready var timer: Timer = $Timer
 @onready var sacrifice_timer: Timer = $SacrificeTimer
 @onready var deckManager: DeckManager = $"Deck Manager"
 @onready var enemyTurnStartTimer: Timer = $"Enemy Turn Start Timer"
+@onready var defenseSound: AudioStreamPlayer2D = $"Defense Sound"
+@onready var thirstSound: AudioStreamPlayer2D = $"Thirst Sound"
 
 @export var cardsToPlay : int
 @export var teacup : Teacup
@@ -79,12 +83,14 @@ func start_enemy_turn() -> void:
 	enemyTurnStartTimer.start()
 			
 func deal_enemy_thirst(amount : int) -> void:
+	thirstSound.play()
 	if player.has_state(2):
 		player.take_dryness(amount * 2)
 	else:
 		player.take_dryness(amount)
 			
 func add_enemy_defense(amount : int) -> void:
+	defenseSound.play()
 	enemy.add_defense(amount)
 					
 func play_enemy_action() -> void:
@@ -179,8 +185,10 @@ func add_defence(amount : int, victim : Variant, targettedEnemy : bool) -> void:
 		if player.has_state(4) and not targettedEnemy:
 			pass
 		elif player.has_state(3):
+			defenseSound.play()
 			victim.add_defense(amount * 2)
 		else:
+			defenseSound.play()
 			victim.add_defense(amount)
 
 func deal_dryness(amount : int, victim : Variant, targettedEnemy : bool) -> void:
@@ -189,6 +197,7 @@ func deal_dryness(amount : int, victim : Variant, targettedEnemy : bool) -> void
 			enemy.descriptionAnimation.play("vanish")
 			enemy.specialState = false
 		else:
+			thirstSound.play()
 			if victim == enemy and enemy.index == 3 and enemy.specialState:
 				enemy.attackPower += 1
 			if player.has_state(2):
@@ -532,9 +541,42 @@ func _on_sacrifice_timer_timeout() -> void:
 			teacup.dunkChance = 0.5
 			teacup.get_node("Thermometer").play("Natural")
 
-
 func _on_enemy_turn_start_timer_timeout() -> void:
 	enemyActions = enemy.get_actions() # Starts the animations
 	
 	timer.wait_time = 3
 	timer.start()
+
+func _process(delta: float) -> void:
+	for biscuit in deckManager.hand.biscuitHand:
+		if not biscuit.isDunked:
+			if biscuit.special == 10:
+				biscuit.effectiveDryness = 6 + player.attackPower * 3
+			else:
+				biscuit.effectiveDryness = biscuit.dryness + player.attackPower
+			if player.has_state(2):
+				biscuit.effectiveDryness *= 2
+			elif player.has_state(3):
+				biscuit.effectiveDryness /= 2
+			biscuit.effectiveDefense = biscuit.defense + player.defensePower
+			if player.has_state(4):
+				biscuit.effectiveDefense = 0
+			elif player.has_state(3):
+				biscuit.effectiveDefense *= 2 
+		else:
+			if biscuit.special == 10:
+				biscuit.effectiveDryness = 12 + player.attackPower * 3
+			else:
+				biscuit.effectiveDryness = biscuit.dryness + player.attackPower
+			if player.has_state(2):
+				biscuit.effectiveDryness *= 2
+			elif player.has_state(3):
+				biscuit.effectiveDryness /= 2
+			biscuit.effectiveDefense = biscuit.defense + player.defensePower
+			if player.has_state(4):
+				biscuit.effectiveDefense = 0
+			elif player.has_state(3):
+				biscuit.effectiveDefense *= 2 
+	for enemyBiscuit in enemy.biscuits:
+		enemyBiscuit.effectiveDryness = enemyBiscuit.dryness + enemy.attackPower
+		enemyBiscuit.effectiveDefense = enemyBiscuit.defense + enemy.defensePower
