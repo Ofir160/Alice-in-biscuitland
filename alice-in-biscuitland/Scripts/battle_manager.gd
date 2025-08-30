@@ -4,12 +4,14 @@ extends Node
 @onready var timer: Timer = $Timer
 @onready var sacrifice_timer: Timer = $SacrificeTimer
 @onready var deckManager: DeckManager = $"Deck Manager"
+@onready var enemyTurnStartTimer: Timer = $"Enemy Turn Start Timer"
 
 @export var cardsToPlay : int
 @export var teacup : Teacup
 @export var enemyTeacup : Teacup
 @export var player : Player
 @export var enemy : Enemy
+@export var turnSwitcher : AnimationPlayer
 
 var enemyActions : Array[Array]
 var actionProgress : int
@@ -26,7 +28,6 @@ func _ready() -> void:
 	deckManager.init()
 	start_fight()
 
-
 func start_fight() -> void:
 	enemy.index = GameManager.progress # Sets what enemy we are fighting
 	enemy.init()
@@ -41,14 +42,11 @@ func start_fight() -> void:
 	enemy.defense = 0
 	start_player_turn()
 
-
 func start_player_turn() -> void:
 	# Start the players turn
 	
 	player.step_timers()
-	
 	player.defense = 0
-	
 	deckManager.hand.draw_cards(5)
 	
 	if player.has_state(6):
@@ -67,34 +65,28 @@ func start_player_turn() -> void:
 		enemy.attackPower += 1
 		
 	enemy.set_action()
-
+	enemy.set_dialogue()
 
 func end_player_turn() -> void:
 	enemy.defense = 0
 	enemyActions = []
 	start_enemy_turn()
 
-
 func start_enemy_turn() -> void:
 	# Start the enemies turn
 	
-	enemyActions = enemy.get_actions() # Starts the animations
-	
-	timer.wait_time = 3
-	timer.start()
+	turnSwitcher.play("Enemy Turn")
+	enemyTurnStartTimer.start()
 			
-
 func deal_enemy_thirst(amount : int) -> void:
 	if player.has_state(2):
 		player.take_dryness(amount * 2)
 	else:
 		player.take_dryness(amount)
 			
-			
 func add_enemy_defense(amount : int) -> void:
 	enemy.add_defense(amount)
-			
-			
+					
 func play_enemy_action() -> void:
 	
 	var action : Array = enemyActions.get(actionProgress)
@@ -166,7 +158,6 @@ func play_enemy_action() -> void:
 func end_enemy_turn() -> void:
 	start_player_turn()
 	
-
 func lose_fight() -> void:
 	# Lost the fight
 	if deckManager.hand.TurnEnded.is_connected(end_player_turn):
@@ -175,7 +166,6 @@ func lose_fight() -> void:
 	timer.start()
 	lostGame = true
 
-
 func win_fight() -> void:
 	# Won the fight
 	if deckManager.hand.TurnEnded.is_connected(end_player_turn):
@@ -183,7 +173,6 @@ func win_fight() -> void:
 	timer.wait_time = 0.5
 	timer.start()
 	wonGame = true
-
 
 func add_defence(amount : int, victim : Variant, targettedEnemy : bool) -> void:
 	if amount > 0:
@@ -409,38 +398,40 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sinks
 	# This is where all the biscuit dunking logic will go
 	
+	var result : bool = false
+	
 	match biscuit.onDunkSpecial:
 		0:
 			if randf() <= teacup.dunkChance:
 				if teacup.check_tea_state(1):
 					if biscuit.defense != 0:
 						player.attackPower += 1
-				return true
+				result = true
 		1:
 			# Refill
 			teacup.add_tea(10)
 			teacup.get_node("TeaMask/Tea").self_modulate=Color(1,0.2,0.15,1)
 			teacup.set_tea_state(0)
-			return true
+			result = true
 		2: 
 			# Fire
 			teacup.set_tea_state(1)
 			teacup.get_node("Thermometer").play("Fire")
 			teacup.dunkChance = 0.6
-			return true
+			result = true
 		3:
 			# Ice
 			teacup.set_tea_state(2)
 			teacup.get_node("Thermometer").play("Frozen")
 			teacup.dunkChance = 0.3
-			return true
+			result = true
 		4:
 			# Fireproof
 			if randf() <= teacup.dunkChance:
 				if teacup.check_tea_state(1):
 					if biscuit.defense != 0:
 						player.attackPower += 1
-				return true
+				result = true
 				
 	if player.has_state(5):
 		if teacup.check_tea_state(1):
@@ -467,7 +458,7 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 				
 	if biscuit.defense != 0 and teacup.check_tea_state(2):
 		player.defensePower += 1
-	return false
+	return result
 
 func _on_timer_timeout() -> void:
 	if lostGame:
@@ -478,10 +469,22 @@ func _on_timer_timeout() -> void:
 	
 	if actionProgress < len(enemyActions):
 		play_enemy_action()
+		
+		var index = randi_range(0, 1)
+		
+		match index:
+			0:
+				deckManager.sfx.stream = deckManager.biscuitEat1
+				deckManager.sfx.play()
+			1:
+				deckManager.sfx.stream = deckManager.biscuitEat2
+				deckManager.sfx.play()
+		
 	elif actionProgress == len(enemyActions):
 		actionProgress += 1
 		enemy.reset()
-		timer.wait_time = 0.5
+		timer.wait_time = 2
+		turnSwitcher.play("Player Turn")
 		timer.start()
 	else:
 		actionProgress = 0
@@ -528,3 +531,10 @@ func _on_sacrifice_timer_timeout() -> void:
 		else:
 			teacup.dunkChance = 0.5
 			teacup.get_node("Thermometer").play("Natural")
+
+
+func _on_enemy_turn_start_timer_timeout() -> void:
+	enemyActions = enemy.get_actions() # Starts the animations
+	
+	timer.wait_time = 3
+	timer.start()

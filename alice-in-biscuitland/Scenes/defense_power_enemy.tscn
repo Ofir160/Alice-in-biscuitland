@@ -100,8 +100,9 @@ size = Vector2(225, 75)
 [sub_resource type="CircleShape2D" id="CircleShape2D_wjxe1"]
 radius = 37.054
 
-[node name="Defense Power" type="Node2D"]
+[node name="Defense Power" type="Node2D" node_paths=PackedStringArray("sfx")]
 script = ExtResource("1_kt0ee")
+sfx = NodePath("SFX")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -143,6 +144,9 @@ text = "Increases Enemy Defense biscuits by 1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_wjxe1")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

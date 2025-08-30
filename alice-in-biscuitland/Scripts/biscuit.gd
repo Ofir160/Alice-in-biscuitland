@@ -1,6 +1,9 @@
 class_name Biscuit
 extends Node2D
 
+const biscuitHover = preload("res://Assets/Audio/SFX/biscuitHover.ogg")
+const biscuitUnhover = preload("res://Assets/Audio/SFX/biscuitUnhover.ogg")
+
 @export var timeToReset : float
 @export var hoverRight : bool
 @export var hoverLeft : bool
@@ -15,6 +18,8 @@ extends Node2D
 @export var dunkedDefense:=0;
 @export var dunkedSpecial:=0;#id of the effect on eat (AFTER DUNK)
 @export var onDunkSpecial:=0;#id of the effect activated when dunked
+
+@export var sfx : AudioStreamPlayer2D
 
 var isDunked := false # has the card been dunked
 var hovered := false
@@ -48,6 +53,8 @@ func update_sprites():
 
 func _on_area_2d_mouse_entered() -> void:
 	if not dragged:
+		sfx.stream = biscuitHover
+		sfx.play()
 		if hoverRight:
 			$AnimationPlayer.play("appear_right")
 		elif hoverLeft:
@@ -59,6 +66,8 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	if not dragged:
+		sfx.stream = biscuitUnhover
+		sfx.play()
 		if hoverRight:
 			$AnimationPlayer.play("vanish_left")
 		elif hoverLeft:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpm1j1lob6p4b"]
+[gd_scene load_steps=4 format=3 uid="uid://cpm1j1lob6p4b"]
 
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_oj352"]
+[ext_resource type="AudioStream" uid="uid://cffkh2np8dk0i" path="res://Assets/Audio/Music/map.mp3" id="2_e5fcp"]
 
 [sub_resource type="GDScript" id="GDScript_y5gpt"]
 script/source = "extends Node
@@ -9,18 +10,47 @@ const battleScene = \"res://Scenes/battle.tscn\"
 const mapScene = \"res://Scenes/map.tscn\"
 const biscuitRewardScene = \"res://Scenes/biscuit_rewards.tscn\"
 
+const whiteRabbitMusic = preload(\"res://Assets/Audio/Music/Fretless.mp3\")
+const madHatterMusic = preload(\"res://Assets/Audio/Music/Mischief Maker.mp3\")
+const cheshireCatMusic = preload(\"res://Assets/Audio/Music/One-eyed Maestro.mp3\")
+const jabberwockyMusic = preload(\"res://Assets/Audio/Music/Unlight.mp3\")
+const redQueenMusic = preload(\"res://Assets/Audio/Music/Volatile Reaction.mp3\")
+
+const mapMusic = preload(\"res://Assets/Audio/Music/map.mp3\")
+
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+
 @export var initialDeck : Array[Biscuit]
 @export var progress : int
 
 var currentDeck : Array[Array]
 
 func _ready() -> void:
+	init()
+
+func init() -> void:
+	currentDeck.clear()
 	for biscuit in initialDeck:
 		add_biscuit(biscuit)
+	audio.stream = mapMusic
+	audio.play()
 	SceneSwitcher.switch_scene(mapScene)
 
 
 func start_battle() -> void:
+	audio.stop()
+	match progress:
+		0:
+			audio.stream = whiteRabbitMusic
+		1:
+			audio.stream = madHatterMusic
+		2:
+			audio.stream = cheshireCatMusic
+		3:
+			audio.stream = jabberwockyMusic
+		4:
+			audio.stream = redQueenMusic
+	audio.play()
 	SceneSwitcher.switch_scene(battleScene)
 	
 
@@ -32,13 +62,15 @@ func end_battle() -> void:
 	else:
 		SceneSwitcher.switch_scene(biscuitRewardScene)
 
-
 func chose_biscuit() -> void:
 	SceneSwitcher.switch_scene(mapScene)
 
 func lose_battle() -> void:
 	SceneSwitcher.switch_scene(mapScene)
 
+func restart() -> void:
+	progress = 0
+	init()
 
 func add_biscuit(biscuit : Biscuit) -> void:
 	# Converts a biscuit into an array of its stats
@@ -83,3 +115,6 @@ dryness = 0
 defense = 3
 special = 0
 dunkedDefense = 7
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_e5fcp")

@@ -1,3 +1,4 @@
+class_name Alice
 extends CharacterBody2D
 
 @onready var camera: Camera2D = $Camera2D
@@ -5,6 +6,7 @@ extends CharacterBody2D
 @export var crossing=false
 @export var cross_direction=0
 @export var bTween=false
+var atEnemy : bool
 
 var speed= 500
 
@@ -25,15 +27,15 @@ func _ready() -> void:
 			position = Vector2(1218, -567)
 		4:
 			# Killed jabberwocky
-			position = Vector2(-1216, 1664)
+			position = Vector2(-1123, 1641)
 
 func _process(delta: float) -> void:
 	if bTween:
 		if cross_direction==0:
-			global_position=lerp(global_position,Vector2(12,-1044),0.15)
+			global_position=lerp(global_position,Vector2(12,-1020),0.15)
 		elif cross_direction==1:
-			global_position=lerp(global_position,Vector2(-470,-843),0.15)
-	if crossing or bTween:
+			global_position=lerp(global_position,Vector2(-470,-820),0.15)
+	if crossing or bTween or atEnemy:
 		velocity=Vector2.ZERO
 		return
 	
@@ -62,9 +64,9 @@ func _on_bridge_time() -> void:
 	if cross_direction==0:	
 		get_parent().get_node("background/Bridge").play("Cross")
 		get_parent().get_node("background/Bridge").seek(0.5)
-		global_position=Vector2(12,-1044)
+		global_position=Vector2(12,-1020)
 	elif cross_direction==1:
 		
 		get_parent().get_node("background/Bridge").seek(1.5)
 		get_parent().get_node("background/Bridge").play_backwards("Cross")
-		global_position=Vector2(-470,-843)
+		global_position=Vector2(-470,-820)

@@ -1,6 +1,13 @@
 class_name DeckManager
 extends Node
 
+const biscuitDunk1 = preload("res://Assets/Audio/SFX/dunk1.ogg")
+const biscuitDunk2 = preload("res://Assets/Audio/SFX/dunk2.ogg")
+const biscuitDunk3 = preload("res://Assets/Audio/SFX/dunk3.ogg")
+
+const biscuitEat1 = preload("res://Assets/Audio/SFX/biscuitEat1.ogg")
+const biscuitEat2 = preload("res://Assets/Audio/SFX/biscuitEat2.ogg")
+
 @export var battleManager : BattleManager
 @export var drawPile : DrawPile
 @export var hand : Hand
@@ -11,6 +18,8 @@ extends Node
 @export var dunkAnimationBiscuit : Sprite2D
 @export var eatAnimationBiscuit : Sprite2D
 @onready var timer: Timer = $Timer
+
+@export var sfx : AudioStreamPlayer2D
 
 var cardsToPlay : int
 var biscuitSunk : bool
@@ -27,6 +36,18 @@ func init() -> void:
 
 func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	# When you dunk a biscuit
+	
+	var index = randi_range(0, 2)
+	match index:
+		0:
+			sfx.stream = biscuitDunk1
+		1:
+			sfx.stream = biscuitDunk2
+		2:
+			sfx.stream = biscuitDunk3
+				
+	sfx.play()
+
 	
 	if battleManager.dunk_biscuit(biscuit):
 		# If the biscuit sunk
@@ -49,7 +70,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 		dunkAnimationBiscuit.texture = load(currentBiscuit.Img)
 		
 		dunkAnimation.play("Dunk")
-
+		
 		timer.start()
 
 
@@ -63,6 +84,15 @@ func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 		# Otherwise count that as a card played
 		
 		eatAnimationBiscuit.texture = load(biscuit.Img)
+		
+		var index = randi_range(0, 1)
+		match index:
+			0:
+				sfx.stream = biscuitEat1
+			1:
+				sfx.stream = biscuitEat2
+		
+		sfx.play()
 		
 		if targetedEnemy:
 			eatAnimation.play("Enemy")

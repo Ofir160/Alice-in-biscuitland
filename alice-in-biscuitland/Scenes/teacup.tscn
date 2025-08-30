@@ -58,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -300)]
+"values": [Vector2(0, 0), Vector2(350, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,7 +86,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(0, -300), Vector2(0, 0)]
+"values": [Vector2(350, 0), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -157,13 +157,14 @@ bg_color = Color(1, 1, 1, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv0a"]
 bg_color = Color(0.94, 0.94, 0.94, 1)
 
-[node name="Teacup" type="Node2D" node_paths=PackedStringArray("progressBar")]
+[node name="Teacup" type="Node2D" node_paths=PackedStringArray("progressBar", "sfx")]
 script = ExtResource("1_re2n1")
 playerTeacup = true
 normalTexture = ExtResource("4_f25l7")
 iceTexture = ExtResource("4_f25l7")
 fireTexture = ExtResource("4_f25l7")
 progressBar = NodePath("ProgressBar")
+sfx = NodePath("SFX")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -249,6 +250,8 @@ step = 50.0
 value = 50.0
 fill_mode = 3
 show_percentage = false
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

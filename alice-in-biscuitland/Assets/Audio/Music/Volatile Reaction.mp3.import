@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6k51kbah6ijb"
+path="res://.godot/imported/Volatile Reaction.mp3-e5dec65607e8413bb4968d05f1b637e1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Volatile Reaction.mp3"
+dest_files=["res://.godot/imported/Volatile Reaction.mp3-e5dec65607e8413bb4968d05f1b637e1.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

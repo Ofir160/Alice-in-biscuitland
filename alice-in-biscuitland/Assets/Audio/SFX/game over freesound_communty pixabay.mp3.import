@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bkb3cix35iym7"
+path="res://.godot/imported/game over freesound_communty pixabay.mp3-81f87a1608089ed6c4eff00f6b156bd0.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/game over freesound_communty pixabay.mp3"
+dest_files=["res://.godot/imported/game over freesound_communty pixabay.mp3-81f87a1608089ed6c4eff00f6b156bd0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

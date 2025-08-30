@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://wn4wj2eat0qo"]
+[gd_scene load_steps=9 format=3 uid="uid://wn4wj2eat0qo"]
 
 [ext_resource type="Script" uid="uid://nspyxxvt548s" path="res://Scripts/biscuits.gd" id="1_mduvw"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_xxs46"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://250f6uhxrtft" path="res://Scripts/continue_button.gd" id="4_mbcbx"]
 [ext_resource type="Script" uid="uid://epyc5q1b2hjv" path="res://Scripts/biscuit_compendium.gd" id="5_wgthi"]
 [ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="6_6dgm8"]
+[ext_resource type="Texture2D" uid="uid://ca3jyi1prh8fb" path="res://Assets/Backgrounds/Card Selection Background.png" id="8_dllaj"]
 
 [node name="Biscuit Rewards" type="Node"]
 
@@ -19,14 +20,21 @@ biscuits = [NodePath("1"), NodePath("2"), NodePath("3")]
 biscuitCompendium = NodePath("../BiscuitCompendium")
 
 [node name="1" parent="Biscuits" instance=ExtResource("1_xxs46")]
-position = Vector2(-400, 0)
+z_index = 1
+position = Vector2(-1020, 0)
+scale = Vector2(2, 2)
 
 [node name="2" parent="Biscuits" instance=ExtResource("1_xxs46")]
+z_index = 1
+scale = Vector2(2, 2)
 
 [node name="3" parent="Biscuits" instance=ExtResource("1_xxs46")]
-position = Vector2(400, 0)
+z_index = 1
+position = Vector2(1020, 0)
+scale = Vector2(2, 2)
 
 [node name="TextureButton" type="TextureButton" parent="."]
+z_index = 1
 offset_left = 525.0
 offset_top = -22.0
 offset_right = 3257.0
@@ -212,5 +220,12 @@ defense = 0
 special = 11
 dunkedDryness = 16
 dunkedSpecial = 11
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("8_dllaj")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

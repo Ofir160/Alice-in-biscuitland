@@ -231,16 +231,19 @@ libraries = {
 [node name="State 1" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
 z_index = 8
 position = Vector2(1370, -370)
+scale = Vector2(0.8, 0.8)
 hoverLeft = true
 
 [node name="State 2" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
 z_index = 8
 position = Vector2(1370, -160)
+scale = Vector2(0.8, 0.8)
 hoverLeft = true
 
 [node name="State 3" parent="Player State Biscuits" instance=ExtResource("3_6t5aa")]
 z_index = 8
 position = Vector2(1370, 50)
+scale = Vector2(0.8, 0.8)
 hoverLeft = true
 
 [node name="Timer" type="Timer" parent="Player State Biscuits"]

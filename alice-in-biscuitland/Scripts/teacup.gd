@@ -1,11 +1,16 @@
 class_name Teacup
 extends Node2D
 
+const hover = preload("res://Assets/Audio/SFX/biscuitHover.ogg")
+const unhover = preload("res://Assets/Audio/SFX/biscuitUnhover.ogg")
+
 @export var playerTeacup : bool
 @export var normalTexture : Texture2D
 @export var iceTexture : Texture2D
 @export var fireTexture : Texture2D
 @export var progressBar : ProgressBar
+
+@export var sfx : AudioStreamPlayer2D
 
 var maxTea : int
 var teaLevel : int
@@ -16,12 +21,16 @@ var teacup_state : int # 0 if normal. 1 if fire. 2 if Ice. 3 If we have time :p
 
 func _on_area_2d_mouse_entered() -> void:
 	if teacup_state != 0 and playerTeacup:
+		sfx.stream = hover
+		sfx.play()
 		$AnimationPlayer.play("appear")
 	hovering = true
 
 
 func _on_area_2d_mouse_exited() -> void:
 	if teacup_state != 0 and playerTeacup:
+		sfx.stream = unhover
+		sfx.play()
 		$AnimationPlayer.play("vanish")
 	hovering = false
 

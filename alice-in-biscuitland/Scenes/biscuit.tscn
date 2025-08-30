@@ -474,12 +474,13 @@ size = Vector2(250, 80)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06a0o"]
 size = Vector2(150, 200)
 
-[node name="Biscuit" type="Node2D"]
+[node name="Biscuit" type="Node2D" node_paths=PackedStringArray("sfx")]
 script = ExtResource("1_06a0o")
 timeToReset = 0.5
 cardName = "My name"
 Description = "WHATEVER we WANT"
 Img = "res://Assets/Sprites/placeholder.png"
+sfx = NodePath("SFX")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
@@ -542,6 +543,9 @@ vertical_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-4, -7.75)
 shape = SubResource("RectangleShape2D_06a0o")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

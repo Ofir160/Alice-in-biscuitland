@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://c4vmrw7mh2obl"]
+[gd_scene load_steps=42 format=3 uid="uid://c4vmrw7mh2obl"]
 
 [ext_resource type="PackedScene" uid="uid://d1g5dkte4qqt" path="res://Scenes/deck_manager.tscn" id="1_w7k78"]
 [ext_resource type="PackedScene" uid="uid://buxd6cop4cing" path="res://Scenes/battle_manager.tscn" id="2_f6xt6"]
@@ -15,10 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://cell7ha5trh3g" path="res://Scenes/enemy_defense.tscn" id="9_k7mbx"]
 [ext_resource type="PackedScene" uid="uid://dif5q1wkji74a" path="res://Scenes/thirst_power.tscn" id="9_xkp4y"]
 [ext_resource type="Texture2D" uid="uid://dyyu1s1xd6iih" path="res://Assets/Sprites/Background/Table.png" id="10_k7mbx"]
-[ext_resource type="Texture2D" uid="uid://b3qxavvnq80kt" path="res://Assets/Sprites/Background/Background.png" id="11_upb72"]
+[ext_resource type="Texture2D" uid="uid://b3qxavvnq80kt" path="res://Assets/Backgrounds/Background.png" id="11_upb72"]
 [ext_resource type="PackedScene" uid="uid://257j7gsm7grk" path="res://Scenes/thirst_power_enemy.tscn" id="13_486ce"]
 [ext_resource type="PackedScene" uid="uid://b18bnkti57bgc" path="res://Scenes/defense_power_enemy.tscn" id="14_387br"]
 [ext_resource type="PackedScene" uid="uid://6v35upfnowg1" path="res://Scenes/defense_power.tscn" id="15_vd41i"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="20_387br"]
 
 [sub_resource type="Animation" id="Animation_7vlph"]
 resource_name = "Enemy"
@@ -292,24 +293,95 @@ _data = {
 &"Sink": SubResource("Animation_fonr4")
 }
 
+[sub_resource type="QuadMesh" id="QuadMesh_486ce"]
+size = Vector2(2000, 100)
+
+[sub_resource type="Animation" id="Animation_387br"]
+resource_name = "Enemy Turn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy Turn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cwdtu"]
+resource_name = "Player Turn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player Turn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kcxpu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy Turn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player Turn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_emx8f"]
+_data = {
+&"Enemy Turn": SubResource("Animation_387br"),
+&"Player Turn": SubResource("Animation_cwdtu"),
+&"RESET": SubResource("Animation_kcxpu")
+}
+
 [node name="Battle" type="Node"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Battle Manager" parent="." node_paths=PackedStringArray("teacup", "enemyTeacup", "player", "enemy") instance=ExtResource("2_f6xt6")]
+[node name="Battle Manager" parent="." node_paths=PackedStringArray("teacup", "enemyTeacup", "player", "enemy", "turnSwitcher") instance=ExtResource("2_f6xt6")]
 cardsToPlay = 3
 teacup = NodePath("Player Teacup")
 enemyTeacup = NodePath("Enemy Teacup")
 player = NodePath("Player")
 enemy = NodePath("Enemy")
+turnSwitcher = NodePath("Turn Switcher")
 
-[node name="Deck Manager" parent="Battle Manager" node_paths=PackedStringArray("battleManager", "handBiscuits", "dunkAnimation", "eatAnimation", "dunkAnimationBiscuit", "eatAnimationBiscuit") instance=ExtResource("1_w7k78")]
+[node name="Deck Manager" parent="Battle Manager" node_paths=PackedStringArray("battleManager", "handBiscuits", "dunkAnimation", "eatAnimation", "dunkAnimationBiscuit", "eatAnimationBiscuit", "sfx") instance=ExtResource("1_w7k78")]
 battleManager = NodePath("..")
 handBiscuits = [NodePath("../HandDisplayBiscuits/1"), NodePath("../HandDisplayBiscuits/2"), NodePath("../HandDisplayBiscuits/3"), NodePath("../HandDisplayBiscuits/4"), NodePath("../HandDisplayBiscuits/5")]
 dunkAnimation = NodePath("../Player Teacup/BiscuitDunk")
 eatAnimation = NodePath("Eat Animation")
 dunkAnimationBiscuit = NodePath("../Player Teacup/DunkMask/Animation Biscuit")
 eatAnimationBiscuit = NodePath("Eat Mask/Animation Biscuit")
+sfx = NodePath("../../SFX")
 
 [node name="Eat Animation" type="AnimationPlayer" parent="Battle Manager/Deck Manager"]
 libraries = {
@@ -446,17 +518,62 @@ z_index = 5
 position = Vector2(385, -120)
 enemy = NodePath("../Enemy")
 
-[node name="Enemy" parent="Battle Manager" node_paths=PackedStringArray("enemyTeacup", "eatAnimation", "eatAnimationBiscuit") instance=ExtResource("4_f6xt6")]
+[node name="Enemy" parent="Battle Manager" node_paths=PackedStringArray("enemyTeacup", "eatAnimation", "eatAnimationBiscuit", "deckManager") instance=ExtResource("4_f6xt6")]
 enemyTeacup = NodePath("../Enemy Teacup")
 eatAnimation = NodePath("../Deck Manager/Eat Animation")
 eatAnimationBiscuit = NodePath("../Deck Manager/Eat Mask/Animation Biscuit")
+deckManager = NodePath("../Deck Manager")
 
 [node name="Timer" type="Timer" parent="Battle Manager"]
 wait_time = 3.0
 one_shot = true
 
+[node name="Enemy Turn Start Timer" type="Timer" parent="Battle Manager"]
+wait_time = 2.0
+one_shot = true
+
 [node name="SacrificeTimer" type="Timer" parent="Battle Manager"]
 one_shot = true
+
+[node name="Enemy Turn" type="MeshInstance2D" parent="Battle Manager"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 12
+position = Vector2(0, -417)
+mesh = SubResource("QuadMesh_486ce")
+
+[node name="Enemy Turn" type="RichTextLabel" parent="Battle Manager/Enemy Turn"]
+offset_left = -137.0
+offset_top = -51.0
+offset_right = 190.0
+offset_bottom = 78.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("20_387br")
+theme_override_font_sizes/normal_font_size = 64
+text = "Enemy Turn"
+
+[node name="Player Turn" type="MeshInstance2D" parent="Battle Manager"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 12
+position = Vector2(0, -400)
+mesh = SubResource("QuadMesh_486ce")
+
+[node name="Player Turn" type="RichTextLabel" parent="Battle Manager/Player Turn"]
+offset_left = -137.0
+offset_top = -51.0
+offset_right = 190.0
+offset_bottom = 78.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("20_387br")
+theme_override_font_sizes/normal_font_size = 64
+text = "Player Turn
+"
+
+[node name="Turn Switcher" type="AnimationPlayer" parent="Battle Manager"]
+libraries = {
+&"": SubResource("AnimationLibrary_emx8f")
+}
 
 [node name="Background" type="Node" parent="."]
 
@@ -469,5 +586,9 @@ texture = ExtResource("10_k7mbx")
 scale = Vector2(0.527, 0.527)
 texture = ExtResource("11_upb72")
 
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
 [connection signal="timeout" from="Battle Manager/Timer" to="Battle Manager" method="_on_timer_timeout"]
+[connection signal="timeout" from="Battle Manager/Enemy Turn Start Timer" to="Battle Manager" method="_on_enemy_turn_start_timer_timeout"]
 [connection signal="timeout" from="Battle Manager/SacrificeTimer" to="Battle Manager" method="_on_sacrifice_timer_timeout"]

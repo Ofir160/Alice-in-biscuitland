@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://crdmeebpfvt38"]
+
+[ext_resource type="Texture2D" uid="uid://b3qxavvnq80kt" path="res://Assets/Backgrounds/Background.png" id="1_ojehl"]
+[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_ek8ke"]
+[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="3_eoghk"]
+[ext_resource type="Texture2D" uid="uid://cqnwwawl577uc" path="res://Assets/Sprites/UI/Continue Button.png" id="4_j3ryr"]
+[ext_resource type="Texture2D" uid="uid://cpl3lksuvp582" path="res://Assets/Sprites/UI/Continue Button Selected.png" id="5_rjluv"]
+[ext_resource type="Script" uid="uid://dmuhfasb7r8dw" path="res://Scripts/reset_button.gd" id="6_gjtdd"]
+[ext_resource type="Script" uid="uid://dq7dbxo3rcpvf" path="res://Scripts/quit_button.gd" id="7_rjluv"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_14u15"]
+size = Vector2(800, 200)
+
+[node name="Game Over" type="Node"]
+
+[node name="Bg" type="Sprite2D" parent="."]
+scale = Vector2(0.527, 0.527)
+texture = ExtResource("1_ojehl")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="description" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 2
+position = Vector2(-1, -320)
+mesh = SubResource("QuadMesh_14u15")
+
+[node name="text" type="RichTextLabel" parent="description"]
+z_index = 1
+offset_left = -421.0
+offset_top = -141.0
+offset_right = 410.0
+offset_bottom = 172.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("2_ek8ke")
+theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_font_sizes/normal_font_size = 128
+text = "Game Over"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reset button" type="TextureButton" parent="."]
+z_index = 1
+offset_left = 120.0
+offset_top = -60.0
+offset_right = 2852.0
+offset_bottom = 1988.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_j3ryr")
+texture_hover = ExtResource("5_rjluv")
+script = ExtResource("6_gjtdd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Reset button"]
+modulate = Color(0.57188, 0.3364, 0.58, 1)
+layout_mode = 0
+offset_left = 990.0
+offset_top = 1066.67
+offset_right = 1990.0
+offset_bottom = 1441.67
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_eoghk")
+theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_font_sizes/normal_font_size = 256
+bbcode_enabled = true
+text = "[wave amp=150.0 freq=5.0 connected=1]Restart[/wave]"
+
+[node name="Quit button" type="TextureButton" parent="."]
+z_index = 1
+offset_left = -870.0
+offset_top = -63.0
+offset_right = 1862.0
+offset_bottom = 1985.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_j3ryr")
+texture_hover = ExtResource("5_rjluv")
+flip_h = true
+script = ExtResource("7_rjluv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Quit button"]
+modulate = Color(0.57188, 0.3364, 0.58, 1)
+layout_mode = 0
+offset_left = 1123.33
+offset_top = 1063.33
+offset_right = 2123.33
+offset_bottom = 1438.33
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_eoghk")
+theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_font_sizes/normal_font_size = 256
+bbcode_enabled = true
+text = "[wave amp=150.0 freq=5.0 connected=1]Quit[/wave]"
+
+[connection signal="pressed" from="Reset button" to="Reset button" method="_on_pressed"]
+[connection signal="pressed" from="Quit button" to="Quit button" method="_on_pressed"]
