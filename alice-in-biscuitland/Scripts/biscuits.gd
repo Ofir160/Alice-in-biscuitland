@@ -20,14 +20,15 @@ func _ready() -> void:
 		
 		displayBiscuit.cardName = biscuitStat.get(0)
 		displayBiscuit.Description = biscuitStat.get(1)
-		displayBiscuit.Img = biscuitStat.get(2)
-		displayBiscuit.dryness = biscuitStat.get(3)
-		displayBiscuit.defense = biscuitStat.get(4)
-		displayBiscuit.special = biscuitStat.get(5)
-		displayBiscuit.dunkedDryness = biscuitStat.get(6)
-		displayBiscuit.dunkedDefense = biscuitStat.get(7)
-		displayBiscuit.dunkedSpecial = biscuitStat.get(8)
-		displayBiscuit.onDunkSpecial = biscuitStat.get(9)
+		displayBiscuit.dunkedDescription = biscuitStat.get(2)
+		displayBiscuit.Img = biscuitStat.get(3)
+		displayBiscuit.dryness = biscuitStat.get(4)
+		displayBiscuit.defense = biscuitStat.get(5)
+		displayBiscuit.special = biscuitStat.get(6)
+		displayBiscuit.dunkedDryness = biscuitStat.get(7)
+		displayBiscuit.dunkedDefense = biscuitStat.get(8)
+		displayBiscuit.dunkedSpecial = biscuitStat.get(9)
+		displayBiscuit.onDunkSpecial = biscuitStat.get(10)
 		displayBiscuit.update_sprites()
 
 func _process(delta: float) -> void:

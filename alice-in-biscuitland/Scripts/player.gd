@@ -10,7 +10,6 @@ var defense : int
 var attackPower : int
 var defensePower : int
 
-
 var hovering : bool
 var states : Array[int] # Array of all the states the player is in
 var turnTimers : Dictionary[int, int]
@@ -28,7 +27,6 @@ func take_dryness(dryness : int) -> void:
 		thirst = dryness - defense
 		defense = 0
 	teacup.sip(thirst)
-
 
 func add_defense(_defense : int) -> void:
 	defense += _defense
@@ -141,7 +139,6 @@ func remove_state(state : int) -> void:
 		timer.wait_time = 1.0
 		timer.start()
 
-
 func has_state(state : int) -> bool:
 	if states.find(state) != -1:
 		return true
@@ -151,10 +148,8 @@ func has_state(state : int) -> bool:
 func _on_area_2d_mouse_entered() -> void:
 	hovering = true
 
-
 func _on_area_2d_mouse_exited() -> void:
 	hovering = false
-
 
 func _on_timer_timeout() -> void:
 	if not state1OnScreen:

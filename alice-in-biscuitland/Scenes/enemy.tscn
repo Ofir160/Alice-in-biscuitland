@@ -1,9 +1,9 @@
 [gd_scene load_steps=28 format=3 uid="uid://dgf7afl2xqsgs"]
 
 [ext_resource type="Script" uid="uid://dwybwf4sdhc0y" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_287tu"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="3_287tu"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="3_v54tr"]
-[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="4_0830c"]
+[ext_resource type="FontFile" uid="uid://dkm7gko2mx8qe" path="res://Assets/Fonts/CherrySwash-Bold.ttf" id="4_0830c"]
 [ext_resource type="Texture2D" uid="uid://bi0eglpfpg78a" path="res://Assets/Sprites/Enemies/Dialogue Box.png" id="5_0830c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
@@ -64,10 +64,10 @@ tracks/0/path = NodePath("Enemy Attack 1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 3.01, 8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, -180), Vector2(0, -180), Vector2(-1370, 50), Vector2(-1370, 50)]
+"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, -180), Vector2(0, -180), Vector2(-1370, 50)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -118,7 +118,7 @@ tracks/0/path = NodePath("Enemy Attack 2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 5.01),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, -180), Vector2(0, -180), Vector2(-1370, -160)]
@@ -226,10 +226,10 @@ tracks/0/path = NodePath("Enemy Attack 1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400)]
+"values": [Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400), Vector2(-1370, 50)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -280,10 +280,10 @@ tracks/0/path = NodePath("Enemy Attack 2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4, 8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400)]
+"values": [Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400), Vector2(-1370, -160)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -334,10 +334,10 @@ tracks/0/path = NodePath("Enemy Attack 3:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-800, -370), Vector2(-800, -370), Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400)]
+"values": [Vector2(-800, -370), Vector2(-800, -370), Vector2(-800, -160), Vector2(-800, -160), Vector2(-800, 50), Vector2(-800, 50), Vector2(0, 400), Vector2(0, 400), Vector2(-1370, -370)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -611,7 +611,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -300)]
+"values": [Vector2(0, -370)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -639,7 +639,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -300), Vector2(-400, -300)]
+"values": [Vector2(0, -370), Vector2(-400, -370)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -667,7 +667,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-400, -300), Vector2(0, -300)]
+"values": [Vector2(-400, -370), Vector2(0, -370)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -785,22 +785,23 @@ bus = &"SFX"
 [node name="DialogueBox" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = 5
-position = Vector2(0, -300)
+position = Vector2(0, -370)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_0830c")
 offset = Vector2(625, 700)
 
 [node name="Dialogue" type="RichTextLabel" parent="DialogueBox"]
-offset_left = -336.0
-offset_top = -192.0
-offset_right = 330.0
-offset_bottom = 190.0
+offset_left = -292.0
+offset_top = -234.0
+offset_right = 444.0
+offset_bottom = 326.0
+scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_287tu")
 theme_override_fonts/bold_font = ExtResource("4_0830c")
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
-text = "Hi"
+text = "Welcome to Biscuitland! I hope you didn't hit your head too hard on the way down. What do they call you?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -825,6 +826,7 @@ disabled = true
 libraries = {
 &"": SubResource("AnimationLibrary_haro7")
 }
+autoplay = "RESET"
 
 [node name="Dialogue Timer" type="Timer" parent="."]
 one_shot = true

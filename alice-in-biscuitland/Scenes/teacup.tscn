@@ -1,16 +1,18 @@
-[gd_scene load_steps=21 format=3 uid="uid://cavaphfau3v73"]
+[gd_scene load_steps=33 format=3 uid="uid://cavaphfau3v73"]
 
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
 [ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_irbve"]
 [ext_resource type="Texture2D" uid="uid://bb6ecy17vkt4j" path="res://Assets/Sprites/Teacup/Teamask.png" id="3_qboyo"]
 [ext_resource type="Texture2D" uid="uid://50hyyaemvhov" path="res://Assets/Sprites/Teacup/tea.png" id="4_f25l7"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="5_kprad"]
-[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="6_f25l7"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="5_jlq1e"]
 [ext_resource type="Texture2D" uid="uid://c3e2pbkvd2pm0" path="res://Assets/Sprites/Teacup/Fire.png" id="7_cgf0c"]
 [ext_resource type="Texture2D" uid="uid://3dgiqp7pwisx" path="res://Assets/Sprites/Teacup/Frozen.png" id="8_rf5rc"]
 [ext_resource type="Texture2D" uid="uid://dg1i0t51u2a8k" path="res://Assets/Sprites/Teacup/Fully Fire.png" id="9_rf5rc"]
 [ext_resource type="Texture2D" uid="uid://c5al84smwl2fl" path="res://Assets/Sprites/Teacup/Fully Frozen.png" id="9_wyv0a"]
 [ext_resource type="Texture2D" uid="uid://ctd2wc8xvx5d7" path="res://Assets/Sprites/Teacup/Natural.png" id="10_jlq1e"]
+[ext_resource type="Texture2D" uid="uid://gfofoam5feq0" path="res://Assets/Sprites/Teacup/regular fire spritesheet.png" id="12_sumvu"]
+[ext_resource type="Texture2D" uid="uid://cu0brb2gg0y3x" path="res://Assets/Sprites/Biscuits/Eat Mask.png" id="13_ie8kt"]
+[ext_resource type="Texture2D" uid="uid://coo6gms57qm4a" path="res://Assets/Sprites/Teacup/blue fire spritesheet.png" id="14_wyd1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
 radius = 115.004
@@ -157,6 +159,87 @@ bg_color = Color(1, 1, 1, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv0a"]
 bg_color = Color(0.94, 0.94, 0.94, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38gn"]
+atlas = ExtResource("12_sumvu")
+region = Rect2(0, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spj76"]
+atlas = ExtResource("12_sumvu")
+region = Rect2(2259, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdxxe"]
+atlas = ExtResource("12_sumvu")
+region = Rect2(4518, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gt8t"]
+atlas = ExtResource("12_sumvu")
+region = Rect2(6777, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el5n5"]
+atlas = ExtResource("14_wyd1r")
+region = Rect2(0, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcd4v"]
+atlas = ExtResource("14_wyd1r")
+region = Rect2(2259, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogm1j"]
+atlas = ExtResource("14_wyd1r")
+region = Rect2(4518, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdpqa"]
+atlas = ExtResource("14_wyd1r")
+region = Rect2(6777, 0, 2259, 2475)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gfw0"]
+atlas = ExtResource("13_ie8kt")
+region = Rect2(1832, 945, 916, 945)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eibwa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38gn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spj76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdxxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gt8t")
+}],
+"loop": true,
+"name": &"Fire",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el5n5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcd4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogm1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdpqa")
+}],
+"loop": true,
+"name": &"Fully Fire",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gfw0")
+}],
+"loop": true,
+"name": &"Natural",
+"speed": 5.0
+}]
+
 [node name="Teacup" type="Node2D" node_paths=PackedStringArray("progressBar", "sfx")]
 script = ExtResource("1_re2n1")
 playerTeacup = true
@@ -193,13 +276,13 @@ flip_h = true
 
 [node name="Text" type="RichTextLabel" parent="."]
 z_index = 2
-offset_left = -63.0
-offset_top = -48.0
-offset_right = 113.0
-offset_bottom = 65.0
+offset_left = -80.0
+offset_top = -46.0
+offset_right = 87.0
+offset_bottom = 54.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
-theme_override_fonts/normal_font = ExtResource("5_kprad")
+theme_override_fonts/normal_font = ExtResource("5_jlq1e")
 theme_override_font_sizes/normal_font_size = 64
 text = "10/12"
 
@@ -218,8 +301,7 @@ mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/normal_font = ExtResource("5_kprad")
-theme_override_fonts/bold_font = ExtResource("6_f25l7")
+theme_override_fonts/normal_font = ExtResource("5_jlq1e")
 theme_override_font_sizes/normal_font_size = 32
 scroll_active = false
 horizontal_alignment = 1
@@ -252,6 +334,14 @@ fill_mode = 3
 show_percentage = false
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="FireAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -75)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_eibwa")
+animation = &"Fully Fire"
+autoplay = "Natural"
+frame_progress = 0.312497
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

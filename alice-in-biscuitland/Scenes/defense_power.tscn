@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dare3xhlh5obj" path="res://Assets/Sprites/Player/Defense Power.png" id="1_6itvo"]
 [ext_resource type="Script" uid="uid://dru0pbbi43f4t" path="res://Scripts/defense_power.gd" id="1_cv46l"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_fnej4"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="2_fnej4"]
 
 [sub_resource type="Animation" id="Animation_jhs4f"]
 length = 0.001
@@ -110,10 +110,10 @@ texture = ExtResource("1_6itvo")
 offset = Vector2(-8, 100)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -12.0
-offset_top = -51.0
-offset_right = 43.0
-offset_bottom = 131.0
+offset_left = -17.0
+offset_top = -50.0
+offset_right = 38.0
+offset_bottom = 132.0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_fnej4")
 theme_override_font_sizes/normal_font_size = 64
@@ -132,13 +132,14 @@ mesh = SubResource("QuadMesh_j20op")
 
 [node name="Description" type="RichTextLabel" parent="description"]
 offset_left = -92.0
-offset_top = -47.0
-offset_right = 115.0
-offset_bottom = 81.0
+offset_top = -64.0
+offset_right = 93.0
+offset_bottom = 67.0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_fnej4")
 theme_override_font_sizes/normal_font_size = 32
 text = "Increases Defense biscuits by 1"
+horizontal_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 

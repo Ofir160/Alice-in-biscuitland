@@ -390,17 +390,27 @@ func red_queen(lastAction : int, value : float) -> Array[Array]:
 	elif specialState:
 		match lastAction:
 			RedQueen.ENRAGE:
-				actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+				if redQueenGuardCount >= 3:
+					actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+					actions.append(redQueenActions[RedQueen.SNARKY])
+				else:
+					actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
 			RedQueen.ROYAL_STRIKE:
-				if value <= 0.7:
-					actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
-				else:
+				if redQueenGuardCount >= 3:
 					actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+				else:
+					if value <= 0.7:
+						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					else:
+						actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
 			RedQueen.SNARKY:
-				if value <= 0.7:
-					actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
-				else:
+				if redQueenGuardCount >= 3:
 					actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+				else:
+					if value <= 0.7:
+						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					else:
+						actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
 			RedQueen.OFF_WITH_YOUR_HEAD:
 				actions.append(redQueenActions[RedQueen.ROYAL_TOILET_PAPER])
 			RedQueen.SUMMON_GUARDS:
@@ -419,68 +429,116 @@ func red_queen(lastAction : int, value : float) -> Array[Array]:
 		match lastAction:
 			RedQueen.BOLSTER:
 				if stateSpace.get(RedQueen.BOLSTER).get(0) >= 2 or stateSpace.get(RedQueen.ARROGANCE).get(0) >= 2:
-					if value <= 0.8:
+					if redQueenGuardCount >= 3:
 						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
 						actions.append(redQueenActions[RedQueen.SNARKY])
 					else:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						if value <= 0.8:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						else:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
 				else:
-					if value <= 0.4:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
-					elif value <= 0.5:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					if redQueenGuardCount >= 3:
+						if value <= 0.45:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						else:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
 					else:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
+						if value <= 0.4:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						elif value <= 0.5:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						else:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
 			RedQueen.ARROGANCE:
 				if stateSpace.get(RedQueen.BOLSTER).get(0) >= 2 or stateSpace.get(RedQueen.ARROGANCE).get(0) >= 2:
-					if value <= 0.8:
+					if redQueenGuardCount >= 3:
 						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
 						actions.append(redQueenActions[RedQueen.SNARKY])
 					else:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						if value <= 0.8:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						else:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
 				else:
-					if value <= 0.4:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
-					elif value <= 0.5:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					if redQueenGuardCount >= 3:
+						if value <= 0.45:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						else:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
 					else:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
+						if value <= 0.4:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						elif value <= 0.5:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						else:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
 			RedQueen.ROYAL_STRIKE:
 				if stateSpace.get(RedQueen.ROYAL_STRIKE).get(0) >= 2 or stateSpace.get(RedQueen.SNARKY).get(0) >= 2:
-					if value <= 0.8:
+					if redQueenGuardCount >= 3:
 						actions.append(redQueenActions[RedQueen.BOLSTER])
 						actions.append(redQueenActions[RedQueen.ARROGANCE])
 					else:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						if value <= 0.8:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						else:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
 				else:
-					if value <= 0.4:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
-					elif value <= 0.5:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					if redQueenGuardCount >= 3:
+						if value <= 0.45:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						else:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
 					else:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
+						if value <= 0.4:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						elif value <= 0.5:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						else:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
 			RedQueen.SNARKY:
 				if stateSpace.get(RedQueen.ROYAL_STRIKE).get(0) >= 2 or stateSpace.get(RedQueen.SNARKY).get(0) >= 2:
-					if value <= 0.8:
+					if redQueenGuardCount >= 3:
 						actions.append(redQueenActions[RedQueen.BOLSTER])
 						actions.append(redQueenActions[RedQueen.ARROGANCE])
 					else:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						if value <= 0.8:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
+						else:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
 				else:
-					if value <= 0.4:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
-					elif value <= 0.5:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					if redQueenGuardCount >= 3:
+						if value <= 0.45:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						else:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
 					else:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
+						if value <= 0.4:
+							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
+							actions.append(redQueenActions[RedQueen.SNARKY])
+						elif value <= 0.5:
+							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						else:
+							actions.append(redQueenActions[RedQueen.BOLSTER])
+							actions.append(redQueenActions[RedQueen.ARROGANCE])
 			RedQueen.SUMMON_GUARDS:
 				actions.append(redQueenActions[RedQueen.BOLSTER])
 				actions.append(redQueenActions[RedQueen.ARROGANCE])
@@ -584,121 +642,124 @@ func get_actions() -> Array[Array]:
 func set_dialogue() -> void:
 	match index:
 		0:
-			dialogueCounter = 55
-			match dialogueCounter:
-				0:
-					deckManager.hand.draggingDisabled = true
-					speak("Welcome to Biscuitland! I hope you didn't hit your head too hard on the way down. What do they call you?")
-				1:
-					speak("Alice! How novel. I don't think I've ever met an Alice before. Where are you from?")
-				2:
-					speak("Hm. I'm not so sure that place exists.")
-				3:
-					speak("Let me explain how things work around here.")
-				4:
-					speak("In Biscuitland, you will encounter many... interesting personalities.")
-				5:
-					speak("You will face each of them off in an epic biscuit battle,")
-				6:
-					speak("and may only proceed once each enemy has been defeated.")
-				7:
-					speak("You and the enemy each have a level of tea. If you, or the enemy, run out of tea, you perish. How sad.")
-				8:
-					speak("It follows that your aim is to deplete the enemy of his tea.")
-				9:
-					speak("The battle is played in turns. On your turn, you will play 3 of 5 biscuits.")
-				10:
-					speak("Each biscuit has a unique and wonderful effect.")
-				11:
-					speak("Hover over the biscuits in your hand to see what they do. Play biscuits by dragging and dropping them.")
-				12:
-					speak("Biscuits can be given to the enemy.")
-				13:
-					speak("For example, biscuits that inflict thirst and force your enemy to drink tea.")
-				14:
-					speak("They can also be given to yourself.")
-				15:
-					speak("For example, to increase your defense.")
-				16:
-					speak("Once you have played your biscuits, it is then the enemy's turn,")
-				17:
-					speak("and they will play up to three biscuits.")
-				18:
-					speak("You and the enemy both have a defense bar.")
-				19:
-					speak("This acts as a buffer, reducing the thirst inflicted by a biscuit by the defense level.")
-				20:
-					speak("Any excess thirst is then deducted from your tea. That make sense?")
-				21:
-					speak("Great.")
-				22:
-					speak("What was that?")
-				23:
-					speak("Where's the risk and excitement, you say?")
-				24:
-					speak("You've got a spine on you!")
-				25:
-					speak("I like it. Well, if you insist...")
-				26:
-					speak("Biscuits can be played as they are, or, you may choose to dip them in your tea.")
-				27:
-					speak("The benefit is that your biscuit's abilities are greatly intensified;")
-				28:
-					speak("the risk is that the biscuit may sink in the tea and be lost for the rest of the battle.")
-				29:
-					speak("The stakes are raised ever higher! I'm simply giddy with excitement!")
-				30:
-					speak("For your benefit, there is a thermometer beside your tea,")
-				31:
-					speak("which shows you the chance of your biscuits sinking in your tea.")
-				32:
-					speak("You can read, can't you?")
-				33:
-					speak("Excellent. The higher the level in the thermometer,")
-				34:
-					speak("the greater the chance of your biscuit sinking in the tea!")
-				35:
-					speak("Beware! If you sink all your biscuits, you'll have nothing to battle with!")
-				36:
-					speak("The fight will be over, and you will have perished a slow and embarrassing death!")
-				37:
-					speak("No, not really. We just send you back to the start. We aren't that frightful. Why are you so pale?")
-				38:
-					speak("May I offer you a biscuit? Does that make you feel better?")
-				39:
-					speak("Excellent. Let us continue.")
-				40:
-					speak("Now, some biscuits have lasting effects.")
-				41:
-					speak("These effects are called modifiers. Hover over a modifier to see what it does.")
-				42:
-					speak("The enemy also has modifiers. Hover over the enemy to see what they are.")
-				43:
-					speak("Are you following? Do you need a pen and paper?")
-				44:
-					speak("Oh bother, I left it in my other suit. Sorry. Oh, one more thing!")
-				45:
-					speak("Powerups increase the... well... power... of your biscuits.")
-				46:
-					speak("For example, a thirst powerup of one increases the thirst each attack biscuit inflicts by one.")
-				47:
-					speak("A defense powerup of two increases the defense of each defending biscuit by two. It's simple!")
-				48:
-					speak("What's that?")
-				49:
-					speak("You're afraid?")
-				50:
-					speak("Oh, that will not do, my dear!")
-				51:
-					speak("You must have the courage of a thousand biscuit soldiers,")
-				52:
-					speak("else you will never defeat the... well. You'll see.")
-				53:
-					speak("Let me help you out. How about we do battle together, first? I, as your friend and humble servant?")
-				54:
-					speak("You will? Excellent. Shall we begin?")
-				55:
-					deckManager.hand.draggingDisabled = false
+			if not GameManager.playedTutorial:
+				dialogueCounter = 55
+				match dialogueCounter:
+					0:
+						deckManager.hand.draggingDisabled = true
+						speak("Welcome to Biscuitland! I hope you didn't hit your head too hard on the way down. What do they call you?")
+					1:
+						speak("Alice! How novel. I don't think I've ever met an Alice before. Where are you from?")
+					2:
+						speak("Hm. I'm not so sure that place exists.")
+					3:
+						speak("Let me explain how things work around here.")
+					4:
+						speak("In Biscuitland, you will encounter many... interesting personalities.")
+					5:
+						speak("You will face each of them off in an epic biscuit battle,")
+					6:
+						speak("and may only proceed once each enemy has been defeated.")
+					7:
+						speak("You and the enemy each have a level of tea. If you, or the enemy, run out of tea, you perish. How sad.")
+					8:
+						speak("It follows that your aim is to deplete the enemy of his tea.")
+					9:
+						speak("The battle is played in turns. On your turn, you will play 3 of 5 biscuits.")
+					10:
+						speak("Each biscuit has a unique and wonderful effect.")
+					11:
+						speak("Hover over the biscuits in your hand to see what they do. Play biscuits by dragging and dropping them.")
+					12:
+						speak("Biscuits can be given to the enemy.")
+					13:
+						speak("For example, biscuits that inflict thirst and force your enemy to drink tea.")
+					14:
+						speak("They can also be given to yourself.")
+					15:
+						speak("For example, to increase your defense.")
+					16:
+						speak("Once you have played your biscuits, it is then the enemy's turn,")
+					17:
+						speak("and they will play up to three biscuits.")
+					18:
+						speak("You and the enemy both have a defense bar.")
+					19:
+						speak("This acts as a buffer, reducing the thirst inflicted by a biscuit by the defense level.")
+					20:
+						speak("Any excess thirst is then deducted from your tea. That make sense?")
+					21:
+						speak("Great.")
+					22:
+						speak("What was that?")
+					23:
+						speak("Where's the risk and excitement, you say?")
+					24:
+						speak("You've got a spine on you!")
+					25:
+						speak("I like it. Well, if you insist...")
+					26:
+						speak("Biscuits can be played as they are, or, you may choose to dip them in your tea.")
+					27:
+						speak("The benefit is that your biscuit's abilities are greatly intensified;")
+					28:
+						speak("the risk is that the biscuit may sink in the tea and be lost for the rest of the battle.")
+					29:
+						speak("The stakes are raised ever higher! I'm simply giddy with excitement!")
+					30:
+						speak("For your benefit, there is a thermometer beside your tea,")
+					31:
+						speak("which shows you the chance of your biscuits sinking in your tea.")
+					32:
+						speak("You can read, can't you?")
+					33:
+						speak("Excellent. The higher the level in the thermometer,")
+					34:
+						speak("the greater the chance of your biscuit sinking in the tea!")
+					35:
+						speak("Beware! If you sink all your biscuits, you'll have nothing to battle with!")
+					36:
+						speak("The fight will be over, and you will have perished a slow and embarrassing death!")
+					37:
+						speak("No, not really. We just send you back to the start. We aren't that frightful. Why are you so pale?")
+					38:
+						speak("May I offer you a biscuit? Does that make you feel better?")
+					39:
+						speak("Excellent. Let us continue.")
+					40:
+						speak("Now, some biscuits have lasting effects.")
+					41:
+						speak("These effects are called modifiers. Hover over a modifier to see what it does.")
+					42:
+						speak("The enemy also has modifiers. Hover over the enemy to see what they are.")
+					43:
+						speak("Are you following? Do you need a pen and paper?")
+					44:
+						speak("Oh bother, I left it in my other suit. Sorry. Oh, one more thing!")
+					45:
+						speak("Powerups increase the... well... power... of your biscuits.")
+					46:
+						speak("For example, a thirst powerup of one increases the thirst each attack biscuit inflicts by one.")
+					47:
+						speak("A defense powerup of two increases the defense of each defending biscuit by two. It's simple!")
+					48:
+						speak("What's that?")
+					49:
+						speak("You're afraid?")
+					50:
+						speak("Oh, that will not do, my dear!")
+					51:
+						speak("You must have the courage of a thousand biscuit soldiers,")
+					52:
+						speak("else you will never defeat the... well. You'll see.")
+					53:
+						speak("Let me help you out. How about we do battle together, first? I, as your friend and humble servant?")
+					54:
+						speak("You will? Excellent. Shall we begin?")
+					55:
+						#dialogueAnimation.play("vanish")
+						GameManager.playedTutorial = true
+						deckManager.hand.draggingDisabled = false
 					
 		1:
 			pass
@@ -784,15 +845,17 @@ func init() -> void:
 	initialize_state_space()
 
 func speak(text : String) -> void:
+	if dialogueCounter == 0:
+		dialogueAnimation.play("appear")
+		typewriterTimer.wait_time = 0.5
+		typewriterTimer.start()
+	else:
+		_on_typewriter_timer_timeout()
 	dialogueCounter += 1
 	dialogue.text = text
 	dialogueTypewriterFinished = false
 	dialogue.visible_characters = 0
-	dialogueAnimation.play("appear")
 	dialogueBox.disabled = false
-	
-	typewriterTimer.wait_time = 0.6
-	typewriterTimer.start()
 
 func hoverDialogue() -> void:
 	hoveringDialogue = true
@@ -804,17 +867,12 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click") and hoveringDialogue and dialogueTypewriterFinished:
 		helperText.text = ""
 		dialogue.text = ""
-		dialogueAnimation.play("vanish")
 		dialogueBox.disabled = false
-		dialogueTimer.wait_time = 0.75
-		dialogueTimer.start()
-
-func _on_dialogue_timer_timeout() -> void:
-	set_dialogue()
+		set_dialogue()
 
 func _on_typewriter_timer_timeout() -> void:
 	if dialogue.visible_characters == 0:
-		typewriterTimer.wait_time = 0.03
+		typewriterTimer.wait_time = 0.015
 	dialogue.visible_characters += 1
 	
 	typerwriterSound.stop()

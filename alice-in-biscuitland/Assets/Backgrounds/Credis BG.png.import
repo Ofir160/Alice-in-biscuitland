@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3k1ngl3cropf"
-path="res://.godot/imported/Enter battle sign.png-15c6ef6d2788635b2d0e3a9e8ba970e1.ctex"
+uid="uid://dlpunlgfulltd"
+path="res://.godot/imported/Credis BG.png-bdc59466c7fd15734a8add0f87935ab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/Enter battle sign.png"
-dest_files=["res://.godot/imported/Enter battle sign.png-15c6ef6d2788635b2d0e3a9e8ba970e1.ctex"]
+source_file="res://Assets/Backgrounds/Credis BG.png"
+dest_files=["res://.godot/imported/Credis BG.png-bdc59466c7fd15734a8add0f87935ab5.ctex"]
 
 [params]
 

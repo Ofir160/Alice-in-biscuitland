@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3k1ngl3cropf"
-path="res://.godot/imported/Enter battle sign.png-15c6ef6d2788635b2d0e3a9e8ba970e1.ctex"
+uid="uid://gfofoam5feq0"
+path="res://.godot/imported/regular fire spritesheet.png-99d814ec8687865187a83eeceab89762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/Enter battle sign.png"
-dest_files=["res://.godot/imported/Enter battle sign.png-15c6ef6d2788635b2d0e3a9e8ba970e1.ctex"]
+source_file="res://Assets/Sprites/Teacup/regular fire spritesheet.png"
+dest_files=["res://.godot/imported/regular fire spritesheet.png-99d814ec8687865187a83eeceab89762.ctex"]
 
 [params]
 

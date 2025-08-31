@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://crdmeebpfvt38"]
+[gd_scene load_steps=11 format=3 uid="uid://crdmeebpfvt38"]
 
 [ext_resource type="Texture2D" uid="uid://b3qxavvnq80kt" path="res://Assets/Backgrounds/Background.png" id="1_ojehl"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_ek8ke"]
-[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="3_eoghk"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="2_ek8ke"]
+[ext_resource type="FontFile" uid="uid://dkm7gko2mx8qe" path="res://Assets/Fonts/CherrySwash-Bold.ttf" id="3_eoghk"]
+[ext_resource type="Script" uid="uid://cf7v62p2x4gb8" path="res://Scripts/death_message.gd" id="4_gjtdd"]
 [ext_resource type="Texture2D" uid="uid://cqnwwawl577uc" path="res://Assets/Sprites/UI/Continue Button.png" id="4_j3ryr"]
 [ext_resource type="Texture2D" uid="uid://cpl3lksuvp582" path="res://Assets/Sprites/UI/Continue Button Selected.png" id="5_rjluv"]
 [ext_resource type="Script" uid="uid://dmuhfasb7r8dw" path="res://Scripts/reset_button.gd" id="6_gjtdd"]
@@ -10,6 +11,9 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_14u15"]
 size = Vector2(800, 200)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rjluv"]
+size = Vector2(725, 100)
 
 [node name="Game Over" type="Node"]
 
@@ -27,10 +31,10 @@ mesh = SubResource("QuadMesh_14u15")
 
 [node name="text" type="RichTextLabel" parent="description"]
 z_index = 1
-offset_left = -421.0
-offset_top = -141.0
-offset_right = 410.0
-offset_bottom = 172.0
+offset_left = -433.0
+offset_top = -155.0
+offset_right = 398.0
+offset_bottom = 158.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -39,6 +43,31 @@ theme_override_fonts/normal_font = ExtResource("2_ek8ke")
 theme_override_fonts/bold_font = ExtResource("3_eoghk")
 theme_override_font_sizes/normal_font_size = 128
 text = "Game Over"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="death message" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 2
+position = Vector2(0, -125)
+mesh = SubResource("QuadMesh_rjluv")
+script = ExtResource("4_gjtdd")
+
+[node name="text" type="RichTextLabel" parent="death message"]
+z_index = 1
+offset_left = -417.0
+offset_top = -154.0
+offset_right = 414.0
+offset_bottom = 159.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("2_ek8ke")
+theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_font_sizes/normal_font_size = 64
+text = "You drank all your Tea!"
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -57,13 +86,12 @@ script = ExtResource("6_gjtdd")
 [node name="RichTextLabel" type="RichTextLabel" parent="Reset button"]
 modulate = Color(0.57188, 0.3364, 0.58, 1)
 layout_mode = 0
-offset_left = 990.0
+offset_left = 883.333
 offset_top = 1066.67
-offset_right = 1990.0
+offset_right = 1883.33
 offset_bottom = 1441.67
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("3_eoghk")
-theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_fonts/normal_font = ExtResource("2_ek8ke")
 theme_override_font_sizes/normal_font_size = 256
 bbcode_enabled = true
 text = "[wave amp=150.0 freq=5.0 connected=1]Restart[/wave]"
@@ -88,8 +116,7 @@ offset_top = 1063.33
 offset_right = 2123.33
 offset_bottom = 1438.33
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("3_eoghk")
-theme_override_fonts/bold_font = ExtResource("3_eoghk")
+theme_override_fonts/normal_font = ExtResource("2_ek8ke")
 theme_override_font_sizes/normal_font_size = 256
 bbcode_enabled = true
 text = "[wave amp=150.0 freq=5.0 connected=1]Quit[/wave]"

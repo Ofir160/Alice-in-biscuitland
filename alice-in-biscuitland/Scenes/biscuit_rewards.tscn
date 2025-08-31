@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wn4wj2eat0qo"]
+[gd_scene load_steps=12 format=3 uid="uid://wn4wj2eat0qo"]
 
 [ext_resource type="Script" uid="uid://nspyxxvt548s" path="res://Scripts/biscuits.gd" id="1_mduvw"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_xxs46"]
@@ -6,8 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://cpl3lksuvp582" path="res://Assets/Sprites/UI/Continue Button Selected.png" id="4_l1xaj"]
 [ext_resource type="Script" uid="uid://250f6uhxrtft" path="res://Scripts/continue_button.gd" id="4_mbcbx"]
 [ext_resource type="Script" uid="uid://epyc5q1b2hjv" path="res://Scripts/biscuit_compendium.gd" id="5_wgthi"]
-[ext_resource type="FontFile" uid="uid://calg5hwqxyc0i" path="res://Assets/Fonts/MountainsofChristmas-Bold.ttf" id="6_6dgm8"]
 [ext_resource type="Texture2D" uid="uid://ca3jyi1prh8fb" path="res://Assets/Backgrounds/Card Selection Background.png" id="8_dllaj"]
+[ext_resource type="Script" uid="uid://cg1magmhxsqo3" path="res://Scripts/reward_message.gd" id="9_28mko"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="9_j8pby"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_24d3c"]
+size = Vector2(1250, 300)
+
+[sub_resource type="QuadMesh" id="QuadMesh_28mko"]
+size = Vector2(1050, 100)
 
 [node name="Biscuit Rewards" type="Node"]
 
@@ -36,11 +43,11 @@ scale = Vector2(2, 2)
 
 [node name="TextureButton" type="TextureButton" parent="."]
 z_index = 1
-offset_left = 525.0
-offset_top = -22.0
-offset_right = 3257.0
-offset_bottom = 2026.0
-scale = Vector2(0.5, 0.5)
+offset_left = 791.0
+offset_top = 209.0
+offset_right = 3523.0
+offset_bottom = 2257.0
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("3_mbcbx")
 texture_hover = ExtResource("4_l1xaj")
 script = ExtResource("4_mbcbx")
@@ -48,35 +55,46 @@ script = ExtResource("4_mbcbx")
 [node name="RichTextLabel" type="RichTextLabel" parent="TextureButton"]
 modulate = Color(0.57188, 0.3364, 0.58, 1)
 layout_mode = 0
-offset_left = 900.0
-offset_top = 1055.0
-offset_right = 1900.0
-offset_bottom = 1430.0
+offset_left = 941.667
+offset_top = 1110.0
+offset_right = 2203.67
+offset_bottom = 1514.0
+scale = Vector2(0.7, 0.7)
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("6_6dgm8")
-theme_override_fonts/bold_font = ExtResource("6_6dgm8")
+theme_override_fonts/normal_font = ExtResource("9_j8pby")
 theme_override_font_sizes/normal_font_size = 256
 bbcode_enabled = true
 text = "[wave amp=150.0 freq=5.0 connected=1]This Way[/wave]"
 
 [node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]
 script = ExtResource("5_wgthi")
-biscuitCompendium = [NodePath("Big Biscuit"), NodePath("Defend"), NodePath("Refill"), NodePath("S\'more"), NodePath("Make it bigger"), NodePath("Make it smaller"), NodePath("Untouchable"), NodePath("Jaffa Cake"), NodePath("Gambler\'s Cookie"), NodePath("Fire"), NodePath("Sacrifice"), NodePath("Fireproof"), NodePath("Ragebait"), NodePath("Ice"), NodePath("Frost"), NodePath("Superfreeze"), NodePath("Renewal")]
+biscuitCompendium = [NodePath("Line of Defense"), NodePath("Defend"), NodePath("Refill"), NodePath("S\'more"), NodePath("Make it bigger"), NodePath("Make it smaller"), NodePath("Untouchable"), NodePath("Jaffa Cake"), NodePath("Gambler\'s Cookie"), NodePath("Fire"), NodePath("Sacrifice"), NodePath("Fireproof"), NodePath("Ragebait"), NodePath("Ice"), NodePath("Frost"), NodePath("Renewal")]
 
-[node name="Big Biscuit" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+[node name="Line of Defense" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "The Big Biscuit"
-Description = "Deals 5 Damage. Adds 30 Defense"
-dryness = 5
-defense = 30
-special = 0
-dunkedDryness = 3
-dunkedDefense = 40
+Description = "Adds /b Defense. Adds 2 Extra Defense for every Defense Biscuit in your hand."
+dunkedDescription = "Adds /b Defense. Adds 4 Extra Defense for every Defense Biscuit in your hand.Adds /b Defense."
+dryness = 0
+defense = 0
+special = 11
+dunkedSpecial = 11
+
+[node name="Grow" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
+position = Vector2(1699, 1391)
+cardName = "Grow"
+Description = "Gain 1 Thirst and 1 Defense Power. Gain 2 of each if Dunked."
+dunkedDescription = "Gain 2 Thirst and 2 Defense Power."
+dryness = 0
+defense = 0
+special = 12
+dunkedSpecial = 12
 
 [node name="Defend" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Defend"
-Description = "Adds 10 Defense. 20 If Dunked"
+Description = "Adds /b Defense. 20 If Dunked."
+dunkedDescription = "Adds /b Defense."
 dryness = 0
 defense = 10
 special = 0
@@ -85,7 +103,7 @@ dunkedDefense = 20
 [node name="Refill" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Refill"
-Description = "Refills tea by 10"
+Description = "Refills tea by 10. To play this biscuit Dunk it."
 dryness = 0
 defense = 0
 special = 0
@@ -94,7 +112,8 @@ onDunkSpecial = 1
 [node name="S\'more" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "S'more"
-Description = "On your next turn you must play all biscuits"
+Description = "On your next turn you must play all biscuits. Also Gains 1 Thirst and Defense Power if Dunked."
+dunkedDescription = "On your next turn you must play all your cards. Gain 1 Thirst and Defense Power."
 Img = "res://Assets/Sprites/Biscuits/S'more.png"
 dryness = 0
 defense = 0
@@ -104,7 +123,8 @@ dunkedSpecial = 1
 [node name="Make it bigger" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Make it bigger"
-Description = "Enemy thirst x2. Your Thirst x2"
+Description = "Doubles the Thirst of Opponent's and Player's Thirst Biscuits. Lasts for two turns."
+dunkedDescription = "Doubles the Thirst of Player's Thirst Biscuits. Lasts for two turns."
 dryness = 0
 defense = 0
 special = 2
@@ -113,7 +133,8 @@ dunkedSpecial = 2
 [node name="Make it smaller" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Make it smaller"
-Description = "Enemy thirst /2. Your Thirst /2. Defence x2"
+Description = "Halfs the Thirst of Opponent's and Player's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. "
+dunkedDescription = "Halfs the Thirst of Opponent's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. "
 dryness = 0
 defense = 0
 special = 3
@@ -122,7 +143,8 @@ dunkedSpecial = 3
 [node name="Untouchable" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Untouchable"
-Description = "Adds 30 Defense. You cannot gain defence next turn"
+Description = "Adds /b Defense.  40 if Dunked. You cannot gain defence next turn."
+dunkedDescription = "Adds /b Defense. You cannot gain defence next turn."
 dryness = 0
 defense = 30
 dunkedDefense = 40
@@ -131,7 +153,8 @@ dunkedSpecial = 4
 [node name="Jaffa Cake" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Jaffa Cake"
-Description = "Not a biscuit!. 50% chance to not do anything"
+Description = "Not a biscuit!. 50% chance to do deal /j Thirst. 18 if Dunked. Otherwise does nothing."
+dunkedDescription = "Not a biscuit!. 50% chance to do deal /j Thirst. Otherwise does nothing."
 dryness = 0
 defense = 0
 special = 5
@@ -140,7 +163,8 @@ dunkedSpecial = 5
 [node name="Gambler\'s Cookie" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Gambler's Cookie"
-Description = "Random Defence. Random Thirst"
+Description = "Random Defence. Random Thirst. Between /g to /h."
+dunkedDescription = "Random Defence. Random Thirst. Between /g to /h."
 dryness = 0
 defense = 0
 special = 6
@@ -149,7 +173,7 @@ dunkedSpecial = 6
 [node name="Fire" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Fire"
-Description = "Set's tea on fire. Whenever you sink a defense card into tea increase attack power"
+Description = "Set's tea on fire. Every time you sink a Defense card into tea Gain 3 Thirst power. To play this Biscuit Dunk it"
 dryness = 0
 defense = 0
 special = 0
@@ -158,17 +182,18 @@ onDunkSpecial = 2
 [node name="Sacrifice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Sacrifice"
-Description = "Deals 15 Thirst. Sinks all cards in hand"
-dryness = 15
+Description = "Sinks all Biscuits in hand.  Deals 7 Thirst for every Biscuit sunk. 10 if Dunked."
+dunkedDescription = "Sinks all Biscuits in hand.  Deals 10 Thirst for every Biscuit sunk."
+dryness = 0
 defense = 0
 special = 7
-dunkedDryness = 30
 dunkedSpecial = 7
 
 [node name="Fireproof" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Fireproof"
-Description = "Adds 8 Defense. Goes back to discard pile if sunk"
+Description = "Adds /b Defense. 12 if Dunked. Goes back to discard pile if sunk."
+dunkedDescription = "Adds /b Defense. Goes back to discard pile if sunk."
 dryness = 0
 defense = 8
 special = 0
@@ -178,7 +203,8 @@ onDunkSpecial = 4
 [node name="Ragebait" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Ragebait"
-Description = "Deals 8 Thirst. If enemy intends on attacking set's tea on fire"
+Description = "Deals /a Thirst. 16 if Dunked. If enemy intends on attacking set's tea on fire."
+dunkedDescription = "Deals /a Thirst. If enemy intends on attacking set's tea on fire."
 dryness = 8
 defense = 0
 special = 8
@@ -188,7 +214,7 @@ dunkedSpecial = 8
 [node name="Ice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Ice"
-Description = "Freezes tea. Dunking defense cards into tea increases defense power"
+Description = "Freezes tea.  Every time you dunk a Defense Biscuit into tea Gain 3 Defense Power. To play this Biscuit Dunk it."
 dryness = 0
 defense = 0
 special = 0
@@ -197,30 +223,23 @@ onDunkSpecial = 3
 [node name="Frost" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Frost"
-Description = "Prevents the next  biscuit from sinking in tea"
+Description = "Prevents the next biscuit from sinking in tea."
+dunkedDescription = "Prevents the next 2 biscuit from sinking in tea."
 dryness = 0
 defense = 0
 special = 9
 dunkedSpecial = 9
 
-[node name="Superfreeze" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Superfreeze"
-Description = "Add 6 Defense. Defense Power applies 3 times to this biscuit"
-dryness = 0
-defense = 0
-special = 10
-dunkedSpecial = 10
-
 [node name="Renewal" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
 position = Vector2(1699, 1391)
 cardName = "Renewal"
-Description = "Deal 8 Thirst. Refills tea by 5. Sets tea to normal temperature"
+Description = "Deals /a Thirst. 16 if Dunked. Refills Player's tea by 5. Sets tea to normal temperature."
+dunkedDescription = "Deals /a Thirst. Refills Player's tea by 5. Sets tea to normal temperature."
 dryness = 8
 defense = 0
-special = 11
+special = 10
 dunkedDryness = 16
-dunkedSpecial = 11
+dunkedSpecial = 10
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -228,5 +247,54 @@ texture = ExtResource("8_dllaj")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
+
+[node name="RewardMessage" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 2
+position = Vector2(9, 766)
+scale = Vector2(1.182, 1.17333)
+mesh = SubResource("QuadMesh_24d3c")
+script = ExtResource("9_28mko")
+
+[node name="text" type="RichTextLabel" parent="RewardMessage"]
+z_index = 1
+offset_left = -618.443
+offset_top = -178.126
+offset_right = 632.557
+offset_bottom = 171.874
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("9_j8pby")
+theme_override_font_sizes/normal_font_size = 128
+text = "Opponent Defeated!"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RewardMessage2" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.301961)
+z_index = 2
+position = Vector2(9, 489)
+scale = Vector2(1.182, 1.17333)
+mesh = SubResource("QuadMesh_28mko")
+
+[node name="text" type="RichTextLabel" parent="RewardMessage2"]
+z_index = 1
+offset_left = -592.217
+offset_top = -140.625
+offset_right = 588.783
+offset_bottom = 135.375
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("9_j8pby")
+theme_override_font_sizes/normal_font_size = 64
+text = "Choose 2 Biscuits as your reward"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0xorn7hcjj30"]
 
 [ext_resource type="Script" uid="uid://jtukn8nxynv4" path="res://Scripts/player_defense.gd" id="1_1u0yk"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="2_4y553"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="2_4y553"]
 
 [node name="Player Defense" type="Node2D" node_paths=PackedStringArray("defenseBar", "text")]
 script = ExtResource("1_1u0yk")
@@ -16,9 +16,10 @@ rounded = true
 show_percentage = false
 
 [node name="Text" type="RichTextLabel" parent="."]
-offset_left = 62.5
+offset_left = 60.0
 offset_top = -50.0
-offset_right = 137.5
+offset_right = 149.0
+offset_bottom = 11.0
 theme_override_fonts/normal_font = ExtResource("2_4y553")
 theme_override_font_sizes/normal_font_size = 32
 text = "12/22

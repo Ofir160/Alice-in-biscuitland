@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxqt7ck0dhtgy"]
+
+[ext_resource type="Texture2D" uid="uid://c3k1ngl3cropf" path="res://Assets/Sprites/Enemies/Enter battle sign.png" id="1_fy64t"]
+[ext_resource type="Texture2D" uid="uid://cng0bsbjv6uof" path="res://Assets/Sprites/Enemies/Enter battle sign highlight.png" id="2_kwsb3"]
+[ext_resource type="Script" uid="uid://cg6akcbxctxv6" path="res://Scripts/enemy_battle.gd" id="2_ua0e8"]
+
+[node name="Enemy Battle" type="TextureButton"]
+z_index = 4
+anchors_preset = -1
+anchor_left = -0.002
+anchor_right = -0.002
+offset_left = -88.16
+offset_top = -80.0
+offset_right = 1831.84
+offset_bottom = 1037.0
+scale = Vector2(0.15, 0.15)
+texture_normal = ExtResource("1_fy64t")
+texture_pressed = ExtResource("2_kwsb3")
+texture_hover = ExtResource("2_kwsb3")
+script = ExtResource("2_ua0e8")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -73,7 +73,6 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 		
 		timer.start()
 
-
 func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 	# When you play a biscuit
 	
@@ -102,7 +101,6 @@ func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 		currentBiscuit.modulate = Color(0, 0, 0, 0)
 		update_cards_to_play(currentBiscuit)
 		
-
 func update_cards_to_play(biscuit : Biscuit) -> void:
 	# Checks whether to end the turn or to discard the biscuit
 	cardsToPlay -= 1
@@ -112,8 +110,6 @@ func update_cards_to_play(biscuit : Biscuit) -> void:
 	else:
 		hand.discard_biscuit(biscuit, false)
 		
-
-
 func _on_timer_timeout() -> void:
 	if biscuitSunk:
 		if currentBiscuit.onDunkSpecial == 4:
@@ -126,6 +122,7 @@ func _on_timer_timeout() -> void:
 		else:
 			if len(drawPile.drawPile) == 0 and len(hand.biscuitStatHand) == 1 && len(discardPile.discardPile) == 0:
 				# If you sank your last card
+				GameManager.deathMessage = "You sank all your Biscuits!"
 				battleManager.lose_fight() # Lose the fight
 				hand.end_turn(currentBiscuit, true) # clean up
 			else:

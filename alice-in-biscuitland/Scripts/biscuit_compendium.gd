@@ -12,6 +12,7 @@ func convert_biscuits_to_stats() -> void:
 		var biscuitStat := []
 		biscuitStat.append(biscuit.cardName)
 		biscuitStat.append(biscuit.Description)
+		biscuitStat.append(biscuit.dunkedDescription)
 		biscuitStat.append(biscuit.Img)
 		biscuitStat.append(biscuit.dryness)
 		biscuitStat.append(biscuit.defense)
@@ -29,6 +30,6 @@ func get_3_biscuits() -> Array[Array]:
 	
 	chosenBiscuits.append(biscuitStatCompendium.get(0))
 	chosenBiscuits.append(biscuitStatCompendium.get(1))
-	chosenBiscuits.append(biscuitStatCompendium.get(2))
+	chosenBiscuits.append(biscuitStatCompendium.get(3))
 	
 	return chosenBiscuits

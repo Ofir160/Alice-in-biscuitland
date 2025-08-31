@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dcebjy3t60ww5"
-path="res://.godot/imported/MountainsofChristmas-Regular.ttf-54736b095a5ec1cd7c54481b37d5a90a.fontdata"
+uid="uid://b6wemsj53vwne"
+path="res://.godot/imported/CherrySwash-Regular.ttf-dbb108ff9d41581258ba9661cdf25f8d.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/MountainsofChristmas-Regular.ttf"
-dest_files=["res://.godot/imported/MountainsofChristmas-Regular.ttf-54736b095a5ec1cd7c54481b37d5a90a.fontdata"]
+source_file="res://Assets/Fonts/CherrySwash-Regular.ttf"
+dest_files=["res://.godot/imported/CherrySwash-Regular.ttf-dbb108ff9d41581258ba9661cdf25f8d.fontdata"]
 
 [params]
 

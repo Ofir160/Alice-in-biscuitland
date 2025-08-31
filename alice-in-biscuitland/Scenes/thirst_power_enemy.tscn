@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hhcjqij2lvas" path="res://Scripts/thirst_power_enemy.gd" id="1_cmxoe"]
 [ext_resource type="Texture2D" uid="uid://qov5e0g2c84d" path="res://Assets/Sprites/Enemies/Attack Power Enemy.png" id="2_cmxoe"]
-[ext_resource type="FontFile" uid="uid://dcebjy3t60ww5" path="res://Assets/Fonts/MountainsofChristmas-Regular.ttf" id="3_f2wq8"]
+[ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="3_f2wq8"]
 
 [sub_resource type="Animation" id="Animation_jhs4f"]
 length = 0.001
@@ -28,7 +28,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -100)]
+"values": [Vector2(0, -125)]
 }
 
 [sub_resource type="Animation" id="Animation_vvoqt"]
@@ -44,7 +44,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -100), Vector2(0, -175)]
+"values": [Vector2(0, -100), Vector2(0, -125)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -72,7 +72,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -175), Vector2(0, -100)]
+"values": [Vector2(0, -125), Vector2(0, -100)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -95,7 +95,7 @@ _data = {
 }
 
 [sub_resource type="QuadMesh" id="QuadMesh_vvoqt"]
-size = Vector2(225, 75)
+size = Vector2(375, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vvoqt"]
 radius = 26.0192
@@ -110,13 +110,13 @@ texture = ExtResource("2_cmxoe")
 offset = Vector2(-8, 200)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -12.0
-offset_top = -51.0
-offset_right = 43.0
-offset_bottom = 131.0
+offset_left = -8.0
+offset_top = -27.0
+offset_right = 47.0
+offset_bottom = 155.0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_f2wq8")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 32
 text = "5"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -127,18 +127,19 @@ libraries = {
 [node name="description" type="MeshInstance2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.301961)
-position = Vector2(0, -100)
+position = Vector2(0, -125)
 mesh = SubResource("QuadMesh_vvoqt")
 
 [node name="Description" type="RichTextLabel" parent="description"]
-offset_left = -102.0
-offset_top = -12.0
-offset_right = 107.0
-offset_bottom = 111.0
+offset_left = -192.0
+offset_top = -44.0
+offset_right = 193.0
+offset_bottom = 81.0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_f2wq8")
-theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/normal_font_size = 32
 text = "Increases Enemy Thirst biscuits by 1"
+horizontal_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 

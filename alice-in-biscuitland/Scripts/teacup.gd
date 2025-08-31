@@ -61,10 +61,10 @@ func set_tea_state(state : int) -> void:
 			$TeaMask/Tea.texture = normalTexture
 		1:
 			$TeaMask/Tea.texture = fireTexture
-			$description/text.text = "Whenever you sink a defense card into tea increase attack power. Increases sinking chance"
+			$description/text.text = "Every time you sink a Defense card into tea Gain 3 Thirst power. Increases sinking chance"
 		2:
 			$TeaMask/Tea.texture = iceTexture
-			$description/text.text = "Dunking defense cards into tea increases defense power. Decreases sinking chance"
+			$description/text.text = "Every time you dunk a Defense Biscuit into tea Gain 3 Defense Power. Decreases sinking chance"
 
 
 func reset_tea() -> void:
@@ -81,3 +81,4 @@ func _process(_delta: float) -> void:
 	if playerTeacup:
 		progressBar.value = dunkChance * 100.0
 		$DunkMask.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 140.0
+		$FireAnimation.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 225

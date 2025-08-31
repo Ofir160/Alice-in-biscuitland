@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpm1j1lob6p4b"]
+[gd_scene load_steps=5 format=3 uid="uid://cpm1j1lob6p4b"]
 
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_oj352"]
 [ext_resource type="AudioStream" uid="uid://cffkh2np8dk0i" path="res://Assets/Audio/Music/map.mp3" id="2_e5fcp"]
+[ext_resource type="AudioStream" uid="uid://bkb3cix35iym7" path="res://Assets/Audio/SFX/game over freesound_communty pixabay.mp3" id="3_sq00h"]
 
 [sub_resource type="GDScript" id="GDScript_y5gpt"]
 script/source = "extends Node
@@ -9,6 +10,8 @@ script/source = "extends Node
 const battleScene = \"res://Scenes/battle.tscn\"
 const mapScene = \"res://Scenes/map.tscn\"
 const biscuitRewardScene = \"res://Scenes/biscuit_rewards.tscn\"
+const gameOverScene = \"res://Scenes/game_over.tscn\"
+const creditsScene = \"res://Scenes/credits.tscn\"
 
 const whiteRabbitMusic = preload(\"res://Assets/Audio/Music/Fretless.mp3\")
 const madHatterMusic = preload(\"res://Assets/Audio/Music/Mischief Maker.mp3\")
@@ -17,13 +20,24 @@ const jabberwockyMusic = preload(\"res://Assets/Audio/Music/Unlight.mp3\")
 const redQueenMusic = preload(\"res://Assets/Audio/Music/Volatile Reaction.mp3\")
 
 const mapMusic = preload(\"res://Assets/Audio/Music/map.mp3\")
+const creditMusic = preload(\"res://Assets/Audio/Music/Off to Osaka.mp3\")
 
 @onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var loseSound: AudioStreamPlayer2D = $\"Lose Sound\"
 
 @export var initialDeck : Array[Biscuit]
-@export var progress : int
+@export var enemyProgress : int
 
+var chestProgress : Array[int]
+var progress : int
+
+var mapFrame : float
 var currentDeck : Array[Array]
+var playedTutorial : bool = false
+var deathMessage : String
+var cardRewardMessage : String
+
+var alicePosition : Vector2
 
 func _ready() -> void:
 	init()
@@ -36,10 +50,9 @@ func init() -> void:
 	audio.play()
 	SceneSwitcher.switch_scene(mapScene)
 
-
 func start_battle() -> void:
 	audio.stop()
-	match progress:
+	match enemyProgress:
 		0:
 			audio.stream = whiteRabbitMusic
 		1:
@@ -53,23 +66,38 @@ func start_battle() -> void:
 	audio.play()
 	SceneSwitcher.switch_scene(battleScene)
 	
-
 func end_battle() -> void:
+	enemyProgress += 1
 	progress += 1
 	
-	if progress == 5:
-		print(\"Beat the whole game!\")
+	if enemyProgress == 5:
+		audio.stream = creditMusic
+		audio.play()
+		SceneSwitcher.switch_scene(creditsScene)
 	else:
+		audio.stop()
+		cardRewardMessage = \"Opponent Defeated!\"
 		SceneSwitcher.switch_scene(biscuitRewardScene)
+	
+func found_chest() -> void:
+	progress += 1
+	
+	audio.stop()
+	cardRewardMessage = \"Chest Found!\"
+	SceneSwitcher.switch_scene(biscuitRewardScene)
 
 func chose_biscuit() -> void:
+	audio.stop()
+	audio.stream = mapMusic
+	audio.play()
 	SceneSwitcher.switch_scene(mapScene)
 
 func lose_battle() -> void:
-	SceneSwitcher.switch_scene(mapScene)
+	loseSound.play()
+	SceneSwitcher.switch_scene(gameOverScene)
 
 func restart() -> void:
-	progress = 0
+	enemyProgress = 0
 	init()
 
 func add_biscuit(biscuit : Biscuit) -> void:
@@ -82,13 +110,15 @@ func add_biscuit(biscuit : Biscuit) -> void:
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
 initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Strike")]
+enemyProgress = 1
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
 [node name="Hit" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Hit"
-Description = "Deals 3 Thirst. 6 if Dunked"
+Description = "Deals /a Thirst. 6 if Dunked."
+dunkedDescription = "Deals /a Thirst."
 Img = "res://Assets/Sprites/Biscuits/Nice.png"
 dryness = 3
 defense = 0
@@ -98,7 +128,8 @@ dunkedDryness = 6
 [node name="Strike" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Strike"
-Description = "Deals 1 Thirst. 15 if Dunked"
+Description = "Deals /a Thirst. 15 if Dunked."
+dunkedDescription = "Deals /a Thirst."
 Img = "res://Assets/Sprites/Biscuits/Bourbon.png"
 dryness = 1
 defense = 0
@@ -108,7 +139,8 @@ dunkedDryness = 15
 [node name="Block" parent="InitialBiscuitsData" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Block"
-Description = "Adds 3 Defense. 7 if Dunked"
+Description = "Adds /b Defense. 7 if Dunked."
+dunkedDescription = "Adds /b Defense."
 Img = "res://Assets/Sprites/Biscuits/Rich Tea.png"
 dryness = 0
 defense = 3
@@ -117,3 +149,6 @@ dunkedDefense = 7
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_e5fcp")
+
+[node name="Lose Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_sq00h")

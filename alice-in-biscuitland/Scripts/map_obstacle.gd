@@ -4,5 +4,5 @@ extends StaticBody2D
 @onready var collisionShape: CollisionShape2D = $CollisionShape2D
 
 func _process(delta: float) -> void:
-	if GameManager.progress >= progressNeeded:
+	if GameManager.enemyProgress >= progressNeeded:
 		collisionShape.disabled = true
