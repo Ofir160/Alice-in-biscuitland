@@ -29,6 +29,7 @@ const creditMusic = preload(\"res://Assets/Audio/Music/Off to Osaka.mp3\")
 @export var enemyProgress : int
 
 var chestProgress : Array[int]
+var biscuitProgress : Array[int]
 var progress : int
 
 var mapFrame : float
@@ -110,7 +111,6 @@ func add_biscuit(biscuit : Biscuit) -> void:
 [node name="Game Manager" type="Node" node_paths=PackedStringArray("initialDeck")]
 script = SubResource("GDScript_y5gpt")
 initialDeck = [NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Hit"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Block"), NodePath("InitialBiscuitsData/Strike")]
-enemyProgress = 1
 
 [node name="InitialBiscuitsData" type="Node" parent="."]
 
@@ -120,6 +120,7 @@ cardName = "Hit"
 Description = "Deals /a Thirst. 6 if Dunked."
 dunkedDescription = "Deals /a Thirst."
 Img = "res://Assets/Sprites/Biscuits/Nice.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Nice Dunked.png"
 dryness = 3
 defense = 0
 special = 0
@@ -131,6 +132,7 @@ cardName = "Strike"
 Description = "Deals /a Thirst. 15 if Dunked."
 dunkedDescription = "Deals /a Thirst."
 Img = "res://Assets/Sprites/Biscuits/Bourbon.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Bourbon Dunked.png"
 dryness = 1
 defense = 0
 special = 0
@@ -141,7 +143,8 @@ position = Vector2(1699, 1391)
 cardName = "Block"
 Description = "Adds /b Defense. 7 if Dunked."
 dunkedDescription = "Adds /b Defense."
-Img = "res://Assets/Sprites/Biscuits/Rich Tea.png"
+Img = "res://Assets/Sprites/Biscuits/RT (2).png"
+DunkedImg = "res://Assets/Sprites/Biscuits/RTD (2).png"
 dryness = 0
 defense = 3
 special = 0

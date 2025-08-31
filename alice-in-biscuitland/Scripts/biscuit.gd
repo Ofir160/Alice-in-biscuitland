@@ -12,6 +12,7 @@ const biscuitUnhover = preload("res://Assets/Audio/SFX/biscuitUnhover.ogg")
 @export var Description:="";
 @export var dunkedDescription := ""
 @export var Img:String="";
+@export var DunkedImg : String = ""
 @export var dryness:=10;#basic stats
 @export var defense:=5;
 @export var special:=4;#id of the effect on eat
@@ -83,6 +84,7 @@ func update_sprites():
 			text = text.insert(gamblersIndex2, str(thirstPower + 15))
 			
 		$description/text.text = text
+		$Sprite2D.texture = load(DunkedImg)
 	else:
 		var text : String = Description
 		var thirstIndex : int = text.find("/a")
@@ -116,8 +118,8 @@ func update_sprites():
 			text = text.insert(gamblersIndex2, str(thirstPower + 15))
 			
 		$description/text.text = text
+		$Sprite2D.texture = load(Img)
 	$name/text.text = cardName
-	$Sprite2D.texture = load(Img)
 
 func _on_area_2d_mouse_entered() -> void:
 	if not dragged:

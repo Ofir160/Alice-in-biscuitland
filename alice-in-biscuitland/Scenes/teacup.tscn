@@ -276,14 +276,14 @@ flip_h = true
 
 [node name="Text" type="RichTextLabel" parent="."]
 z_index = 2
-offset_left = -80.0
-offset_top = -46.0
-offset_right = 87.0
-offset_bottom = 54.0
+offset_left = -40.0
+offset_top = -23.0
+offset_right = 127.0
+offset_bottom = 77.0
 mouse_filter = 2
-theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
+theme_override_colors/default_color = Color(0.93533, 0.633732, 0.562446, 1)
 theme_override_fonts/normal_font = ExtResource("5_jlq1e")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 32
 text = "10/12"
 
 [node name="description" type="MeshInstance2D" parent="."]
@@ -339,9 +339,8 @@ show_percentage = false
 position = Vector2(3, -75)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_eibwa")
-animation = &"Fully Fire"
+animation = &"Natural"
 autoplay = "Natural"
-frame_progress = 0.312497
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

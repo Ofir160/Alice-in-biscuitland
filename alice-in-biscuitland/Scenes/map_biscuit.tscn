@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8shsi43ec3fq"]
+
+[ext_resource type="Script" uid="uid://bup73hs8d0avw" path="res://Scripts/map_biscuit.gd" id="1_6ysnf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6ysnf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tohvf"]
+radius = 482.597
+
+[node name="Map Biscuit" type="Sprite2D"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_6ysnf")
+script = ExtResource("1_6ysnf")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_tohvf")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

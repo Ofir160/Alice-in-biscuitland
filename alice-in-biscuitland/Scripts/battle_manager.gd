@@ -124,16 +124,16 @@ func play_enemy_action() -> void:
 		7:
 			enemy.defensePower += randi_range(0, 3)
 		8:
-			var stats : Array = [action.get(4), action.get(5), action.get(6)]
+			var stats : Array = [action.get(5), action.get(6), action.get(7)]
 			player.add_state(6, stats, 1)
 		9:
 			player.attackPower -= 1
 			player.defensePower -= 1
 		10:
-			var stats : Array = [action.get(4), "Does nothing", action.get(6), 0, 0, 0, 0, 0, 0, 0]
+			var stats : Array = ["Does Nothing", "Does Nothing", "Still Does Nothing", "res://Assets/Sprites/Biscuits/Untitled_Artwork-37.png", "res://Assets/Sprites/Biscuits/Untitled_Artwork-38.png", 0, 0, 0, 0, 0, 0, 0]
 			deckManager.hand.discardPile.discard(stats)
 		11:
-			var stats : Array = [action.get(4), action.get(5), action.get(6)]
+			var stats : Array = [action.get(5), action.get(6), action.get(7)]
 			player.add_state(7, stats, 0)
 			teacup.dunkChance = 1.0
 			teacup.get_node("Thermometer").play("Fully Fire")
@@ -150,6 +150,13 @@ func play_enemy_action() -> void:
 		16:
 			enemy.redQueenGuardCount += 1
 			enemy.redQueenGuardCount = clampi(enemy.redQueenGuardCount, 0, 3)
+			
+			if enemy.redQueenGuardCount == 1:
+				enemy.guards.play("1 Guards")
+			elif enemy.redQueenGuardCount == 2:
+				enemy.guards.play("2 Guards")
+			elif enemy.redQueenGuardCount == 3:
+				enemy.guards.play("3 Guards")
 		17:
 			deal_enemy_thirst((3 + enemy.attackPower) * enemy.redQueenGuardCount)
 			
@@ -181,7 +188,10 @@ func win_fight() -> void:
 	# Won the fight
 	if deckManager.hand.TurnEnded.is_connected(end_player_turn):
 		deckManager.hand.TurnEnded.disconnect(end_player_turn)
-	timer.wait_time = 0.5
+	enemy.on_die()
+	
+func finish_fight() -> void:
+	timer.wait_time = 1.5
 	timer.start()
 	wonGame = true
 
@@ -453,6 +463,9 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 		lose_fight()
 		deckManager.hand.end_turn(biscuit, false)
 		return true
+		
+	enemy.on_play_biscuit()
+	
 	return false
 
 func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sinks
@@ -501,11 +514,11 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 		if teacup.check_tea_state(1):
 			teacup.get_node("Thermometer").play("Fire")
 			teacup.get_node("FireAnimation").play("Fire")
-			teacup.dunkChance = 0.6
+			teacup.dunkChance = 0.75
 		elif teacup.check_tea_state(2):
 			teacup.get_node("Thermometer").play("Frozen")
 			teacup.get_node("FireAnimation").play("Natural")
-			teacup.dunkChance = 0.3
+			teacup.dunkChance = 0.25
 		else:
 			teacup.get_node("Thermometer").play("Natural")
 			teacup.get_node("FireAnimation").play("Natural")
@@ -515,11 +528,11 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 		if teacup.check_tea_state(1):
 			teacup.get_node("Thermometer").play("Fire")
 			teacup.get_node("FireAnimation").play("Fire")
-			teacup.dunkChance = 0.6
+			teacup.dunkChance = 0.75
 		elif teacup.check_tea_state(2):
 			teacup.get_node("Thermometer").play("Frozen")
 			teacup.get_node("FireAnimation").play("Natural")
-			teacup.dunkChance = 0.3
+			teacup.dunkChance = 0.25
 		else:
 			teacup.get_node("Thermometer").play("Natural")
 			teacup.get_node("FireAnimation").play("Natural")
@@ -531,11 +544,11 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 			if teacup.check_tea_state(1):
 				teacup.get_node("Thermometer").play("Fire")
 				teacup.get_node("FireAnimation").play("Fire")
-				teacup.dunkChance = 0.6
+				teacup.dunkChance = 0.75
 			elif teacup.check_tea_state(2):
 				teacup.get_node("Thermometer").play("Frozen")
 				teacup.get_node("FireAnimation").play("Natural")
-				teacup.dunkChance = 0.3
+				teacup.dunkChance = 0.25
 			else:
 				teacup.get_node("Thermometer").play("Natural")
 				teacup.get_node("FireAnimation").play("Natural")
@@ -610,11 +623,11 @@ func _on_sacrifice_timer_timeout() -> void:
 			teacup.get_node("Thermometer").play("Fully Frozen")
 			teacup.get_node("FireAnimation").play("Natural")
 		elif teacup.check_tea_state(1):
-			teacup.dunkChance = 0.6
+			teacup.dunkChance = 0.75
 			teacup.get_node("Thermometer").play("Fire")
 			teacup.get_node("FireAnimation").play("Fire")
 		elif teacup.check_tea_state(2):
-			teacup.dunkChance = 0.3
+			teacup.dunkChance = 0.25
 			teacup.get_node("Thermometer").play("Fully Fire")
 			teacup.get_node("FireAnimation").play("Fully Fire")
 		else:

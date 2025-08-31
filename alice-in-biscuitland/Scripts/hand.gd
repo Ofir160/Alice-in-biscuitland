@@ -159,6 +159,7 @@ func _process(delta: float) -> void:
 				currentBiscuit = biscuit
 				biscuit.z_index = 10
 				biscuit.dragged = true
+				deckManager.battleManager.enemy.highlighted = true
 	elif Input.is_action_just_released("Click"):
 		# When releasing
 		if currentBiscuit:
@@ -196,5 +197,6 @@ func _process(delta: float) -> void:
 			currentBiscuit.z_index = 9
 			currentBiscuit.dragged = false
 			currentBiscuit = null
+			deckManager.battleManager.enemy.highlighted = false
 	if currentBiscuit:
 		currentBiscuit.position = lerp(currentBiscuit.position, get_global_mouse_position(), 1 - exp(-dampStrength * delta))

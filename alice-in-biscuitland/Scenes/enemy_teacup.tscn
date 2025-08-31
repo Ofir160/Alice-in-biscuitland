@@ -37,13 +37,13 @@ position = Vector2(-255, 0)
 texture = ExtResource("4_6bjv8")
 
 [node name="Text" type="RichTextLabel" parent="."]
-offset_left = -70.0
-offset_top = -45.0
-offset_right = 106.0
-offset_bottom = 68.0
-theme_override_colors/default_color = Color(0.907186, 0.542422, 0.458075, 1)
+offset_left = -38.0
+offset_top = -23.0
+offset_right = 138.0
+offset_bottom = 90.0
+theme_override_colors/default_color = Color(0.937255, 0.635294, 0.560784, 1)
 theme_override_fonts/normal_font = ExtResource("5_8mmcs")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 32
 text = "10/12"
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

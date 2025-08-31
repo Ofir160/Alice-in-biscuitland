@@ -1,7 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://r7wouctlfokv"]
+[gd_scene load_steps=40 format=3 uid="uid://r7wouctlfokv"]
 
-[ext_resource type="Texture2D" uid="uid://ch5shkxvjnhvv" path="res://Assets/Backgrounds/Map below.png" id="1_q0mm3"]
-[ext_resource type="Texture2D" uid="uid://tfpqn0pkj10n" path="res://Assets/Backgrounds/Above Map.png" id="2_np2xp"]
+[ext_resource type="Texture2D" uid="uid://cnkbgduau746q" path="res://Assets/Backgrounds/Untitled_Artwork (6).png" id="1_macow"]
+[ext_resource type="Texture2D" uid="uid://c43oftgstknhk" path="res://Assets/Backgrounds/Untitled_Artwork (5).png" id="2_olcgw"]
 [ext_resource type="Script" uid="uid://bdcdlen21e5i4" path="res://Scripts/alice.gd" id="2_p3ir5"]
 [ext_resource type="PackedScene" uid="uid://i7admbudl2vt" path="res://Scenes/map_enemy.tscn" id="4_myvm1"]
 [ext_resource type="Texture2D" uid="uid://duxunn6pih7j0" path="res://Assets/Sprites/Player/alice idle.png" id="4_w7jjh"]
@@ -10,6 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://c1ji347rr0lb8" path="res://Scenes/mute.tscn" id="5_w7jjh"]
 [ext_resource type="PackedScene" uid="uid://cxqt7ck0dhtgy" path="res://Scenes/enemy_battle.tscn" id="7_4c2oa"]
 [ext_resource type="PackedScene" uid="uid://dxybexdovlpyo" path="res://Scenes/chest.tscn" id="9_olcgw"]
+[ext_resource type="PackedScene" uid="uid://c8shsi43ec3fq" path="res://Scenes/map_biscuit.tscn" id="12_5qtum"]
+[ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="12_q6lx1"]
+[ext_resource type="Texture2D" uid="uid://bnhlnd8c6fgp" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-35.png" id="13_5qtum"]
+[ext_resource type="Texture2D" uid="uid://2h035ov7t4dk" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-31.png" id="14_ie368"]
+[ext_resource type="Texture2D" uid="uid://cqeruxrv1l5ho" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-29.png" id="15_x5dfk"]
+[ext_resource type="Texture2D" uid="uid://cr8gqt3k15w08" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-1.png" id="16_fls3e"]
+[ext_resource type="Texture2D" uid="uid://bvdpm3ic0gqyp" path="res://Assets/Sprites/Biscuits/S.png" id="17_macow"]
+[ext_resource type="Texture2D" uid="uid://ddsqpc6wwjk0o" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-27.png" id="18_j4oe2"]
+[ext_resource type="Texture2D" uid="uid://b85h3v7p1iwyd" path="res://Assets/Sprites/Biscuits/F.png" id="18_macow"]
+[ext_resource type="Texture2D" uid="uid://capkjptfmdyb3" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-4 (18).png" id="19_riaky"]
+[ext_resource type="Texture2D" uid="uid://cxeo1u0lo1gf7" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-8.png" id="20_vtkp8"]
+[ext_resource type="Texture2D" uid="uid://bc1lkia4eu658" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-1 (19).png" id="21_rg57b"]
 
 [sub_resource type="Animation" id="Animation_p3ir5"]
 resource_name = "Cross"
@@ -219,7 +231,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="background/Bridge1"]
 position = Vector2(-2.14286, -145.286)
 rotation = -0.545165
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_p3ir5")
 
 [node name="Bridge2" type="Area2D" parent="background"]
@@ -266,13 +277,13 @@ shape = SubResource("RectangleShape2D_np2xp")
 
 [node name="Below" type="Sprite2D" parent="background"]
 scale = Vector2(0.191069, 0.195107)
-texture = ExtResource("1_q0mm3")
+texture = ExtResource("1_macow")
 
 [node name="Above" type="Sprite2D" parent="background"]
 z_index = 10
 position = Vector2(-0.428571, -4.14286)
 scale = Vector2(0.191, 0.195)
-texture = ExtResource("2_np2xp")
+texture = ExtResource("2_olcgw")
 
 [node name="Alice" type="CharacterBody2D" parent="."]
 z_index = 5
@@ -291,7 +302,7 @@ shape = SubResource("RectangleShape2D_26yhd")
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_6q3n4")
 animation = &"Walking"
-frame_progress = 0.868563
+frame_progress = 0.754378
 
 [node name="Camera2D" type="Camera2D" parent="Alice"]
 limit_left = -1700
@@ -414,6 +425,187 @@ index = 2
 
 [node name="Sprite2D" parent="Chests/Chest2" index="1"]
 flip_h = true
+
+[node name="Map Biscuits" type="Node2D" parent="."]
+position = Vector2(4728, -1182)
+
+[node name="Defend" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(10000, 0)
+cardName = "Defend"
+Description = "Adds /b Defense. 20 If Dunked."
+dunkedDescription = "Adds /b Defense."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-35.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-36.png"
+dryness = 0
+defense = 10
+special = 0
+dunkedDefense = 20
+
+[node name="Refill" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Refill"
+Description = "Refills tea by 10. To play this biscuit Dunk it."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-31.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-32.png"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 1
+
+[node name="Ice" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Ice"
+Description = "Freezes tea.  Every time you dunk a Defense Biscuit into tea Gain 3 Defense Power. To play this Biscuit Dunk it."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-4 (18).png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-5.png"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 3
+
+[node name="Fire" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Fire"
+Description = "Set's tea on fire. Every time you sink a Defense card into tea Gain 3 Thirst power. To play this Biscuit Dunk it"
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-8.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-9.png"
+dryness = 0
+defense = 0
+special = 0
+onDunkSpecial = 2
+
+[node name="Sacrifice" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Sacrifice"
+Description = "Sinks all Biscuits in hand.  Deals 7 Thirst for every Biscuit sunk. 10 if Dunked."
+dunkedDescription = "Sinks all Biscuits in hand.  Deals 10 Thirst for every Biscuit sunk."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-27.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-28.png"
+dryness = 0
+defense = 0
+special = 7
+dunkedSpecial = 7
+
+[node name="S\'more" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "S'more"
+Description = "On your next turn you must play all biscuits. Also Gains 1 Thirst and Defense Power if Dunked."
+dunkedDescription = "On your next turn you must play all your cards. Gain 1 Thirst and Defense Power."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-9.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-10.png"
+dryness = 0
+defense = 0
+special = 1
+dunkedSpecial = 1
+
+[node name="Gambler\'s Cookie" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Gambler's Cookie"
+Description = "Random Defence. Random Thirst. Between /g to /h."
+dunkedDescription = "Random Defence. Random Thirst. Between /g to /h."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-7.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-8.png"
+dryness = 0
+defense = 0
+special = 6
+dunkedSpecial = 6
+
+[node name="Jaffa Cake" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Jaffa Cake"
+Description = "Not a biscuit!. 50% chance to do deal /j Thirst. 18 if Dunked. Otherwise does nothing."
+dunkedDescription = "Not a biscuit!. 50% chance to do deal /j Thirst. Otherwise does nothing."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-29.png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-30.png"
+dryness = 0
+defense = 0
+special = 5
+dunkedSpecial = 5
+
+[node name="Line of Defense" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "The Big Biscuit"
+Description = "Adds /b Defense. Adds 2 Extra Defense for every Defense Biscuit in your hand."
+dunkedDescription = "Adds /b Defense. Adds 4 Extra Defense for every Defense Biscuit in your hand.Adds /b Defense."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-1 (18).png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-2 (18).png"
+dryness = 0
+defense = 0
+special = 11
+dunkedSpecial = 11
+
+[node name="Grow" parent="Map Biscuits" instance=ExtResource("12_q6lx1")]
+position = Vector2(1699, 1391)
+cardName = "Grow"
+Description = "Gain 1 Thirst and 1 Defense Power. Gain 2 of each if Dunked."
+dunkedDescription = "Gain 2 Thirst and 2 Defense Power."
+Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-1 (19).png"
+DunkedImg = "res://Assets/Sprites/Biscuits/Untitled_Artwork-2 (19).png"
+dryness = 0
+defense = 0
+special = 12
+dunkedSpecial = 12
+
+[node name="Map Biscuit" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-305, -1558)
+texture = ExtResource("13_5qtum")
+index = 1
+biscuit = NodePath("../Map Biscuits/Defend")
+
+[node name="Map Biscuit2" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(1817, 548)
+texture = ExtResource("14_ie368")
+index = 2
+biscuit = NodePath("../Map Biscuits/Refill")
+
+[node name="Map Biscuit3" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(1227, -1379)
+scale = Vector2(0.151723, 0.139488)
+texture = ExtResource("15_x5dfk")
+index = 3
+biscuit = NodePath("../Map Biscuits/Jaffa Cake")
+
+[node name="Map Biscuit4" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-110, 2048)
+texture = ExtResource("16_fls3e")
+index = 4
+biscuit = NodePath("../Map Biscuits/Line of Defense")
+
+[node name="Map Biscuit5" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(40, 2091)
+texture = ExtResource("17_macow")
+index = 5
+biscuit = NodePath("../Map Biscuits/S\'more")
+
+[node name="Map Biscuit7" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-1641, 1059)
+texture = ExtResource("18_macow")
+index = 7
+biscuit = NodePath("../Map Biscuits/Gambler\'s Cookie")
+
+[node name="Map Biscuit6" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-277, 2061)
+texture = ExtResource("18_j4oe2")
+index = 6
+biscuit = NodePath("../Map Biscuits/Sacrifice")
+
+[node name="Map Biscuit8" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-1643, -664)
+texture = ExtResource("19_riaky")
+index = 8
+biscuit = NodePath("../Map Biscuits/Ice")
+
+[node name="Map Biscuit9" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-36.0001, -214)
+texture = ExtResource("20_vtkp8")
+index = 9
+biscuit = NodePath("../Map Biscuits/Fire")
+
+[node name="Map Biscuit10" parent="." node_paths=PackedStringArray("biscuit") instance=ExtResource("12_5qtum")]
+position = Vector2(-270, -687)
+texture = ExtResource("21_rg57b")
+index = 10
+biscuit = NodePath("../Map Biscuits/Grow")
 
 [connection signal="timeout" from="background/Bridge/TweenTimer" to="Alice" method="_on_bridge_time"]
 [connection signal="body_entered" from="background/Bridge1" to="Alice" method="_on_bridge_entered"]
