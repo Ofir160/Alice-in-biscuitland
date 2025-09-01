@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnsbihxciabxh" path="res://Scripts/biscuit.gd" id="1_06a0o"]
 [ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="2_06a0o"]
-[ext_resource type="Texture2D" uid="uid://b3qqa4jct8ldn" path="res://Assets/Sprites/Biscuits/Bourbon.png" id="2_obm7r"]
+[ext_resource type="Texture2D" uid="uid://5y2t8ihchxvp" path="res://Assets/Sprites/Biscuits/Bourbon.png" id="2_obm7r"]
 [ext_resource type="FontFile" uid="uid://dkm7gko2mx8qe" path="res://Assets/Fonts/CherrySwash-Bold.ttf" id="3_8ptjb"]
 
 [sub_resource type="Animation" id="Animation_8ptjb"]
