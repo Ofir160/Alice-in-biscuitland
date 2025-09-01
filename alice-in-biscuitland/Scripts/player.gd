@@ -11,9 +11,10 @@ var attackPower : int
 var defensePower : int
 
 var hovering : bool
+var highlighted : bool
 var states : Array[int] # Array of all the states the player is in
 var turnTimers : Dictionary[int, int]
-var addTimers : Dictionary[int, Array]
+var addTimers : Dictionary[int, Array] # State Index : Array contains when to add state and biscuit index
 
 var state1OnScreen : bool = false
 var state2OnScreen : bool = false
@@ -31,11 +32,11 @@ func take_dryness(dryness : int) -> void:
 func add_defense(_defense : int) -> void:
 	defense += _defense
 	
-func add_state(state : int, biscuitStat : Array, inTurns : int) -> void:
+func add_state(state : int, biscuit : Biscuit, inTurns : int) -> void:
 	if inTurns == 0:
 		if len(states) == 0:
 			var displayBiscuit = displayBiscuits.get(0)
-			set_biscuit(displayBiscuit, biscuitStat)
+			set_biscuit(displayBiscuit, biscuit)
 			
 			print("Added state 1")
 			
@@ -43,14 +44,14 @@ func add_state(state : int, biscuitStat : Array, inTurns : int) -> void:
 			state1OnScreen = true
 		if len(states) == 1:
 			var displayBiscuit = displayBiscuits.get(1)
-			set_biscuit(displayBiscuit, biscuitStat)
+			set_biscuit(displayBiscuit, biscuit)
 			
 			print("Added state 2")
 			$"Player State Biscuits/AnimationPlayer2".play("Fly In 2")
 			state2OnScreen = true
 		if len(states) == 2:
 			var displayBiscuit = displayBiscuits.get(2)
-			set_biscuit(displayBiscuit, biscuitStat)
+			set_biscuit(displayBiscuit, biscuit)
 			
 			print("Added state 3")
 			$"Player State Biscuits/AnimationPlayer3".play("Fly In 3")
@@ -62,24 +63,19 @@ func add_state(state : int, biscuitStat : Array, inTurns : int) -> void:
 	else:
 		var data : Array
 		data.append(inTurns)
-		data.append(biscuitStat)
+		data.append(biscuit)
 		addTimers.set(state, data)
 	
-func set_biscuit(displayBiscuit : Biscuit, biscuitStats : Array) -> void:
-	displayBiscuit.cardName = biscuitStats.get(0)
-	displayBiscuit.Description = biscuitStats.get(1)
-	displayBiscuit.Img = biscuitStats.get(2)
+func set_biscuit(displayBiscuit : Biscuit, biscuit : Biscuit) -> void:
+	GameManager.set_biscuit(displayBiscuit, biscuit)
 	displayBiscuit.modulate = Color(1, 1, 1, 1)
-	displayBiscuit.update_sprites()
 	
 func copy_biscuit(biscuit1 : Biscuit, biscuit2 : Biscuit) -> void:
 	# Moves biscuit1 to biscuit2
 	
 	var biscuit1position = biscuit1.position
 	
-	biscuit1.cardName = biscuit2.cardName
-	biscuit1.Description = biscuit2.Description
-	biscuit1.Img = biscuit2.Img
+	GameManager.set_biscuit(biscuit1, biscuit2)
 	biscuit1.modulate = Color(1, 1, 1, 1)
 	biscuit2.modulate = Color(0, 0, 0, 0)
 	
@@ -87,9 +83,9 @@ func copy_biscuit(biscuit1 : Biscuit, biscuit2 : Biscuit) -> void:
 	biscuit2.position = biscuit1position
 	biscuit1.update_sprites()
 	
-func add_state_for_turns(state : int, biscuitStat : Array, turns : int) -> void:
+func add_state_for_turns(state : int, biscuit : Biscuit, turns : int) -> void:
 	if not has_state(state):
-		add_state(state, biscuitStat, 0)
+		add_state(state, biscuit, 0)
 	if turnTimers.has(state):
 		print("Already had state")
 		turnTimers.set(state, turnTimers.get(state) + turns)

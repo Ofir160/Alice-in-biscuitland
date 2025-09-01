@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2aleqv4cwuuy"
-path="res://.godot/imported/Lotus.png-14fd3202baeb6651c28b29edeaa4328a.ctex"
+path="res://.godot/imported/Lotus Dunked.png-37eb78578705c12bde645f0737db72fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Lotus.png"
-dest_files=["res://.godot/imported/Lotus.png-14fd3202baeb6651c28b29edeaa4328a.ctex"]
+source_file="res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Lotus Dunked.png"
+dest_files=["res://.godot/imported/Lotus Dunked.png-37eb78578705c12bde645f0737db72fb.ctex"]
 
 [params]
 

@@ -12,13 +12,16 @@ const biscuitEat2 = preload("res://Assets/Audio/SFX/biscuitEat2.ogg")
 @export var drawPile : DrawPile
 @export var hand : Hand
 @export var discardPile : DiscardPile
+
 @export var handBiscuits : Array[Biscuit]
+
 @export var dunkAnimation : AnimationPlayer
 @export var eatAnimation : AnimationPlayer
+
 @export var dunkAnimationBiscuit : Sprite2D
 @export var eatAnimationBiscuit : Sprite2D
-@onready var timer: Timer = $Timer
 
+@onready var timer: Timer = $Timer
 @export var sfx : AudioStreamPlayer2D
 
 var cardsToPlay : int
@@ -49,13 +52,13 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	sfx.play()
 
 	
-	if battleManager.dunk_biscuit(biscuit):
+	if battleManager.dunk_biscuit(biscuit.index):
 		# If the biscuit sunk
 		biscuitSunk = true
 		currentBiscuit = biscuit
 		currentBiscuit.modulate = Color(0, 0, 0, 0)
 		
-		dunkAnimationBiscuit.texture = load(currentBiscuit.Img)
+		dunkAnimationBiscuit.texture = load(currentBiscuit.img)
 		
 		dunkAnimation.play("Sink")
 
@@ -67,7 +70,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 		currentBiscuit.modulate = Color(0, 0, 0, 0)
 		currentBiscuit.position = Vector2(-645, 220)
 		
-		dunkAnimationBiscuit.texture = load(currentBiscuit.Img)
+		dunkAnimationBiscuit.texture = load(currentBiscuit.img)
 		
 		dunkAnimation.play("Dunk")
 		
@@ -76,13 +79,13 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 	# When you play a biscuit
 	
-	if battleManager.play_biscuit(biscuit, targetedEnemy):
+	if battleManager.play_biscuit(biscuit.index, targetedEnemy):
 		# If the game is over because of that biscuit
 		return
 	else:
 		# Otherwise count that as a card played
 		
-		eatAnimationBiscuit.texture = load(biscuit.Img)
+		eatAnimationBiscuit.texture = load(biscuit.img)
 		
 		var index = randi_range(0, 1)
 		match index:
@@ -112,7 +115,7 @@ func update_cards_to_play(biscuit : Biscuit) -> void:
 		
 func _on_timer_timeout() -> void:
 	if biscuitSunk:
-		if currentBiscuit.onDunkSpecial == 4:
+		if currentBiscuit.index == 16:
 			# Fireproof
 			cardsToPlay -= 1
 			if cardsToPlay <= 0:

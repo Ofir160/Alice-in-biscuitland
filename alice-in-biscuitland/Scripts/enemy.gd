@@ -28,9 +28,10 @@ var biscuits : Array[Biscuit]
 @onready var guards: AnimatedSprite2D = $Guards
 
 @export var sfx : AudioStreamPlayer2D
+@export var skipTutorial : bool
 
-var chosenActions : Array[Array] # Dryness Defense Special ToEnemy Name Description
-var index : int # Controls what the enemy is
+var chosenActions : Array[Biscuit]
+var index : int
 var hovering : bool = false
 var hoveringDialogue : bool = false
 var dialogueCounter : int = 0
@@ -44,60 +45,14 @@ var defensePower : int
 var goToDie : bool
 var highlighted : bool
 
-enum WhiteRabbit {WHACK = 0, PARRY = 1, BOON = 2, BUFF = 3, IM_LATE = 4}
-enum MadHatter {BATTER = 0, REBUFF = 1, EMPOWER = 2, BONANZA = 3, BATTER_R = 4, REBUFF_R = 5, EMPOWER_R = 6, BONANZA_R = 7, SPIKE = 8, INTOXICATE = 9 }
-enum CheshireCat {SCRATCH = 0, PAW = 1, BITE = 2, MAIM = 3, CURSE = 4, VANISH = 5}
-enum Jabberwocky {SWIPE = 0, SLASH = 1, BARRICADE = 2, SCORCH = 3, ENFLAME = 4, JAWS_AND_CLAWS = 5}
-enum RedQueen {BOLSTER = 0, ARROGANCE = 1, ROYAL_STRIKE = 2, SNARKY = 3, SUMMON_GUARDS = 4, SIEZE_HER = 5, ENRAGE = 6, ROYAL_TOILET_PAPER = 7, OFF_WITH_YOUR_HEAD = 8}
+enum WhiteRabbit {WHACK = 1, PARRY = 2, BOON = 3, BUFF = 4, IM_LATE = 5}
+enum MadHatter {BATTER = 6, REBUFF = 7, EMPOWER = 8, BONANZA = 9, BATTER_R = 10, REBUFF_R = 11, EMPOWER_R = 12, BONANZA_R = 13, SPIKE = 14, INTOXICATE = 15 }
+enum CheshireCat {SCRATCH = 16, PAW = 17, BITE = 18, MAIM = 19, CURSE = 20, VANISH = 21}
+enum Jabberwocky {SWIPE = 22, SLASH = 23, BARRICADE = 24, SCORCH = 25, ENFLAME = 26, JAWS_AND_CLAWS = 27}
+enum RedQueen {BOLSTER = 28, ARROGANCE = 29, ROYAL_STRIKE = 30, SNARKY = 31, SUMMON_GUARDS = 32, SIEZE_HER = 33, ENRAGE = 34, ROYAL_TOILET_PAPER = 35, OFF_WITH_YOUR_HEAD = 36}
 
-var whiteRabbitActions = [
-	[3, 0, 0, false, "Whack", "Deals 3 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png", WhiteRabbit.WHACK],
-	[0, 3, 0, true, "Parry", "Adds 3 Defense.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png", WhiteRabbit.PARRY],
-	[0, 0, 2, true, "Boon", "Gain 1 Thirst Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png", WhiteRabbit.BOON], 
-	[0, 0, 3, true, "Buff", "Gain 1 Defense Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png", WhiteRabbit.BUFF],
-	[0, 0, 1, true, "I'm Late!", "Gain 1 Thirst Power every turn.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png", WhiteRabbit.IM_LATE]
-]
-var madHatterActions = [
-	[5, 0, 0, false, "Batter", "Deals 5 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.BATTER],
-	[0, 5, 0, true, "Rebuff", "Adds 5 Defense.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.REBUFF],
-	[0, 0, 2, true, "Empower", "Gain 1 Thirst Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.EMPOWER],
-	[0, 0, 3, true, "Bonanza", "Gain 1 Defense Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.BONANZA],
-	[0, 0, 4, false, "Batter?", "Deals a random amount of Thirst. Between 3 to 10.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.BATTER_R],
-	[0, 0, 5, true, "Rebuff?", "Adds a random amount of Defense. Between 3 to 10.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.REBUFF_R],
-	[0, 0, 6, true, "Empower?", "Gain a random amount of Thirst Power. Between 0 to 3", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.EMPOWER_R],
-	[0, 0, 7, true, "Bonanza?", "Gain a random amount of Defense Power. Between 0 to 3", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.BONANZA_R],
-	[0, 0, 8, false, "Spike", "Spikes your tea. You must play a random amount of biscuits on your next turn.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.SPIKE],
-	[0, 0, 1, true, "Intoxicate", "Becomes intoxicated. Everything is random!", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png", MadHatter.INTOXICATE],
-]
-var cheshireCatActions = [
-	[5, 0, 0, false, "Scratch", "Deals 5 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.SCRATCH],
-	[0, 5, 0, true, "Paw", "Adds 5 Defense.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.PAW],
-	[10, 0, 0, false, "Bite", "Deals 10 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.BITE],
-	[0, 0, 9, false, "Maim", "Lose 1 Thirst Power. Lose 1 Defense Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.MAIM],
-	[0, 0, 10, false, "Curse", "Adds a useless biscuit to your discard pile.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.CURSE],
-	[0, 0, 1, true, "Vanish", "Becomes invisible.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png", CheshireCat.VANISH],
-]
-var jabberwockyActions = [
-	[5, 0, 0, false, "Swipe", "Deals 5 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.SWIPE],
-	[12, 0, 0, false, "Slash", "Deals 12 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.SLASH],
-	[0, 12, 0, true, "Barricade", "Adds 12 Defense.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.BARRICADE],
-	[0, 0, 11, false, "Scorch", "Set's your tea ablaze. The next biscuit you dunk in it will sink.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.SCORCH],
-	[0, 0, 1, true, "Enflame", "Becomes enraged. Gains 1 Thirst Power every time you apply Thirst to this enemy", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.ENFLAME],
-	[20, 0, 0, false, "Jaws and Claws", "Deals 20 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png", Jabberwocky.JAWS_AND_CLAWS],
-]
-var redQueenActions = [
-		[0, 15, 0, true, "Bolster", "Add 15 Defense.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.BOLSTER],
-		[0, 0, 12, true, "Arrogance", "Gain 3 Thirst Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.ARROGANCE],
-		[15, 0, 0, false, "Royal Strike", "Deals 15 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.ROYAL_STRIKE],
-		[0, 0, 13, false, "Snarky", "You lose 1 Defense Power.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.SNARKY],
-		[0, 0, 16, true, "Summon Guards", "Summons the guards.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.SUMMON_GUARDS],
-		[0, 0, 17, false, "SIEZE HER!", "Deals 3 Thirst for every guard.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.SIEZE_HER],
-		[0, 0, 14, true, "Enrage", "Becomes angry. Gair 5 Thirst Power. Do not mess with her.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.ENRAGE],
-		[0, 0, 15, true, "Royal Toilet Paper", "Heals 10 Tea.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.ROYAL_TOILET_PAPER],
-		[25, 0, 0, false, "OFF WITH YOUR HEAD!", "Deal 25 Thirst.", "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png", RedQueen.OFF_WITH_YOUR_HEAD],
-]
 var stateSpace : Dictionary[int, Array]
-# The key is the move. 
+# The key is the index of the move.
 # The array contains the number of times the move is used consecutively and how many times its been used
 
 var specialState : bool
@@ -108,6 +63,7 @@ func set_sprite() -> void:
 	match index:
 		0:
 			# White Rabbit 
+			
 			below.play("WR")
 			above.modulate = Color(0, 0, 0, 0)
 		1:
@@ -116,36 +72,36 @@ func set_sprite() -> void:
 			below.play("MH")
 			above.modulate = Color(0, 0, 0, 0)
 		2:
-			#above.texture = cheshireCat
+			#Cheshire Cat
+			
 			above.play("CC")
 			below.modulate = Color(0, 0, 0, 0)
 		3:
 			# Jabberwocky
-			#above.texture = jabberwockyAbove
-			#below.texture = jabberwockyBelow
 			below.play("JB")
 			above.modulate = Color(0, 0, 0, 0)
 		4:
-			#below.texture = redQueen
+			# Red Queen
+			
 			below.play("RQ")
 			above.modulate = Color(0, 0, 0, 0)
 
-func take_dryness(dryness : int) -> void:
-	var thirst : int = 0
-	if dryness <= defense:
-		defense = defense - dryness
+func take_thirst(_thirst : int) -> void:
+	var damage : int = _thirst
+	if _thirst <= defense:
+		defense = defense - _thirst
 	else:
-		thirst = dryness - defense
+		damage = _thirst - defense
 		defense = 0
-	enemyTeacup.sip(thirst)
+	enemyTeacup.sip(damage)
 
 func add_defense(_defense : int) -> void:
 	defense += _defense
 
-func update_state_space(actions : Array[Array]) -> void:
+func update_state_space(actions : Array[Biscuit]) -> void:
 	for i in len(actions):
-		var action = actions.get(i)
-		var key : int = action.get(7)
+		var biscuit = actions.get(i)
+		var key : int = biscuit.index
 		var data : Array = [stateSpace.get(key).get(0) + 1, stateSpace.get(key).get(1) + 1]
 		stateSpace.set(key, data)
 		for currentKey in stateSpace.keys():
@@ -156,406 +112,415 @@ func update_state_space(actions : Array[Array]) -> void:
 func initialize_state_space() -> void:
 	match index:
 		0:
-			for i in len(WhiteRabbit.keys()):
-				stateSpace.set(i, [0, 0])
+			for key in WhiteRabbit.keys():
+				stateSpace.set(WhiteRabbit.get(key), [0, 0])
 		1:
-			for i in len(MadHatter.keys()):
-				stateSpace.set(i, [0, 0])
+			for key in MadHatter.keys():
+				stateSpace.set(key, [0, 0])
 		2:
-			for i in len(CheshireCat.keys()):
-				stateSpace.set(i, [0, 0])
+			for key in CheshireCat.keys():
+				stateSpace.set(key, [0, 0])
 		3:
-			for i in len(Jabberwocky.keys()):
-				stateSpace.set(i, [0, 0])
+			for key in Jabberwocky.keys():
+				stateSpace.set(key, [0, 0])
 		4:
-			for i in len(RedQueen.keys()):
-				stateSpace.set(i, [0, 0])
+			for key in RedQueen.keys():
+				stateSpace.set(key, [0, 0])
 
-func white_rabbit(lastAction : int, value : float) -> Array[Array]:
-	var actions : Array[Array]
+func get_biscuit_actions(actionIndex : Array[int]) -> Array[Biscuit]:
+	var actions : Array[Biscuit]
+	
+	for index in actionIndex:
+		actions.append(GameManager.get_enemy_biscuit(index))
+	
+	return actions
+
+func white_rabbit(lastAction : int, value : float) -> Array[Biscuit]:
+	var actionIndex : Array[int]
 	if actionCount == 0:
-		actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+		actionIndex.append(WhiteRabbit.WHACK)
 	elif actionCount == 1:
-		actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+		actionIndex.append(WhiteRabbit.WHACK)
 	elif actionCount == 2:
-		actions.append(whiteRabbitActions[WhiteRabbit.BOON])
+		actionIndex.append(WhiteRabbit.BOON)
 	elif actionCount == 3:
-		actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+		actionIndex.append(WhiteRabbit.WHACK)
 	elif actionCount == 4:
-		actions.append(whiteRabbitActions[WhiteRabbit.IM_LATE])
+		actionIndex.append(WhiteRabbit.IM_LATE)
 	else:
 		match lastAction:
 			WhiteRabbit.WHACK:
 				if stateSpace.get(WhiteRabbit.WHACK).get(0) >= 3:
-					actions.append(whiteRabbitActions[WhiteRabbit.PARRY])
+					actionIndex.append(WhiteRabbit.PARRY)
 				else:
 					if value <= 0.5:
-						actions.append(whiteRabbitActions[WhiteRabbit.PARRY])
+						actionIndex.append(WhiteRabbit.PARRY)
 					else:
-						actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+						actionIndex.append(WhiteRabbit.WHACK)
 			WhiteRabbit.PARRY:
 				if stateSpace.get(WhiteRabbit.BUFF).get(1) >= 1:
-					actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+					actionIndex.append(WhiteRabbit.WHACK)
 				else:
 					if value <= 0.5:
-						actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+						actionIndex.append(WhiteRabbit.WHACK)
 					else:
-						actions.append(whiteRabbitActions[WhiteRabbit.BUFF])
+						actionIndex.append(WhiteRabbit.BUFF)
 			WhiteRabbit.BOON:
-				actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
+				actionIndex.append(WhiteRabbit.WHACK)
 			WhiteRabbit.BUFF:
-				actions.append(whiteRabbitActions[WhiteRabbit.PARRY])
+				actionIndex.append(WhiteRabbit.PARRY)
 			WhiteRabbit.IM_LATE:
-				actions.append(whiteRabbitActions[WhiteRabbit.WHACK])
-	return actions
+				actionIndex.append(WhiteRabbit.WHACK)
+					
+	return get_biscuit_actions(actionIndex)
 
-func mad_hatter(lastAction : int, value : float) -> Array[Array]:
-	var actions : Array[Array]
+func mad_hatter(lastAction : int, value : float) -> Array[Biscuit]:
+	var actionIndex : Array[int]
 	
 	if actionCount == 0:
-		actions.append(madHatterActions[MadHatter.BATTER])
+		actionIndex.append(MadHatter.BATTER)
 	elif actionCount == 1:
-		actions.append(madHatterActions[MadHatter.EMPOWER])
-		actions.append(madHatterActions[MadHatter.BONANZA])
+		actionIndex.append([MadHatter.EMPOWER])
+		actionIndex.append([MadHatter.BONANZA])
 	elif actionCount == 2:
-		actions.append(madHatterActions[MadHatter.REBUFF])
+		actionIndex.append([MadHatter.REBUFF])
 	elif actionCount == 3:
-		actions.append(madHatterActions[MadHatter.SPIKE])
-		actions.append(madHatterActions[MadHatter.BATTER])
+		actionIndex.append([MadHatter.SPIKE])
+		actionIndex.append([MadHatter.BATTER])
 	elif actionCount == 4:
-		actions.append(madHatterActions[MadHatter.INTOXICATE])
+		actionIndex.append([MadHatter.INTOXICATE])
 	elif actionCount == 5:
-		actions.append(madHatterActions[MadHatter.BATTER_R])
+		actionIndex.append([MadHatter.BATTER_R])
 	else:
 		match lastAction:
 			MadHatter.BATTER_R:
 				if stateSpace.get(MadHatter.BATTER_R).get(0) >= 2:
 					if value <= 0.4:
-						actions.append(madHatterActions[MadHatter.REBUFF_R])
+						actionIndex.append(MadHatter.REBUFF_R)
 					elif value <= 0.8:
-						actions.append(madHatterActions[MadHatter.EMPOWER_R])
-						actions.append(madHatterActions[MadHatter.BONANZA_R])
+						actionIndex.append(MadHatter.EMPOWER_R)
+						actionIndex.append(MadHatter.BONANZA_R)
 					else:
-						actions.append(madHatterActions[MadHatter.SPIKE])
-						actions.append(madHatterActions[MadHatter.BATTER_R])
+						actionIndex.append(MadHatter.SPIKE)
+						actionIndex.append(MadHatter.BATTER_R)
 				else:
 					if value <= 0.3:
-						actions.append(madHatterActions[MadHatter.BATTER_R])
+						actionIndex.append(MadHatter.BATTER_R)
 					elif value <= 0.6:
-						actions.append(madHatterActions[MadHatter.REBUFF_R])
+						actionIndex.append(MadHatter.REBUFF_R)
 					elif value <= 0.9:
-						actions.append(madHatterActions[MadHatter.EMPOWER_R])
-						actions.append(madHatterActions[MadHatter.BONANZA_R])
+						actionIndex.append(MadHatter.EMPOWER_R)
+						actionIndex.append(MadHatter.BONANZA_R)
 					else:
-						actions.append(madHatterActions[MadHatter.SPIKE])
-						actions.append(madHatterActions[MadHatter.BATTER_R])
+						actionIndex.append(MadHatter.SPIKE)
+						actionIndex.append(MadHatter.BATTER_R)
 			MadHatter.EMPOWER_R:
 				if value <= 0.2:
-					actions.append(madHatterActions[MadHatter.SPIKE])
-					actions.append(madHatterActions[MadHatter.BATTER_R])
+					actionIndex.append(MadHatter.SPIKE)
+					actionIndex.append(MadHatter.BATTER_R)
 				elif value <= 0.6:
-					actions.append(madHatterActions[MadHatter.BATTER_R])
+					actionIndex.append(MadHatter.BATTER_R)
 				else:
-					actions.append(madHatterActions[MadHatter.REBUFF_R])
+					actionIndex.append(MadHatter.REBUFF_R)
 			MadHatter.BONANZA_R:
 				if value <= 0.2:
-					actions.append(madHatterActions[MadHatter.SPIKE])
-					actions.append(madHatterActions[MadHatter.BATTER_R])
+					actionIndex.append(MadHatter.SPIKE)
+					actionIndex.append(MadHatter.BATTER_R)
 				elif value <= 0.6:
-					actions.append(madHatterActions[MadHatter.BATTER_R])
+					actionIndex.append(MadHatter.BATTER_R)
 				else:
-					actions.append(madHatterActions[MadHatter.REBUFF_R])
+					actionIndex.append(MadHatter.REBUFF_R)
 			MadHatter.REBUFF_R:
 				if value <= 0.5:
-					actions.append(madHatterActions[MadHatter.BATTER_R])
+					actionIndex.append(MadHatter.BATTER_R)
 				else:
-					actions.append(madHatterActions[MadHatter.BONANZA_R])
-					actions.append(madHatterActions[MadHatter.EMPOWER_R])
+					actionIndex.append(MadHatter.BONANZA_R)
+					actionIndex.append(MadHatter.EMPOWER_R)
 			MadHatter.SPIKE:
-				actions.append(madHatterActions[MadHatter.BATTER_R])
-	return actions
+				actionIndex.append(MadHatter.BATTER_R)
+	return get_biscuit_actions(actionIndex)
 
-func cheshire_cat(lastAction : int, value : float) -> Array[Array]:
-	var actions : Array[Array]
+func cheshire_cat(lastAction : int, value : float) -> Array[Biscuit]:
+	var actionIndex : Array[Array]
 	if actionCount == 0:
-		actions.append(cheshireCatActions[CheshireCat.SCRATCH])
-		actions.append(cheshireCatActions[CheshireCat.PAW])
+		actionIndex.append(CheshireCat.SCRATCH)
+		actionIndex.append(CheshireCat.PAW)
 	else:
 		match lastAction:
 			CheshireCat.SCRATCH:
 				if value <= 0.25:
-					actions.append(cheshireCatActions[CheshireCat.BITE])
+					actionIndex.append(CheshireCat.BITE)
 				elif value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.CURSE])
+					actionIndex.append(CheshireCat.CURSE)
 				elif value <= 0.75:
-					actions.append(cheshireCatActions[CheshireCat.MAIM])
+					actionIndex.append(CheshireCat.MAIM)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.VANISH])
+					actionIndex.append(CheshireCat.VANISH)
 			CheshireCat.PAW:
 				if value <= 0.25:
-					actions.append(cheshireCatActions[CheshireCat.BITE])
+					actionIndex.append(CheshireCat.BITE)
 				elif value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.CURSE])
+					actionIndex.append(CheshireCat.CURSE)
 				elif value <= 0.75:
-					actions.append(cheshireCatActions[CheshireCat.MAIM])
+					actionIndex.append(CheshireCat.MAIM)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.VANISH])
+					actionIndex.append(CheshireCat.VANISH)
 			CheshireCat.BITE:
 				if value <= 0.25:
-					actions.append(cheshireCatActions[CheshireCat.SCRATCH])
-					actions.append(cheshireCatActions[CheshireCat.PAW])
+					actionIndex.append(CheshireCat.SCRATCH)
+					actionIndex.append(CheshireCat.PAW)
 				elif value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.CURSE])
+					actionIndex.append(CheshireCat.CURSE)
 				elif value <= 0.75:
-					actions.append(cheshireCatActions[CheshireCat.MAIM])
+					actionIndex.append(CheshireCat.MAIM)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.VANISH])
+					actionIndex.append(CheshireCat.VANISH)
 			CheshireCat.MAIM:
 				if value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.SCRATCH])
-					actions.append(cheshireCatActions[CheshireCat.PAW])
+					actionIndex.append(CheshireCat.SCRATCH)
+					actionIndex.append(CheshireCat.PAW)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.BITE])
+					actionIndex.append(CheshireCat.BITE)
 			CheshireCat.CURSE:
 				if value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.SCRATCH])
-					actions.append(cheshireCatActions[CheshireCat.PAW])
+					actionIndex.append(CheshireCat.SCRATCH)
+					actionIndex.append(CheshireCat.PAW)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.BITE])
+					actionIndex.append(CheshireCat.BITE)
 			CheshireCat.VANISH:
 				if value <= 0.5:
-					actions.append(cheshireCatActions[CheshireCat.SCRATCH])
-					actions.append(cheshireCatActions[CheshireCat.PAW])
+					actionIndex.append(CheshireCat.SCRATCH)
+					actionIndex.append(CheshireCat.PAW)
 				else:
-					actions.append(cheshireCatActions[CheshireCat.BITE])
-	return actions
+					actionIndex.append(CheshireCat.BITE)
+	return GameManager.get_enemy_biscuit(actionIndex)
 	
-func jabberwocky(lastAction : int, value : float) -> Array[Array]:
-	var actions : Array[Array]
+func jabberwocky(lastAction : int, value : float) -> Array[Biscuit]:
+	var actionIndex : Array[Array]
 	
 	if actionCount == 0:
-		actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-		actions.append(jabberwockyActions[Jabberwocky.SCORCH])
+		actionIndex.append(Jabberwocky.SWIPE)
+		actionIndex.append(Jabberwocky.SCORCH)
 	elif actionCount == 6:
-		actions.append(jabberwockyActions[Jabberwocky.ENFLAME])
+		actionIndex.append(Jabberwocky.ENFLAME)
 	elif specialState:
 		match lastAction:
 			Jabberwocky.ENFLAME:
-				actions.append(jabberwockyActions[Jabberwocky.SLASH])
+				actionIndex.append(Jabberwocky.SLASH)
 			Jabberwocky.SLASH:
 				if value <= 0.7:
-					actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-					actions.append(jabberwockyActions[Jabberwocky.BARRICADE])
+					actionIndex.append(Jabberwocky.SWIPE)
+					actionIndex.append(Jabberwocky.BARRICADE)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.JAWS_AND_CLAWS])
+					actionIndex.append(Jabberwocky.JAWS_AND_CLAWS)
 			Jabberwocky.JAWS_AND_CLAWS:
-				actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-				actions.append(jabberwockyActions[Jabberwocky.BARRICADE])
+				actionIndex.append(Jabberwocky.SWIPE)
+				actionIndex.append(Jabberwocky.BARRICADE)
 			Jabberwocky.SWIPE:
 				if value <= 0.7:
-					actions.append(jabberwockyActions[Jabberwocky.JAWS_AND_CLAWS])
+					actionIndex.append(Jabberwocky.JAWS_AND_CLAWS)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.SLASH])
+					actionIndex.append(Jabberwocky.SLASH)
 			Jabberwocky.BARRICADE:
 				if value <= 0.7:
-					actions.append(jabberwockyActions[Jabberwocky.JAWS_AND_CLAWS])
+					actionIndex.append(Jabberwocky.JAWS_AND_CLAWS)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.SLASH])
+					actionIndex.append(Jabberwocky.SLASH)
 	else:
 		match lastAction:
 			Jabberwocky.SCORCH:
 				if value <= 0.5:
-					actions.append(jabberwockyActions[Jabberwocky.SLASH])
+					actionIndex.append(Jabberwocky.SLASH)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-					actions.append(jabberwockyActions[Jabberwocky.BARRICADE])
+					actionIndex.append(Jabberwocky.SWIPE)
+					actionIndex.append(Jabberwocky.BARRICADE)
 			Jabberwocky.SLASH:
 				if value <= 0.5:
-					actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-					actions.append(jabberwockyActions[Jabberwocky.SCORCH])
+					actionIndex.append(Jabberwocky.SWIPE)
+					actionIndex.append(Jabberwocky.SCORCH)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-					actions.append(jabberwockyActions[Jabberwocky.BARRICADE])
+					actionIndex.append(Jabberwocky.SWIPE)
+					actionIndex.append(Jabberwocky.BARRICADE)
 			Jabberwocky.SWIPE:
 				print("Bug")
-				actions.append(jabberwockyActions[Jabberwocky.SLASH])
+				actionIndex.append(Jabberwocky.SLASH)
 			Jabberwocky.BARRICADE:
 				if value <= 0.5:
-					actions.append(jabberwockyActions[Jabberwocky.SLASH])
+					actionIndex.append(Jabberwocky.SLASH)
 				else:
-					actions.append(jabberwockyActions[Jabberwocky.SWIPE])
-					actions.append(jabberwockyActions[Jabberwocky.SCORCH])
+					actionIndex.append(Jabberwocky.SWIPE)
+					actionIndex.append(Jabberwocky.SCORCH)
 	
-	return actions
+	return GameManager.get_enemy_biscuit(actionIndex)
 	
-func red_queen(lastAction : int, value : float) -> Array[Array]:
-	var actions : Array[Array]
+func red_queen(lastAction : int, value : float) -> Array[Biscuit]:
+	var actionIndex : Array[Array]
 	
 	if enemyTeacup.teaLevel <= 50 and stateSpace.get(RedQueen.ENRAGE).get(1):
-		actions.append(redQueenActions[RedQueen.ENRAGE])
+		actionIndex.append(RedQueen.ENRAGE)
 	elif specialState:
 		match lastAction:
 			RedQueen.ENRAGE:
 				if redQueenGuardCount >= 3:
-					actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-					actions.append(redQueenActions[RedQueen.SNARKY])
+					actionIndex.append(RedQueen.ROYAL_STRIKE)
+					actionIndex.append(RedQueen.SNARKY)
 				else:
-					actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+					actionIndex.append(RedQueen.SUMMON_GUARDS)
 			RedQueen.ROYAL_STRIKE:
 				if redQueenGuardCount >= 3:
-					actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+					actionIndex.append(RedQueen.OFF_WITH_YOUR_HEAD)
 				else:
 					if value <= 0.7:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						actionIndex.append(RedQueen.SUMMON_GUARDS)
 					else:
-						actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+						actionIndex.append(RedQueen.OFF_WITH_YOUR_HEAD)
 			RedQueen.SNARKY:
 				if redQueenGuardCount >= 3:
-					actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+					actionIndex.append(RedQueen.OFF_WITH_YOUR_HEAD)
 				else:
 					if value <= 0.7:
-						actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+						actionIndex.append(RedQueen.SUMMON_GUARDS)
 					else:
-						actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+						actionIndex.append(RedQueen.OFF_WITH_YOUR_HEAD)
 			RedQueen.OFF_WITH_YOUR_HEAD:
-				actions.append(redQueenActions[RedQueen.ROYAL_TOILET_PAPER])
+				actionIndex.append(RedQueen.ROYAL_TOILET_PAPER)
 			RedQueen.SUMMON_GUARDS:
 				if value <= 0.8:
-					actions.append(redQueenActions[RedQueen.OFF_WITH_YOUR_HEAD])
+					actionIndex.append(RedQueen.OFF_WITH_YOUR_HEAD)
 				elif value <= 0.9:
-					actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-					actions.append(redQueenActions[RedQueen.SNARKY])
+					actionIndex.append(RedQueen.ROYAL_STRIKE)
+					actionIndex.append(RedQueen.SNARKY)
 				else:
-					actions.append(redQueenActions[RedQueen.ROYAL_TOILET_PAPER])
+					actionIndex.append(RedQueen.ROYAL_TOILET_PAPER)
 			RedQueen.ROYAL_TOILET_PAPER:
-				actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-				actions.append(redQueenActions[RedQueen.SNARKY])
+				actionIndex.append(RedQueen.ROYAL_STRIKE)
+				actionIndex.append(RedQueen.SNARKY)
 			
 	else:
 		match lastAction:
 			RedQueen.BOLSTER:
 				if stateSpace.get(RedQueen.BOLSTER).get(0) >= 2 or stateSpace.get(RedQueen.ARROGANCE).get(0) >= 2:
 					if redQueenGuardCount >= 3:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
+						actionIndex.append(RedQueen.ROYAL_STRIKE)
+						actionIndex.append(RedQueen.SNARKY)
 					else:
 						if value <= 0.8:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						else:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 				else:
 					if redQueenGuardCount >= 3:
 						if value <= 0.45:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						else:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 					else:
 						if value <= 0.4:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						elif value <= 0.5:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 						else:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 			RedQueen.ARROGANCE:
 				if stateSpace.get(RedQueen.BOLSTER).get(0) >= 2 or stateSpace.get(RedQueen.ARROGANCE).get(0) >= 2:
 					if redQueenGuardCount >= 3:
-						actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-						actions.append(redQueenActions[RedQueen.SNARKY])
+						actionIndex.append(RedQueen.ROYAL_STRIKE)
+						actionIndex.append(RedQueen.SNARKY)
 					else:
 						if value <= 0.8:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						else:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 				else:
 					if redQueenGuardCount >= 3:
 						if value <= 0.45:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						else:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 					else:
 						if value <= 0.4:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						elif value <= 0.5:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 						else:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 			RedQueen.ROYAL_STRIKE:
 				if stateSpace.get(RedQueen.ROYAL_STRIKE).get(0) >= 2 or stateSpace.get(RedQueen.SNARKY).get(0) >= 2:
 					if redQueenGuardCount >= 3:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
+						actionIndex.append(RedQueen.BOLSTER)
+						actionIndex.append(RedQueen.ARROGANCE)
 					else:
 						if value <= 0.8:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						else:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 				else:
 					if redQueenGuardCount >= 3:
 						if value <= 0.45:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						else:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 					else:
 						if value <= 0.4:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						elif value <= 0.5:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 						else:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 			RedQueen.SNARKY:
 				if stateSpace.get(RedQueen.ROYAL_STRIKE).get(0) >= 2 or stateSpace.get(RedQueen.SNARKY).get(0) >= 2:
 					if redQueenGuardCount >= 3:
-						actions.append(redQueenActions[RedQueen.BOLSTER])
-						actions.append(redQueenActions[RedQueen.ARROGANCE])
+						actionIndex.append(RedQueen.BOLSTER)
+						actionIndex.append(RedQueen.ARROGANCE)
 					else:
 						if value <= 0.8:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 						else:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 				else:
 					if redQueenGuardCount >= 3:
 						if value <= 0.45:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						else:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 					else:
 						if value <= 0.4:
-							actions.append(redQueenActions[RedQueen.ROYAL_STRIKE])
-							actions.append(redQueenActions[RedQueen.SNARKY])
+							actionIndex.append(RedQueen.ROYAL_STRIKE)
+							actionIndex.append(RedQueen.SNARKY)
 						elif value <= 0.5:
-							actions.append(redQueenActions[RedQueen.SUMMON_GUARDS])
+							actionIndex.append(RedQueen.SUMMON_GUARDS)
 						else:
-							actions.append(redQueenActions[RedQueen.BOLSTER])
-							actions.append(redQueenActions[RedQueen.ARROGANCE])
+							actionIndex.append(RedQueen.BOLSTER)
+							actionIndex.append(RedQueen.ARROGANCE)
 			RedQueen.SUMMON_GUARDS:
-				actions.append(redQueenActions[RedQueen.BOLSTER])
-				actions.append(redQueenActions[RedQueen.ARROGANCE])
+				actionIndex.append(RedQueen.BOLSTER)
+				actionIndex.append(RedQueen.ARROGANCE)
 	
 	if redQueenGuardCount > 0:
-		actions.append(redQueenActions[RedQueen.SIEZE_HER])
+		actionIndex.append(RedQueen.SIEZE_HER)
 	
-	return actions
+	return GameManager.get_enemy_biscuit()
 
-func choose_actions(index : int) -> Array[Array]:
-	var actions : Array[Array]
+func choose_actions(index : int) -> Array[Biscuit]:
+	var actions : Array[Biscuit]
 	
 	var lastAction : int
 	for action in stateSpace.keys():
@@ -578,7 +543,7 @@ func choose_actions(index : int) -> Array[Array]:
 	return actions
 
 func set_action() -> void:
-	var actions : Array[Array]
+	var actions : Array[Biscuit]
 	match index:
 		0:
 			# White rabbit
@@ -613,11 +578,9 @@ func set_action() -> void:
 		
 	for i in range(len(actions)):
 		var biscuit : Biscuit = biscuits.get(i)
-		biscuit.cardName = actions.get(i).get(4)
-		biscuit.Description = actions.get(i).get(5)
-		biscuit.Img = actions.get(i).get(6)
-		biscuit.dryness = actions.get(i).get(0)
-		biscuit.defense = actions.get(i).get(1)
+		var action : Biscuit = actions.get(i)
+		
+		GameManager.set_biscuit(biscuit, action)
 	
 	biscuits.get(0).update_sprites()
 	biscuits.get(1).update_sprites()
@@ -627,21 +590,21 @@ func set_action() -> void:
 	biscuits.get(2).modulate = Color(1, 1, 1, 1)
 	chosenActions = actions
 
-func get_actions() -> Array[Array]:
+func get_actions() -> Array[Biscuit]:
 	if len(chosenActions) == 3:
-		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).enemyPlayable else "Play Biscuits Player1"
 		$AnimationPlayer1.play(biscuit1Animation)
-		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).get(3) else "Play Biscuits Player2"
+		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).enemyPlayable else "Play Biscuits Player2"
 		$AnimationPlayer2.play(biscuit2Animation)
-		var biscuit3Animation = "Play Biscuits Enemy3" if chosenActions.get(2).get(3) else "Play Biscuits Player3"
+		var biscuit3Animation = "Play Biscuits Enemy3" if chosenActions.get(2).enemyPlayable else "Play Biscuits Player3"
 		$AnimationPlayer3.play(biscuit3Animation)
 	elif len(chosenActions) == 2:
-		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).enemyPlayable else "Play Biscuits Player1"
 		$AnimationPlayer1.play(biscuit1Animation)
-		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).get(3) else "Play Biscuits Player2"
+		var biscuit2Animation = "Play Biscuits Enemy2" if chosenActions.get(1).enemyPlayable else "Play Biscuits Player2"
 		$AnimationPlayer2.play(biscuit2Animation)
 	elif len(chosenActions) == 1:
-		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).get(3) else "Play Biscuits Player1"
+		var biscuit1Animation = "Play Biscuits Enemy1" if chosenActions.get(0).enemyPlayable else "Play Biscuits Player1"
 		$AnimationPlayer1.play(biscuit1Animation)
 	return chosenActions
 
@@ -650,6 +613,8 @@ func set_dialogue() -> void:
 		0:
 			if actionCount == 1:
 				if not GameManager.playedTutorial:
+					if skipTutorial:
+						dialogueCounter = 55
 					match dialogueCounter:
 						0:
 							deckManager.hand.draggingDisabled = true
@@ -845,10 +810,11 @@ func finish_dialogue() -> void:
 	deckManager.hand.draggingDisabled = false
 
 func attacking() -> bool:
+	var result : bool
 	for action in chosenActions:
-		if action.get(0) != 0 and not action.get(3):
-			return true
-	return false
+		if GameManager.get_enemy_biscuit(action).thirst != 0:
+			result = true
+	return result
 
 func reset() -> void:
 	biscuits.get(0).scale = Vector2(1, 1)
@@ -907,7 +873,7 @@ func get_health() -> int:
 	return 0
 
 func eat_biscuit_player(index : int, onPlayer : bool) -> void:
-	eatAnimationBiscuit.texture = load(chosenActions.get(index).get(6))
+	eatAnimationBiscuit.texture = load(chosenActions.get(index).img)
 	
 	if onPlayer:
 		eatAnimation.play("Player")

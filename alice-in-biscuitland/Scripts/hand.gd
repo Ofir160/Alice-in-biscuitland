@@ -11,7 +11,7 @@ signal TurnEnded
 @export var dampStrength : float
 
 var biscuitHand : Array[Biscuit] 
-var biscuitStatHand : Array[Array]
+var biscuitStatHand : Array[int]
 var currentBiscuit : Biscuit
 var draggingDisabled : bool
 var resetAfterPlay : bool = true
@@ -45,9 +45,9 @@ func draw_cards(numberOfCards : int) -> void:
 			drawPile.drawPile.remove_at(0)	
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
-		var biscuitStats : Array = biscuitStatHand.get(i)
+		var biscuit : Biscuit = GameManager.get_biscuit(biscuitStatHand.get(i))
 		
-		BiscuitHelper.set_biscuit_stats(displayBiscuit, biscuitStats)
+		GameManager.set_biscuit(displayBiscuit, biscuit)
 	
 	for biscuit in biscuitHand:
 		biscuit.update_sprites()
@@ -61,12 +61,12 @@ func reset_display_biscuits_positions(biscuitCount : int, updatePositions : bool
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		if i < len(biscuitStatHand):
 			if setHandPositions:
-				displayBiscuit.handPosition = calculate_biscuit_display_positions(biscuitCount).get(i)
+				displayBiscuit.desiredPosition = calculate_biscuit_display_positions(biscuitCount).get(i)
 		else:
 			if setHandPositions:
-				displayBiscuit.handPosition = Vector2(0, 2000.0)
+				displayBiscuit.desiredPosition = Vector2(0, 2000.0)
 		if updatePositions and setHandPositions:
-			displayBiscuit.position = displayBiscuit.handPosition
+			displayBiscuit.position = displayBiscuit.desiredPosition
 
 func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 	var positions : Array[Vector2]
@@ -96,11 +96,11 @@ func calculate_biscuit_display_positions(biscuitCount : int) -> Array[Vector2]:
 
 func discard_biscuit(biscuit : Biscuit, sunk : bool) -> void:
 	var index : int = biscuitHand.find(biscuit)
-	var biscuitStat : Array = biscuitStatHand.get(index)
+	var biscuitIndex : int = biscuitStatHand.get(index)
 	if not sunk:
-		discardPile.discard(biscuitStat) # Discard the biscuit
+		discardPile.discard(biscuitIndex) # Discard the biscuit
 	
-	biscuitStatHand.erase(biscuitStat)
+	biscuitStatHand.erase(biscuitIndex)
 	biscuitHand.erase(biscuit)
 	biscuitHand.append(biscuit)
 	reset_display_biscuits_positions(len(biscuitStatHand), false)
@@ -114,14 +114,14 @@ func discard_biscuit(biscuit : Biscuit, sunk : bool) -> void:
 
 func end_turn(biscuit : Biscuit, sunk : bool) -> void:
 	var index : int = biscuitHand.find(biscuit)
-	var biscuitStat : Array = biscuitStatHand.get(index)
+	var biscuitIndex : int = biscuitStatHand.get(index)
 	if sunk:
-		biscuitStatHand.erase(biscuitStat)
+		biscuitStatHand.erase(biscuitIndex)
 	
 	discardPile.discard_array(biscuitStatHand)
 	biscuitStatHand.clear()
 	for displayBiscuit in biscuitHand:
-		displayBiscuit.resetting = false
+		displayBiscuit.lerping = false
 		displayBiscuit.position = Vector2(0, 2000.0)
 	
 	for displayBiscuit in biscuitHand:
@@ -137,20 +137,20 @@ func reset_biscuit(biscuit : Biscuit) -> void:
 func set_biscuits() -> void:
 	for i in range(len(biscuitStatHand)):
 		var displayBiscuit : Biscuit = biscuitHand.get(i)
-		var biscuitStats : Array = biscuitStatHand.get(i)
+		var biscuit : Biscuit = GameManager.get_biscuit(biscuitStatHand.get(i))
 		
-		BiscuitHelper.set_biscuit_stats(displayBiscuit, biscuitStats)
+		GameManager.set_biscuit(displayBiscuit, biscuit)
 
 func _process(delta: float) -> void:
-	
 	for i in range(len(biscuitStatHand)):
-		var biscuitStat = biscuitStatHand.get(i)
-		var biscuit = biscuitHand.get(i)
+		var wrongBiscuit : Biscuit = GameManager.get_biscuit(biscuitStatHand.get(i))
+		var displayBiscuit : Biscuit = biscuitHand.get(i)
 		
-		if biscuit.cardName != biscuitStat.get(0):
+		if displayBiscuit.index != wrongBiscuit.index:
 			# Try and fix mismatches
-			print("Mismatch!")
-			set_biscuits()
+			biscuitStatHand.set(i, displayBiscuit.index)
+			print("Mismatch")
+			# set_biscuits()
 	
 	if Input.is_action_just_pressed("Click"):
 		# When dragging
@@ -159,7 +159,12 @@ func _process(delta: float) -> void:
 				currentBiscuit = biscuit
 				biscuit.z_index = 10
 				biscuit.dragged = true
-				deckManager.battleManager.enemy.highlighted = true
+				if biscuit.enemyPlayable:
+					deckManager.battleManager.enemy.highlighted = true
+				if biscuit.playerPlayable:
+					deckManager.battleManager.player.highlighted = true
+				if biscuit.dunkable:
+					deckManager.battleManager.teacup.highlighted = true
 	elif Input.is_action_just_released("Click"):
 		# When releasing
 		if currentBiscuit:
@@ -168,13 +173,15 @@ func _process(delta: float) -> void:
 				# Dunked biscuit
 				if currentBiscuit.isDunked:
 					currentBiscuit.reset()
-				else:
+				elif currentBiscuit.dunkable:
 					currentBiscuit.isDunked = true
 					currentBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitDunked.emit(currentBiscuit) # Dunks the biscuit
+				else:
+					currentBiscuit.reset()
 			elif deckManager.battleManager.player.hovering:
 				# Dropped biscuit on hands
-				if currentBiscuit.onDunkSpecial == 0:
+				if currentBiscuit.playerPlayable:
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(currentBiscuit, false)
@@ -183,7 +190,7 @@ func _process(delta: float) -> void:
 					currentBiscuit.reset()
 			elif deckManager.battleManager.enemy.hovering:
 				# Dropped biscuit on table
-				if currentBiscuit.onDunkSpecial == 0:
+				if currentBiscuit.enemyPlayable:
 					for displayBiscuit in biscuitHand:
 						displayBiscuit.modulate = Color(0, 0, 0, 0)
 					BiscuitPlayed.emit(currentBiscuit, true)
@@ -198,5 +205,7 @@ func _process(delta: float) -> void:
 			currentBiscuit.dragged = false
 			currentBiscuit = null
 			deckManager.battleManager.enemy.highlighted = false
+			deckManager.battleManager.player.highlighted = false
+			deckManager.battleManager.teacup.highlighted = false
 	if currentBiscuit:
 		currentBiscuit.position = lerp(currentBiscuit.position, get_global_mouse_position(), 1 - exp(-dampStrength * delta))

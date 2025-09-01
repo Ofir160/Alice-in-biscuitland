@@ -1,7 +1,7 @@
 extends Sprite2D
 
 @export var index : int
-@export var biscuit : Biscuit
+@export var biscuitIndex : int
 var hovering : bool
 
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click") and hovering:
 		if GameManager.biscuitProgress.find(index) == -1:
 			GameManager.biscuitProgress.append(index)
-			GameManager.add_biscuit(biscuit)
+			GameManager.add_biscuit(biscuitIndex)
 			modulate = Color(0, 0, 0, 0)
 			$Area2D/CollisionShape2D.disabled = true
 

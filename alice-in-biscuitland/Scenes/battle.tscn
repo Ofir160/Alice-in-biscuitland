@@ -1242,55 +1242,30 @@ z_index = 9
 position = Vector2(0, 2000)
 timeToReset = 1.0
 cardName = ""
-Description = ""
-Img = ""
-dryness = 0
-defense = 0
-special = 0
 
 [node name="2" parent="Battle Manager/HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
 z_index = 9
 position = Vector2(0, 2000)
 timeToReset = 1.0
 cardName = ""
-Description = ""
-Img = ""
-dryness = 0
-defense = 0
-special = 0
 
 [node name="3" parent="Battle Manager/HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
 z_index = 9
 position = Vector2(0, 2000)
 timeToReset = 1.0
 cardName = ""
-Description = ""
-Img = ""
-dryness = 0
-defense = 0
-special = 0
 
 [node name="4" parent="Battle Manager/HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
 z_index = 9
 position = Vector2(0, 2000)
 timeToReset = 1.0
 cardName = ""
-Description = ""
-Img = ""
-dryness = 0
-defense = 0
-special = 0
 
 [node name="5" parent="Battle Manager/HandDisplayBiscuits" instance=ExtResource("2_oxf17")]
 z_index = 9
 position = Vector2(0, 2000)
 timeToReset = 1.0
 cardName = ""
-Description = ""
-Img = ""
-dryness = 0
-defense = 0
-special = 0
 
 [node name="Player Teacup" parent="Battle Manager" instance=ExtResource("3_1ruyk")]
 z_index = 5
@@ -1357,6 +1332,7 @@ enemyTeacup = NodePath("../Enemy Teacup")
 eatAnimation = NodePath("../Deck Manager/Eat Animation")
 eatAnimationBiscuit = NodePath("../Deck Manager/Eat Mask/Animation Biscuit")
 deckManager = NodePath("../Deck Manager")
+skipTutorial = true
 
 [node name="Timer" type="Timer" parent="Battle Manager"]
 wait_time = 3.0

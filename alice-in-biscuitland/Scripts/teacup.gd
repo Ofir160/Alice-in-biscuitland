@@ -16,7 +16,8 @@ var maxTea : int
 var teaLevel : int
 var dunkChance : float = 0.5
 
-var hovering : bool = false
+var hovering : bool
+var highlighted : bool
 var teacup_state : int # 0 if normal. 1 if fire. 2 if Ice. 3 If we have time :p
 
 func _on_area_2d_mouse_entered() -> void:

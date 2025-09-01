@@ -8,47 +8,48 @@ const biscuitUnhover = preload("res://Assets/Audio/SFX/biscuitUnhover.ogg")
 @export var hoverRight : bool
 @export var hoverLeft : bool
 
-@export var cardName:="";
-@export var Description:="";
-@export var dunkedDescription := ""
-@export var Img:String="";
-@export var DunkedImg : String = ""
-@export var dryness:=10;#basic stats
-@export var defense:=5;
-@export var special:=4;#id of the effect on eat
-@export var dunkedDryness:=0;#stats after being dunked
-@export var dunkedDefense:=0;
-@export var dunkedSpecial:=0;#id of the effect on eat (AFTER DUNK)
-@export var onDunkSpecial:=0;#id of the effect activated when dunked
+@export var cardName : String
+@export var description : String
+@export var dunkedDescription : String
+@export var img : String
+@export var dunkedImg : String 
+@export var thirst : int
+@export var defense : int
+@export var dunkedThirst : int
+@export var dunkedDefense : int
+@export var index : int
+@export var dunkable : bool
+@export var enemyPlayable : bool
+@export var playerPlayable : bool
 
 @export var sfx : AudioStreamPlayer2D
 
-var isDunked := false # has the card been dunked
-var hovered := false
-var dragged := false
-var resetting := false
-var handPosition : Vector2
-var droppedPosition : Vector2
+var isDunked : bool
+var hovered : bool
+var dragged : bool
+var lerping : bool
+var desiredPosition : Vector2
+var startingPosition : Vector2
 var elapsedTime : float
 
-var effectiveDryness : int
+var effectiveThirst : int
 var thirstPower : int
 var effectiveDefense : int
 
 func _process(delta: float) -> void:
-	if resetting:
+	if lerping:
 		elapsedTime += delta
 		var t : float = elapsedTime / timeToReset
-		position = lerp(droppedPosition, handPosition, 1 - (1 - t) * (1 - t))
+		position = lerp(startingPosition, desiredPosition, 1 - (1 - t) * (1 - t))
 		
 		if t >= 1.0:
-			resetting = false
+			lerping = false
 			modulate = Color(1, 1, 1, 1)
 			
 func reset() -> void:
-	resetting = true
+	lerping = true
 	elapsedTime = 0
-	droppedPosition = position
+	startingPosition = position
 
 func update_sprites():
 	if isDunked:
@@ -57,7 +58,7 @@ func update_sprites():
 		
 		if thirstIndex != -1:
 			text = text.erase(thirstIndex, 2)
-			text = text.insert(thirstIndex, str(effectiveDryness))
+			text = text.insert(thirstIndex, str(effectiveThirst))
 			
 		var defenseIndex : int = text.find("/b")
 		
@@ -84,14 +85,14 @@ func update_sprites():
 			text = text.insert(gamblersIndex2, str(thirstPower + 15))
 			
 		$description/text.text = text
-		$Sprite2D.texture = load(DunkedImg)
+		$Sprite2D.texture = load(dunkedImg)
 	else:
-		var text : String = Description
+		var text : String = description
 		var thirstIndex : int = text.find("/a")
 		
 		if thirstIndex != -1:
 			text = text.erase(thirstIndex, 2)
-			text = text.insert(thirstIndex, str(effectiveDryness))
+			text = text.insert(thirstIndex, str(effectiveThirst))
 			
 		var defenseIndex : int = text.find("/b")
 		
@@ -118,7 +119,7 @@ func update_sprites():
 			text = text.insert(gamblersIndex2, str(thirstPower + 15))
 			
 		$description/text.text = text
-		$Sprite2D.texture = load(Img)
+		$Sprite2D.texture = load(img)
 	$name/text.text = cardName
 
 func _on_area_2d_mouse_entered() -> void:
@@ -144,5 +145,4 @@ func _on_area_2d_mouse_exited() -> void:
 		else:
 			$AnimationPlayer.play("vanish")
 	hovered = false
-	
 	

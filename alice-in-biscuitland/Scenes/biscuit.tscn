@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://2i6y7s6bk7vx"]
+[gd_scene load_steps=15 format=3 uid="uid://2i6y7s6bk7vx"]
 
 [ext_resource type="Script" uid="uid://dnsbihxciabxh" path="res://Scripts/biscuit.gd" id="1_06a0o"]
 [ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="2_06a0o"]
-[ext_resource type="Texture2D" uid="uid://b3qqa4jct8ldn" path="res://Assets/Sprites/Biscuits/Bourbon.png" id="2_obm7r"]
 [ext_resource type="FontFile" uid="uid://dkm7gko2mx8qe" path="res://Assets/Fonts/CherrySwash-Bold.ttf" id="3_8ptjb"]
 
 [sub_resource type="Animation" id="Animation_8ptjb"]
@@ -478,13 +477,10 @@ size = Vector2(150, 200)
 script = ExtResource("1_06a0o")
 timeToReset = 0.5
 cardName = "My name"
-Description = "WHATEVER we WANT"
-Img = "res://Assets/Sprites/placeholder.png"
 sfx = NodePath("SFX")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_obm7r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../description")

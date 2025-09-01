@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://wn4wj2eat0qo"]
+[gd_scene load_steps=11 format=3 uid="uid://wn4wj2eat0qo"]
 
 [ext_resource type="Script" uid="uid://nspyxxvt548s" path="res://Scripts/biscuits.gd" id="1_mduvw"]
 [ext_resource type="PackedScene" uid="uid://2i6y7s6bk7vx" path="res://Scenes/biscuit.tscn" id="1_xxs46"]
 [ext_resource type="Texture2D" uid="uid://cqnwwawl577uc" path="res://Assets/Sprites/UI/Continue Button.png" id="3_mbcbx"]
 [ext_resource type="Texture2D" uid="uid://cpl3lksuvp582" path="res://Assets/Sprites/UI/Continue Button Selected.png" id="4_l1xaj"]
 [ext_resource type="Script" uid="uid://250f6uhxrtft" path="res://Scripts/continue_button.gd" id="4_mbcbx"]
-[ext_resource type="Script" uid="uid://epyc5q1b2hjv" path="res://Scripts/biscuit_compendium.gd" id="5_wgthi"]
 [ext_resource type="Texture2D" uid="uid://ca3jyi1prh8fb" path="res://Assets/Backgrounds/Card Selection Background.png" id="8_dllaj"]
 [ext_resource type="Script" uid="uid://cg1magmhxsqo3" path="res://Scripts/reward_message.gd" id="9_28mko"]
 [ext_resource type="FontFile" uid="uid://b6wemsj53vwne" path="res://Assets/Fonts/CherrySwash-Regular.ttf" id="9_j8pby"]
@@ -21,10 +20,9 @@ size = Vector2(1050, 100)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Biscuits" type="Node" parent="." node_paths=PackedStringArray("biscuits", "biscuitCompendium", "sfx")]
+[node name="Biscuits" type="Node" parent="." node_paths=PackedStringArray("biscuits", "sfx")]
 script = ExtResource("1_mduvw")
 biscuits = [NodePath("1"), NodePath("2"), NodePath("3")]
-biscuitCompendium = NodePath("../BiscuitCompendium")
 sfx = NodePath("../SFX")
 
 [node name="1" parent="Biscuits" instance=ExtResource("1_xxs46")]
@@ -65,214 +63,6 @@ theme_override_fonts/normal_font = ExtResource("9_j8pby")
 theme_override_font_sizes/normal_font_size = 256
 bbcode_enabled = true
 text = "[wave amp=150.0 freq=5.0 connected=1]This Way[/wave]"
-
-[node name="BiscuitCompendium" type="Node" parent="." node_paths=PackedStringArray("biscuitCompendium")]
-script = ExtResource("5_wgthi")
-biscuitCompendium = [NodePath("Line of Defense"), NodePath("Defend"), NodePath("Refill"), NodePath("S\'more"), NodePath("Make it bigger"), NodePath("Make it smaller"), NodePath("Untouchable"), NodePath("Jaffa Cake"), NodePath("Gambler\'s Cookie"), NodePath("Fire"), NodePath("Sacrifice"), NodePath("Fireproof"), NodePath("Ragebait"), NodePath("Ice"), NodePath("Frost"), NodePath("Renewal")]
-
-[node name="Line of Defense" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "The Big Biscuit"
-Description = "Adds /b Defense. Adds 2 Extra Defense for every Defense Biscuit in your hand."
-dunkedDescription = "Adds /b Defense. Adds 4 Extra Defense for every Defense Biscuit in your hand.Adds /b Defense."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Chocolate.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Chocolate Dunked.png"
-dryness = 0
-defense = 0
-special = 11
-dunkedSpecial = 11
-
-[node name="Grow" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Grow"
-Description = "Gain 1 Thirst and 1 Defense Power. Gain 2 of each if Dunked."
-dunkedDescription = "Gain 2 Thirst and 2 Defense Power."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Wafer.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Wafer Dunked.png"
-dryness = 0
-defense = 0
-special = 12
-dunkedSpecial = 12
-
-[node name="Defend" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Defend"
-Description = "Adds /b Defense. 20 If Dunked."
-dunkedDescription = "Adds /b Defense."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/White Meringue.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/White Meringue Dunked.png"
-dryness = 0
-defense = 10
-special = 0
-dunkedDefense = 20
-
-[node name="Refill" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Refill"
-Description = "Refills tea by 10. To play this biscuit Dunk it."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Oreo.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Oreo Dunked.png"
-dryness = 0
-defense = 0
-special = 0
-onDunkSpecial = 1
-
-[node name="S\'more" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "S'more"
-Description = "On your next turn you must play all biscuits. Also Gains 1 Thirst and Defense Power if Dunked."
-dunkedDescription = "On your next turn you must play all your cards. Gain 1 Thirst and Defense Power."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Smore.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Smore Dunked.png"
-dryness = 0
-defense = 0
-special = 1
-dunkedSpecial = 1
-
-[node name="Make it bigger" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Make it bigger"
-Description = "Doubles the Thirst of Opponent's and Player's Thirst Biscuits. Lasts for two turns."
-dunkedDescription = "Doubles the Thirst of Player's Thirst Biscuits. Lasts for two turns."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Big Potion.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Big Potion Dunked.png"
-dryness = 0
-defense = 0
-special = 2
-dunkedSpecial = 2
-
-[node name="Make it smaller" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Make it smaller"
-Description = "Halfs the Thirst of Opponent's and Player's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. "
-dunkedDescription = "Halfs the Thirst of Opponent's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. "
-Img = "res://Assets/Sprites/Biscuits/Untitled_Artwork-17.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Small Potion Dunked.png"
-dryness = 0
-defense = 0
-special = 3
-dunkedSpecial = 3
-
-[node name="Untouchable" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Untouchable"
-Description = "Adds /b Defense.  40 if Dunked. You cannot gain defence next turn."
-dunkedDescription = "Adds /b Defense. You cannot gain defence next turn."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Lotus.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Lotus.png"
-dryness = 0
-defense = 30
-dunkedDefense = 40
-dunkedSpecial = 4
-
-[node name="Jaffa Cake" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Jaffa Cake"
-Description = "Not a biscuit!. 50% chance to do deal /j Thirst. 18 if Dunked. Otherwise does nothing."
-dunkedDescription = "Not a biscuit!. 50% chance to do deal /j Thirst. Otherwise does nothing."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Jaffa Cake.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Jaffa Cake Dunked.png"
-dryness = 0
-defense = 0
-special = 5
-dunkedSpecial = 5
-
-[node name="Gambler\'s Cookie" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Gambler's Cookie"
-Description = "Random Defence. Random Thirst. Between /g to /h."
-dunkedDescription = "Random Defence. Random Thirst. Between /g to /h."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Fox.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Fox Dunked.png"
-dryness = 0
-defense = 0
-special = 6
-dunkedSpecial = 6
-
-[node name="Fire" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Fire"
-Description = "Set's tea on fire. Every time you sink a Defense card into tea Gain 3 Thirst power. To play this Biscuit Dunk it"
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Red Party Ring.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Red Party Ring Dunked.png"
-dryness = 0
-defense = 0
-special = 0
-onDunkSpecial = 2
-
-[node name="Sacrifice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Sacrifice"
-Description = "Sinks all Biscuits in hand.  Deals 7 Thirst for every Biscuit sunk. 10 if Dunked."
-dunkedDescription = "Sinks all Biscuits in hand.  Deals 10 Thirst for every Biscuit sunk."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Gingerbread Dagger.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Gingerbread Dagger Dunked.png"
-dryness = 0
-defense = 0
-special = 7
-dunkedSpecial = 7
-
-[node name="Fireproof" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Fireproof"
-Description = "Adds /b Defense. 12 if Dunked. Goes back to discard pile if sunk."
-dunkedDescription = "Adds /b Defense. Goes back to discard pile if sunk."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Maryland.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Maryland Dunked.png"
-dryness = 0
-defense = 8
-special = 0
-dunkedDefense = 12
-onDunkSpecial = 4
-
-[node name="Ragebait" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Ragebait"
-Description = "Deals /a Thirst. 16 if Dunked. If enemy intends on attacking set's tea on fire."
-dunkedDescription = "Deals /a Thirst. If enemy intends on attacking set's tea on fire."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Custard Cream.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Custard Cream Dunked.png"
-dryness = 8
-defense = 0
-special = 8
-dunkedDryness = 16
-dunkedSpecial = 8
-
-[node name="Ice" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Ice"
-Description = "Freezes tea.  Every time you dunk a Defense Biscuit into tea Gain 3 Defense Power. To play this Biscuit Dunk it."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Yellow Party Ring.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Yellow Party Ring Dunked.png"
-dryness = 0
-defense = 0
-special = 0
-onDunkSpecial = 3
-
-[node name="Frost" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Frost"
-Description = "Prevents the next biscuit from sinking in tea."
-dunkedDescription = "Prevents the next 2 biscuit from sinking in tea."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Blue Party Ring.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Blue Party Ring Dunked.png"
-dryness = 0
-defense = 0
-special = 9
-dunkedSpecial = 9
-
-[node name="Renewal" parent="BiscuitCompendium" instance=ExtResource("1_xxs46")]
-position = Vector2(1699, 1391)
-cardName = "Renewal"
-Description = "Deals /a Thirst. 16 if Dunked. Refills Player's tea by 5. Sets tea to normal temperature."
-dunkedDescription = "Deals /a Thirst. Refills Player's tea by 5. Sets tea to normal temperature."
-Img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Chocolate Meringue.png"
-DunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Chocolate Meringue Dunked.png"
-dryness = 8
-defense = 0
-special = 10
-dunkedDryness = 16
-dunkedSpecial = 10
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
