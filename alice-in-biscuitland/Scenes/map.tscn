@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://r7wouctlfokv"]
 
-[ext_resource type="Texture2D" uid="uid://cnkbgduau746q" path="res://Assets/Backgrounds/Untitled_Artwork (6).png" id="1_macow"]
+[ext_resource type="Texture2D" uid="uid://4tft2yfb7i0f" path="res://Assets/Backgrounds/Untitled_Artwork (7).png" id="1_macow"]
 [ext_resource type="Texture2D" uid="uid://c43oftgstknhk" path="res://Assets/Backgrounds/Untitled_Artwork (5).png" id="2_olcgw"]
 [ext_resource type="Script" uid="uid://bdcdlen21e5i4" path="res://Scripts/alice.gd" id="2_p3ir5"]
 [ext_resource type="PackedScene" uid="uid://i7admbudl2vt" path="res://Scenes/map_enemy.tscn" id="4_myvm1"]
@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cr8gqt3k15w08" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-1.png" id="16_fls3e"]
 [ext_resource type="Texture2D" uid="uid://bvdpm3ic0gqyp" path="res://Assets/Sprites/Biscuits/S.png" id="17_macow"]
 [ext_resource type="Texture2D" uid="uid://ddsqpc6wwjk0o" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-27.png" id="18_j4oe2"]
-[ext_resource type="Texture2D" uid="uid://b85h3v7p1iwyd" path="res://Assets/Sprites/Biscuits/F.png" id="18_macow"]
+[ext_resource type="Texture2D" uid="uid://b85h3v7p1iwyd" path="res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Fox.png" id="18_macow"]
 [ext_resource type="Texture2D" uid="uid://capkjptfmdyb3" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-4 (18).png" id="19_riaky"]
 [ext_resource type="Texture2D" uid="uid://cxeo1u0lo1gf7" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-8.png" id="20_vtkp8"]
 [ext_resource type="Texture2D" uid="uid://bc1lkia4eu658" path="res://Assets/Sprites/Biscuits/Untitled_Artwork-1 (19).png" id="21_rg57b"]

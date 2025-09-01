@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cavaphfau3v73"]
+[gd_scene load_steps=31 format=3 uid="uid://cavaphfau3v73"]
 
 [ext_resource type="Script" uid="uid://f1utglbodt38" path="res://Scripts/teacup.gd" id="1_re2n1"]
 [ext_resource type="Texture2D" uid="uid://bmm7s4xjph85" path="res://Assets/Sprites/Teacup/Teacup.png" id="2_irbve"]
@@ -10,9 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://dg1i0t51u2a8k" path="res://Assets/Sprites/Teacup/Fully Fire.png" id="9_rf5rc"]
 [ext_resource type="Texture2D" uid="uid://c5al84smwl2fl" path="res://Assets/Sprites/Teacup/Fully Frozen.png" id="9_wyv0a"]
 [ext_resource type="Texture2D" uid="uid://ctd2wc8xvx5d7" path="res://Assets/Sprites/Teacup/Natural.png" id="10_jlq1e"]
-[ext_resource type="Texture2D" uid="uid://gfofoam5feq0" path="res://Assets/Sprites/Teacup/regular fire spritesheet.png" id="12_sumvu"]
+[ext_resource type="Texture2D" uid="uid://bree75wwdu75u" path="res://Assets/Sprites/Teacup/Untitled_Artwork-1.png" id="11_gdxxe"]
+[ext_resource type="Texture2D" uid="uid://ct0l5s4pal8bx" path="res://Assets/Sprites/Teacup/Untitled_Artwork-1 (1).png" id="11_ie8kt"]
+[ext_resource type="Texture2D" uid="uid://qgta62sh8e76" path="res://Assets/Sprites/Teacup/Untitled_Artwork-2.png" id="12_7gt8t"]
+[ext_resource type="Texture2D" uid="uid://w7uyjdq2leh2" path="res://Assets/Sprites/Teacup/Untitled_Artwork-2 (1).png" id="12_wyd1r"]
+[ext_resource type="Texture2D" uid="uid://2715yqq50sdb" path="res://Assets/Sprites/Teacup/Untitled_Artwork-3.png" id="13_1gfw0"]
+[ext_resource type="Texture2D" uid="uid://d2bpvwnv78h7b" path="res://Assets/Sprites/Teacup/Untitled_Artwork-3 (1).png" id="13_a38gn"]
 [ext_resource type="Texture2D" uid="uid://cu0brb2gg0y3x" path="res://Assets/Sprites/Biscuits/Eat Mask.png" id="13_ie8kt"]
-[ext_resource type="Texture2D" uid="uid://coo6gms57qm4a" path="res://Assets/Sprites/Teacup/blue fire spritesheet.png" id="14_wyd1r"]
+[ext_resource type="Texture2D" uid="uid://dftqrd7y8hacr" path="res://Assets/Sprites/Teacup/Untitled_Artwork-4.png" id="14_el5n5"]
+[ext_resource type="Texture2D" uid="uid://d7g8hmigxd26" path="res://Assets/Sprites/Teacup/Untitled_Artwork-4 (1).png" id="14_spj76"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qboyo"]
 radius = 115.004
@@ -159,38 +165,6 @@ bg_color = Color(1, 1, 1, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv0a"]
 bg_color = Color(0.94, 0.94, 0.94, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a38gn"]
-atlas = ExtResource("12_sumvu")
-region = Rect2(0, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_spj76"]
-atlas = ExtResource("12_sumvu")
-region = Rect2(2259, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gdxxe"]
-atlas = ExtResource("12_sumvu")
-region = Rect2(4518, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7gt8t"]
-atlas = ExtResource("12_sumvu")
-region = Rect2(6777, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_el5n5"]
-atlas = ExtResource("14_wyd1r")
-region = Rect2(0, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kcd4v"]
-atlas = ExtResource("14_wyd1r")
-region = Rect2(2259, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogm1j"]
-atlas = ExtResource("14_wyd1r")
-region = Rect2(4518, 0, 2259, 2475)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pdpqa"]
-atlas = ExtResource("14_wyd1r")
-region = Rect2(6777, 0, 2259, 2475)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gfw0"]
 atlas = ExtResource("13_ie8kt")
 region = Rect2(1832, 945, 916, 945)
@@ -199,16 +173,16 @@ region = Rect2(1832, 945, 916, 945)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a38gn")
+"texture": ExtResource("11_gdxxe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_spj76")
+"texture": ExtResource("12_7gt8t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gdxxe")
+"texture": ExtResource("13_1gfw0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7gt8t")
+"texture": ExtResource("14_el5n5")
 }],
 "loop": true,
 "name": &"Fire",
@@ -216,16 +190,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_el5n5")
+"texture": ExtResource("11_ie8kt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kcd4v")
+"texture": ExtResource("12_wyd1r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ogm1j")
+"texture": ExtResource("13_a38gn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pdpqa")
+"texture": ExtResource("14_spj76")
 }],
 "loop": true,
 "name": &"Fully Fire",
@@ -336,10 +310,10 @@ show_percentage = false
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
 
 [node name="FireAnimation" type="AnimatedSprite2D" parent="."]
-position = Vector2(3, -75)
+position = Vector2(0, -125)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_eibwa")
-animation = &"Natural"
+animation = &"Fully Fire"
 autoplay = "Natural"
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

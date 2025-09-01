@@ -81,4 +81,4 @@ func _process(_delta: float) -> void:
 	if playerTeacup:
 		progressBar.value = dunkChance * 100.0
 		$DunkMask.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 140.0
-		$FireAnimation.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 225
+		$FireAnimation.position.y = $TeaMask/Tea.position.y / 10.0 * 1.25 - 125
