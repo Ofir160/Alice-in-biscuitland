@@ -2,6 +2,7 @@ class_name Player
 extends Node2D
 
 @export var teacup : Teacup
+@export var hands : AnimatedSprite2D
 @export var displayBiscuits : Array[Biscuit]
 @onready var timer: Timer = $"Player State Biscuits/Timer"
 @onready var timer2: Timer = $"Player State Biscuits/Timer2"
@@ -20,14 +21,14 @@ var state1OnScreen : bool = false
 var state2OnScreen : bool = false
 var state3OnScreen : bool = false
 
-func take_dryness(dryness : int) -> void:
-	var thirst : int
-	if dryness <= defense:
-		defense = defense - dryness
+func take_thirst(_thirst : int) -> void:
+	var damage : int = 0
+	if _thirst <= defense:
+		defense = defense - _thirst
 	else:
-		thirst = dryness - defense
+		damage = _thirst - defense
 		defense = 0
-	teacup.sip(thirst)
+	teacup.sip(damage)
 
 func add_defense(_defense : int) -> void:
 	defense += _defense
@@ -187,3 +188,9 @@ func _on_timer_timeout() -> void:
 				$"Player State Biscuits/AnimationPlayer3".play("Fly Up 3 - 2")
 				state3OnScreen = false
 				state2OnScreen = true
+
+func _process(delta: float) -> void:
+	if highlighted:
+		hands.play("Highlighted")
+	else:
+		hands.play("Unhighlighted")

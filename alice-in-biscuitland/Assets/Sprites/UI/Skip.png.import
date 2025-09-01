@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr8gqt3k15w08"
-path="res://.godot/imported/Untitled_Artwork-1.png-622c28d7d6ce1b4710ea99e1ed131643.ctex"
+uid="uid://dpw2baabmwo60"
+path="res://.godot/imported/Skip.png-02d430b2e811033457902f8067ec289a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Biscuits/Untitled_Artwork-1.png"
-dest_files=["res://.godot/imported/Untitled_Artwork-1.png-622c28d7d6ce1b4710ea99e1ed131643.ctex"]
+source_file="res://Assets/Sprites/UI/Skip.png"
+dest_files=["res://.godot/imported/Skip.png-02d430b2e811033457902f8067ec289a.ctex"]
 
 [params]
 

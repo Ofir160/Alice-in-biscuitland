@@ -163,8 +163,7 @@ func _process(delta: float) -> void:
 					deckManager.battleManager.enemy.highlighted = true
 				if biscuit.playerPlayable:
 					deckManager.battleManager.player.highlighted = true
-				if biscuit.dunkable:
-					deckManager.battleManager.teacup.highlighted = true
+				deckManager.battleManager.teacup.highlighted = true
 	elif Input.is_action_just_released("Click"):
 		# When releasing
 		if currentBiscuit:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://dgf7afl2xqsgs"]
+[gd_scene load_steps=111 format=3 uid="uid://dgf7afl2xqsgs"]
 
 [ext_resource type="Script" uid="uid://dwybwf4sdhc0y" path="res://Scripts/enemy.gd" id="1_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cyxyxjkflrx12" path="res://Assets/Sprites/Enemies/CC/Untitled_Artwork-1 (4).png" id="2_0whn2"]
@@ -81,6 +81,7 @@
 [ext_resource type="Texture2D" uid="uid://bllubqox4jhjm" path="res://Assets/Sprites/Enemies/WR/Untitled_Artwork-3 (17).png" id="68_vdgsg"]
 [ext_resource type="Texture2D" uid="uid://d3xd1n64cyc2o" path="res://Assets/Sprites/Enemies/WR/Untitled_Artwork-4 (17).png" id="69_d8efu"]
 [ext_resource type="Texture2D" uid="uid://5fo78q6wafd6" path="res://Assets/Sprites/Enemies/WR/Untitled_Artwork-4 (16).png" id="69_vdgsg"]
+[ext_resource type="Texture2D" uid="uid://dpw2baabmwo60" path="res://Assets/Sprites/UI/Skip.png" id="82_ah5vh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7kwq8"]
 atlas = ExtResource("9_8uf12")
@@ -1140,7 +1141,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("descriptionAnimation", "description", "dialogueAnimation", "dialogue", "dialogueBox", "helperText", "dialogueTimer", "typewriterTimer", "typerwriterSound", "sfx")]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("descriptionAnimation", "description", "dialogueAnimation", "dialogue", "dialogueBox", "helperText", "dialogueTimer", "typewriterTimer", "typerwriterSound", "skipButton", "sfx")]
 script = ExtResource("1_1f0kj")
 descriptionAnimation = NodePath("Description Player")
 description = NodePath("description/text")
@@ -1151,6 +1152,7 @@ helperText = NodePath("DialogueBox/HelperText")
 dialogueTimer = NodePath("Dialogue Timer")
 typewriterTimer = NodePath("Typewriter Timer")
 typerwriterSound = NodePath("Typerwriter")
+skipButton = NodePath("Skip Button")
 sfx = NodePath("SFX")
 
 [node name="Above" type="AnimatedSprite2D" parent="."]
@@ -1303,9 +1305,31 @@ sprite_frames = SubResource("SpriteFrames_auwsv")
 animation = &"No Guards"
 autoplay = "No Guards"
 
+[node name="Skip Button" type="TextureButton" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 6
+offset_left = 593.0
+offset_top = -491.0
+offset_right = 922.0
+offset_bottom = -324.0
+disabled = true
+texture_normal = ExtResource("82_ah5vh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Skip Button"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 32.0
+offset_right = 294.0
+offset_bottom = 125.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_287tu")
+theme_override_font_sizes/normal_font_size = 64
+text = "Skip"
+
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
 [connection signal="mouse_entered" from="DialogueBox/Area2D" to="." method="hoverDialogue"]
 [connection signal="mouse_exited" from="DialogueBox/Area2D" to="." method="unhoverDialogue"]
 [connection signal="timeout" from="Dialogue Timer" to="." method="_on_dialogue_timer_timeout"]
 [connection signal="timeout" from="Typewriter Timer" to="." method="_on_typewriter_timer_timeout"]
+[connection signal="pressed" from="Skip Button" to="." method="_on_skip_button_pressed"]

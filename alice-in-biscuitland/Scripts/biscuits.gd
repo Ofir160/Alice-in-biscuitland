@@ -8,24 +8,15 @@ const achievement = preload("res://Assets/Audio/SFX/achievement.wav")
 var chosenBiscuit : Biscuit
 var cardsTaken : int 
 
-#func _ready() -> void:
+func _ready() -> void:
 	
-	#for i in range(len(biscuitStats)):
-		#var biscuitStat = biscuitStats.get(i)
-		#var displayBiscuit = biscuits.get(i)
-		#
-		#displayBiscuit.cardName = biscuitStat.get(0)
-		#displayBiscuit.Description = biscuitStat.get(1)
-		#displayBiscuit.dunkedDescription = biscuitStat.get(2)
-		#displayBiscuit.Img = biscuitStat.get(3)
-		#displayBiscuit.dryness = biscuitStat.get(4)
-		#displayBiscuit.defense = biscuitStat.get(5)
-		#displayBiscuit.special = biscuitStat.get(6)
-		#displayBiscuit.dunkedDryness = biscuitStat.get(7)
-		#displayBiscuit.dunkedDefense = biscuitStat.get(8)
-		#displayBiscuit.dunkedSpecial = biscuitStat.get(9)
-		#displayBiscuit.onDunkSpecial = biscuitStat.get(10)
-		#displayBiscuit.update_sprites()
+	var chosenBiscuits = GameManager.get_3_random_biscuits()
+	
+	for i in range(len(chosenBiscuits)):
+		var displayBiscuit = biscuits.get(i)
+		var chosenBiscuit = chosenBiscuits.get(i)
+		
+		GameManager.set_biscuit(displayBiscuit, chosenBiscuit)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click"):

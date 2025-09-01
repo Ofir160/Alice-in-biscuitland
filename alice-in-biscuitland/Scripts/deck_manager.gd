@@ -52,7 +52,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 	sfx.play()
 
 	
-	if battleManager.dunk_biscuit(biscuit.index):
+	if battleManager.dunk_biscuit(biscuit):
 		# If the biscuit sunk
 		biscuitSunk = true
 		currentBiscuit = biscuit
@@ -79,7 +79,7 @@ func on_biscuit_dunked(biscuit : Biscuit) -> void:
 func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 	# When you play a biscuit
 	
-	if battleManager.play_biscuit(biscuit.index, targetedEnemy):
+	if battleManager.play_biscuit(biscuit, targetedEnemy):
 		# If the game is over because of that biscuit
 		return
 	else:
@@ -87,14 +87,7 @@ func on_biscuit_played(biscuit : Biscuit, targetedEnemy : bool) -> void:
 		
 		eatAnimationBiscuit.texture = load(biscuit.img)
 		
-		var index = randi_range(0, 1)
-		match index:
-			0:
-				sfx.stream = biscuitEat1
-			1:
-				sfx.stream = biscuitEat2
-		
-		sfx.play()
+		eatSFX()
 		
 		if targetedEnemy:
 			eatAnimation.play("Enemy")
@@ -136,3 +129,13 @@ func _on_timer_timeout() -> void:
 					hand.discard_biscuit(currentBiscuit, true)
 	else:
 		hand.reset_biscuit(currentBiscuit) # Doesn't play the biscuit
+
+func eatSFX() -> void:
+	var index = randi_range(0, 1)
+	match index:
+		0:
+			sfx.stream = biscuitEat1
+		1:
+			sfx.stream = biscuitEat2
+		
+	sfx.play()

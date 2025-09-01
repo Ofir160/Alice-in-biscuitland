@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs3b5we1be5i4"
-path="res://.godot/imported/Mad Hatter.png-25c8202b26be7a40a676dbfeaf98e5a8.ctex"
+uid="uid://bhp75o1qwryko"
+path="res://.godot/imported/Hands Highlighted.png-ca45839ef7523de2217a1d3b89e18d67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
-dest_files=["res://.godot/imported/Mad Hatter.png-25c8202b26be7a40a676dbfeaf98e5a8.ctex"]
+source_file="res://Assets/Sprites/Player/Hands Highlighted.png"
+dest_files=["res://.godot/imported/Hands Highlighted.png-ca45839ef7523de2217a1d3b89e18d67.ctex"]
 
 [params]
 

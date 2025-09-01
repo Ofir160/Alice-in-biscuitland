@@ -9,6 +9,7 @@ const unhover = preload("res://Assets/Audio/SFX/biscuitUnhover.ogg")
 @export var iceTexture : Texture2D
 @export var fireTexture : Texture2D
 @export var progressBar : ProgressBar
+@export var teacupBase : AnimatedSprite2D
 
 @export var sfx : AudioStreamPlayer2D
 
@@ -83,3 +84,7 @@ func _process(_delta: float) -> void:
 		progressBar.value = dunkChance * 100.0
 		$DunkMask.position.y = $TeaMask/Tea.position.y / 10.0 * 1.5 - 140.0
 		$FireAnimation.position.y = $TeaMask/Tea.position.y / 10.0 * 1.25 - 125
+		if highlighted:
+			teacupBase.play("Highlighted")
+		else:
+			teacupBase.play("Unhighlighted")

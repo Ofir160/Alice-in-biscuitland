@@ -50,6 +50,7 @@ func init() -> void:
 	for biscuit in startingBiscuits:
 		add_biscuit(biscuit.index)
 		
+	alicePosition = Vector2(-832, -1929)
 	audio.stream = mapMusic
 	audio.play()
 	SceneSwitcher.switch_scene(mapScene)
@@ -103,6 +104,7 @@ func lose_battle() -> void:
 func restart() -> void:
 	enemyProgress = 0
 	progress = 0
+	alicePosition = Vector2(-832, -1929)
 	chestProgress.clear()
 	biscuitProgress.clear()
 	init()
@@ -115,6 +117,16 @@ func get_biscuit(index : int) -> Biscuit:
 	
 func get_enemy_biscuit(index : int) -> Biscuit:
 	return allEnemyBiscuits.get(index - 1)
+	
+func get_3_random_biscuits() -> Array[Biscuit]:
+	var biscuits : Array[Biscuit]
+	
+	for i in range(2):
+		var biscuit = allBiscuits.pick_random()
+		allBiscuits.erase(biscuit)
+		biscuits.append(biscuit)
+
+	return biscuits
 
 func set_biscuit(biscuit1 : Biscuit, biscuit2 : Biscuit) -> void:
 	biscuit1.cardName = biscuit2.cardName
@@ -144,10 +156,12 @@ startingBiscuits = [NodePath("All Player Biscuits/Hit"), NodePath("All Player Bi
 [node name="Hit" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Hit"
-description = "Deals /a Thirst. "
+description = "Deals /a Thirst. 6 if Dunked."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Nice.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Nice Dunked.png"
+thirst = 3
+dunkedThirst = 6
 index = 1
 dunkable = true
 enemyPlayable = true
@@ -155,9 +169,12 @@ enemyPlayable = true
 [node name="Strike" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Strike"
+description = "Deals /a Thirst. 15 if Dunked."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Bourbon.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Bourbon Dunked.png"
+thirst = 1
+dunkedThirst = 15
 index = 2
 dunkable = true
 enemyPlayable = true
@@ -165,6 +182,7 @@ enemyPlayable = true
 [node name="Block" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Block"
+description = "Adds /b Defense. 7 if Dunked."
 dunkedDescription = "Adds /b Defense."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Rich Tea.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Rich Tea Dunked.png"
@@ -176,10 +194,13 @@ playerPlayable = true
 
 [node name="Line of Defense" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "The Big Biscuit"
-dunkedDescription = "Adds /b Defense. Adds 4 Extra Defense for every Defense Biscuit in your hand.Adds /b Defense."
+cardName = "Line of Defense"
+description = "Adds /b Defense. Adds 2 Extra Defense for every Defense Biscuit in your hand. 4 extra if Dunked."
+dunkedDescription = "Adds /b Defense. Adds 4 Extra Defense for every Defense Biscuit in your hand."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Chocolate.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Rich Tea Dunked.png"
+defense = 5
+dunkedDefense = 5
 index = 4
 dunkable = true
 playerPlayable = true
@@ -187,6 +208,7 @@ playerPlayable = true
 [node name="Grow" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Grow"
+description = "Gain 1 Thirst and 1 Defense Power."
 dunkedDescription = "Gain 2 Thirst and 2 Defense Power."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Wafer.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Wafer Dunked.png"
@@ -197,6 +219,7 @@ playerPlayable = true
 [node name="Defend" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Defend"
+description = "Adds /b Defense. 20 if Dunked."
 dunkedDescription = "Adds /b Defense."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/White Meringue.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/White Meringue Dunked.png"
@@ -209,6 +232,7 @@ playerPlayable = true
 [node name="Refill" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Refill"
+description = "Refills teacup by 10. To play this Biscuit Dunk it."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Oreo.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Oreo Dunked.png"
 index = 7
@@ -216,6 +240,7 @@ index = 7
 [node name="S\'more" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "S'more"
+description = "On your next turn you must play all your cards."
 dunkedDescription = "On your next turn you must play all your cards. Gain 1 Thirst and Defense Power."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Smore.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Smore Dunked.png"
@@ -226,6 +251,7 @@ playerPlayable = true
 [node name="Make it bigger" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Make it bigger"
+description = "Doubles the Thirst of Opponent's and Player's Thirst Biscuits. Lasts for two turns."
 dunkedDescription = "Doubles the Thirst of Player's Thirst Biscuits. Lasts for two turns."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Big Potion.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Big Potion Dunked.png"
@@ -236,7 +262,8 @@ playerPlayable = true
 [node name="Make it smaller" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Make it smaller"
-dunkedDescription = "Halfs the Thirst of Opponent's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. "
+description = "Halfs the Thirst of Opponent's and Player's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits. Lasts for two turns."
+dunkedDescription = "Halfs the Thirst of Opponent's Thirst Biscuits. Doubles the Defense of Player's Defense Biscuits.  Lasts for two turns."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Small Potion.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Small Potion Dunked.png"
 index = 10
@@ -246,7 +273,8 @@ playerPlayable = true
 [node name="Untouchable" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Untouchable"
-dunkedDescription = "Adds /b Defense. You cannot gain defence next turn."
+description = "Adds /b Defense. You cannot gain defense next turn."
+dunkedDescription = "Adds /b Defense. You cannot gain defense next turn."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Lotus.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Lotus Dunked.png"
 defense = 30
@@ -258,6 +286,7 @@ playerPlayable = true
 [node name="Jaffa Cake" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Jaffa Cake"
+description = "Not a biscuit!. 50% chance to do deal /j Thirst. Otherwise does nothing."
 dunkedDescription = "Not a biscuit!. 50% chance to do deal /j Thirst. Otherwise does nothing."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Jaffa Cake.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Jaffa Cake Dunked.png"
@@ -268,6 +297,7 @@ playerPlayable = true
 [node name="Gambler\'s Cookie" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Gambler's Cookie"
+description = "Random Defence. Random Thirst. Between /g to /h."
 dunkedDescription = "Random Defence. Random Thirst. Between /g to /h."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Fox.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Fox Dunked.png"
@@ -279,6 +309,7 @@ playerPlayable = true
 [node name="Fire" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Fire"
+description = "Sets tea on fire. Every time a Defense Biscuit sinks into your tea Gain 3 Thirst Power. To play this Biscuit Dunk it."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Red Party Ring.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Red Party Ring Dunked.png"
 index = 14
@@ -286,6 +317,7 @@ index = 14
 [node name="Sacrifice" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Sacrifice"
+description = "Sinks all Biscuits in hand.  Deals 7 Thirst for every Biscuit sunk."
 dunkedDescription = "Sinks all Biscuits in hand.  Deals 10 Thirst for every Biscuit sunk."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Gingerbread Dagger.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Gingerbread Dagger Dunked.png"
@@ -296,6 +328,7 @@ enemyPlayable = true
 [node name="Fireproof" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Fireproof"
+description = "Adds /b Defense. 12 if Dunked. Goes back to discard pile if sunk."
 dunkedDescription = "Adds /b Defense. Goes back to discard pile if sunk."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Maryland.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Maryland Dunked.png"
@@ -308,9 +341,12 @@ playerPlayable = true
 [node name="Ragebait" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Ragebait"
+description = "Deals /a Thirst. 10 if Dunked. If enemy intends on attacking set's tea on fire."
 dunkedDescription = "Deals /a Thirst. If enemy intends on attacking set's tea on fire."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Custard Cream.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Custard Cream Dunked.png"
+thirst = 5
+dunkedThirst = 10
 index = 17
 dunkable = true
 enemyPlayable = true
@@ -318,6 +354,7 @@ enemyPlayable = true
 [node name="Ice" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Ice"
+description = "Freezes tea. Every time you dunk a Defense Biscuit into your tea Gain 3 Defense Power."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Yellow Party Ring.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Yellow Party Ring Dunked.png"
 index = 18
@@ -325,7 +362,8 @@ index = 18
 [node name="Frost" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Frost"
-dunkedDescription = "Prevents the next 2 biscuit from sinking in tea."
+description = "Prevents the next Biscuit from sinking in tea."
+dunkedDescription = "Prevents the next 2 Biscuits from sinking in tea."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Blue Party Ring.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Blue Party Ring Dunked.png"
 index = 19
@@ -335,9 +373,12 @@ playerPlayable = true
 [node name="Renewal" parent="All Player Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
 cardName = "Renewal"
-dunkedDescription = "Deals /a Thirst. Refills Player's tea by 5. Sets tea to normal temperature."
+description = "Deals /a Thirst. 5 if Dunked. Refills Player's tea by 5. 8 if Dunked. Sets tea to normal temperature."
+dunkedDescription = "Deals /a Thirst. Refills Player's tea by 8. Sets tea to normal temperature."
 img = "res://Assets/Sprites/Biscuits/Player Biscuits/Undunked/Chocolate Meringue.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Player Biscuits/Dunked/Chocolate Meringue Dunked.png"
+thirst = 3
+dunkedThirst = 5
 index = 20
 dunkable = true
 enemyPlayable = true
@@ -346,27 +387,27 @@ enemyPlayable = true
 
 [node name="Whack" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "Whack"
+description = "Deals 3 Thirst. "
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
+thirst = 3
 index = 1
 
 [node name="Parry" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "Parry"
+description = "Adds 3 Defense"
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
+defense = 3
 index = 2
 enemyPlayable = true
 
 [node name="Boon" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Boon"
+description = "Gain 1 Thirst Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
@@ -375,8 +416,8 @@ enemyPlayable = true
 
 [node name="Buff" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Buff"
+description = "Gain 1 Defense Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
@@ -385,9 +426,8 @@ enemyPlayable = true
 
 [node name="I\'m Late!" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "I'm Late!"
+description = "Gain 1 Thirst Power every turn."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/White Rabbit.png"
 index = 5
@@ -395,17 +435,16 @@ enemyPlayable = true
 
 [node name="Batter" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "Batter"
+description = "Deal 5 Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 index = 6
 
 [node name="Rebuff" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Rebuff"
+description = "Adds 5 Defense"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -414,8 +453,8 @@ enemyPlayable = true
 
 [node name="Empower" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Empower"
+description = "Gain 1 Thirst Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -424,8 +463,8 @@ enemyPlayable = true
 
 [node name="Bonanza" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Bonanza"
+description = "Gain 1 Defense Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -434,17 +473,16 @@ enemyPlayable = true
 
 [node name="Batter?" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "Batter?"
+description = "Deals a random amount of Thirst. Between 3 to 10."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 index = 10
 
 [node name="Rebuff?" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Rebuff?"
+description = "Adds a random amount of Defense. 3 to 10."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -453,8 +491,8 @@ enemyPlayable = true
 
 [node name="Empower?" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Empower?"
+description = "Gains a random amount of Thirst Power. 0 to 3."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -463,8 +501,8 @@ enemyPlayable = true
 
 [node name="Bonanza?" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Bonanza?"
+description = "Gains a random amount of Defense Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -473,17 +511,16 @@ enemyPlayable = true
 
 [node name="Spike" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
-dunkedDescription = "Deals /a Thirst."
+cardName = "Spike"
+description = "On your next turn you must play a random amount of Biscuits."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 index = 14
 
 [node name="Intoxicate" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Intoxicate"
+description = "Becomes Intoxicated. Every enemy Biscuit becomes random!"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Mad Hatter.png"
@@ -492,36 +529,39 @@ enemyPlayable = true
 
 [node name="Scratch" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Scratch"
+description = "Deals 5 Thirst."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
+thirst = 5
 index = 16
 
 [node name="Paw" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Paw"
+description = "Adds 5 Defense"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
+defense = 5
 index = 17
 enemyPlayable = true
 
 [node name="Bite" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Bite"
+description = "Deals 10 Thirst."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
+thirst = 10
 index = 18
 
 [node name="Maim" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Maim"
+description = "You Lose 1 Thirst and 1 Defense Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
@@ -529,8 +569,8 @@ index = 19
 
 [node name="Curse" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Curse"
+description = "Adds a useless Biscuit to your discard pile."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
@@ -539,8 +579,8 @@ dunkable = true
 
 [node name="Vanish" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Vanish"
+description = "Becomes invisible! The next time you try to apply Thirst the this enemy it will not work."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Chesire Cat.png"
@@ -549,36 +589,39 @@ enemyPlayable = true
 
 [node name="Swipe" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Swipe"
+description = "Deals 5 Thirst"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
+thirst = 5
 index = 22
 
 [node name="Slash" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Slash"
+description = "Deals 12 Thirst"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
+thirst = 12
 index = 23
 
 [node name="Barricade" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Barricade"
+description = "Adds 12 Defense"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
+defense = 12
 index = 24
 enemyPlayable = true
 
 [node name="Scorch" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Scorch"
+description = "The next Biscuit you try dunk will sink."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
@@ -586,8 +629,8 @@ index = 25
 
 [node name="Enflame" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Enflame"
+description = "Becomes Enflamed! Attacks are stronger"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
@@ -596,27 +639,29 @@ enemyPlayable = true
 
 [node name="Jaws and Claws" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Jaws and Claws"
+description = "Deals 20 Thirst"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Jabberwocky.png"
+thirst = 20
 index = 27
 
 [node name="Bolster" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Bolster"
+description = "Adds 15 Defense"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
+defense = 15
 index = 28
 enemyPlayable = true
 
 [node name="Arrogance" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Arrogance"
+description = "Gains 3 Thirst Power"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
@@ -625,17 +670,18 @@ enemyPlayable = true
 
 [node name="Royal Strike" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Royal Strike"
+description = "Deals 15 Thirst"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
+thirst = 15
 index = 30
 
 [node name="Snarky" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Snarky"
+description = "You Lose 1 Defense Power."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
@@ -643,8 +689,8 @@ index = 31
 
 [node name="Summon Guards" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Summon Guards"
+description = "Summons a guard."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
@@ -653,17 +699,18 @@ enemyPlayable = true
 
 [node name="Sieze Her!" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Sieze Her!"
+description = "Deals 3 Damage. For every guard Deal 3 Extra Thirst."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
+thirst = 3
 index = 33
 
 [node name="Enrage" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Enrage"
+description = "Becomes Enraged! Do not mess with her."
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
@@ -672,8 +719,8 @@ enemyPlayable = true
 
 [node name="Royal Toilet Paper" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "Royal Toilet Paper"
+description = "Refills tea by 10"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
@@ -682,11 +729,12 @@ enemyPlayable = true
 
 [node name="Off With Your Head" parent="All Enemy Biscuits" instance=ExtResource("1_oj352")]
 position = Vector2(1699, 1391)
-cardName = "Hit"
-description = "Deals /a Thirst. "
+cardName = "OFF WITH YOUR HEAD"
+description = "Deals 20 Thirst"
 dunkedDescription = "Deals /a Thirst."
 img = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
 dunkedImg = "res://Assets/Sprites/Biscuits/Enemy Biscuits/Red Queen.png"
+thirst = 20
 index = 36
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

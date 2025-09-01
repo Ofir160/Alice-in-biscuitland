@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df2ijv4g48dnl"
-path="res://.godot/imported/Alice's hands drawing.png-a6f77fd77309530e917132a4131b499b.ctex"
+uid="uid://dq4j2b7k5mypb"
+path="res://.godot/imported/Hands.png-d849339626c91f2af2434a685b773769.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Player/Alice's hands drawing.png"
-dest_files=["res://.godot/imported/Alice's hands drawing.png-a6f77fd77309530e917132a4131b499b.ctex"]
+source_file="res://Assets/Sprites/Player/Hands.png"
+dest_files=["res://.godot/imported/Hands.png-d849339626c91f2af2434a685b773769.ctex"]
 
 [params]
 

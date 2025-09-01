@@ -70,7 +70,7 @@ func update_sprites():
 		
 		if jaffaIndex != -1:
 			text = text.erase(jaffaIndex, 2)
-			text = text.insert(jaffaIndex, str(thirstPower + 12))
+			text = text.insert(jaffaIndex, str(thirstPower + 18))
 			
 		var gamblersIndex1 : int = text.find("/g")
 		
@@ -82,7 +82,7 @@ func update_sprites():
 		
 		if gamblersIndex2 != -1:
 			text = text.erase(gamblersIndex2, 2)
-			text = text.insert(gamblersIndex2, str(thirstPower + 15))
+			text = text.insert(gamblersIndex2, str(thirstPower + 10))
 			
 		$description/text.text = text
 		$Sprite2D.texture = load(dunkedImg)
@@ -104,7 +104,7 @@ func update_sprites():
 		
 		if jaffaIndex != -1:
 			text = text.erase(jaffaIndex, 2)
-			text = text.insert(jaffaIndex, str(thirstPower + 18))
+			text = text.insert(jaffaIndex, str(thirstPower + 12))
 			
 		var gamblersIndex1 : int = text.find("/g")
 		

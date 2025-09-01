@@ -15,10 +15,7 @@ var speed= 500
 
 
 func _ready() -> void:
-	if GameManager.progress == 0:
-		position = Vector2(-829, -1929)
-	else:
-		position = GameManager.alicePosition
+	position = GameManager.alicePosition
 
 func _process(delta: float) -> void:
 	if bTween:

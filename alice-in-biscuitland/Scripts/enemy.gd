@@ -22,6 +22,7 @@ var biscuits : Array[Biscuit]
 @export var typewriterTimer : Timer
 @export var typerwriterSound : AudioStreamPlayer2D
 @export var deckManager : DeckManager
+@export var skipButton : TextureButton
 
 @onready var below: AnimatedSprite2D = $Below
 @onready var above: AnimatedSprite2D = $Above
@@ -44,6 +45,7 @@ var defensePower : int
 
 var goToDie : bool
 var highlighted : bool
+var inTutorial : bool
 
 enum WhiteRabbit {WHACK = 1, PARRY = 2, BOON = 3, BUFF = 4, IM_LATE = 5}
 enum MadHatter {BATTER = 6, REBUFF = 7, EMPOWER = 8, BONANZA = 9, BATTER_R = 10, REBUFF_R = 11, EMPOWER_R = 12, BONANZA_R = 13, SPIKE = 14, INTOXICATE = 15 }
@@ -617,6 +619,11 @@ func set_dialogue() -> void:
 						dialogueCounter = 55
 					match dialogueCounter:
 						0:
+							inTutorial = true
+							
+							skipButton.disabled = false
+							skipButton.modulate = Color(1, 1, 1, 1)
+							
 							deckManager.hand.draggingDisabled = true
 							speak_start("Welcome to Biscuitland! I hope you didn't hit your head too hard on the way down. What do they call you?")
 						1:
@@ -728,6 +735,7 @@ func set_dialogue() -> void:
 						54:
 							speak("You will? Excellent. Shall we begin?")
 						55:
+							inTutorial = false
 							GameManager.playedTutorial = true
 							finish_dialogue()
 							
@@ -743,7 +751,7 @@ func set_dialogue() -> void:
 				dialogueWaiting = true
 				match dialogueCounter:
 					0:
-						speak_start("Curiouser and curiouser….")
+						speak_start("Curiouser and curiouser...")
 					1:
 						finish_dialogue()
 			
@@ -767,7 +775,7 @@ func set_dialogue() -> void:
 				dialogueWaiting = true
 				match dialogueCounter:
 					0:
-						speak_start("We’re all mad here…")
+						speak_start("We’re all mad here...")
 					1:
 						finish_dialogue()
 		
@@ -775,7 +783,7 @@ func set_dialogue() -> void:
 				dialogueWaiting = true
 				match dialogueCounter:
 					0:
-						speak_start("Not all who wander are lost…")
+						speak_start("Not all who wander are lost...")
 					1:
 						finish_dialogue()
 		3:
@@ -1045,4 +1053,11 @@ func on_play_biscuit() -> void:
 	if dialogueWaiting:
 		dialogueCounter += 1
 		dialogueWaiting = false
+		set_dialogue()
+
+func _on_skip_button_pressed() -> void:
+	skipButton.disabled = true
+	skipButton.modulate = Color(0, 0, 0, 0)
+	if inTutorial:
+		dialogueCounter = 55
 		set_dialogue()
