@@ -118,16 +118,16 @@ func initialize_state_space() -> void:
 				stateSpace.set(WhiteRabbit.get(key), [0, 0])
 		1:
 			for key in MadHatter.keys():
-				stateSpace.set(key, [0, 0])
+				stateSpace.set(MadHatter.get(key), [0, 0])
 		2:
 			for key in CheshireCat.keys():
-				stateSpace.set(key, [0, 0])
+				stateSpace.set(CheshireCat.get(key), [0, 0])
 		3:
 			for key in Jabberwocky.keys():
-				stateSpace.set(key, [0, 0])
+				stateSpace.set(Jabberwocky.get(key), [0, 0])
 		4:
 			for key in RedQueen.keys():
-				stateSpace.set(key, [0, 0])
+				stateSpace.set(RedQueen.get(key), [0, 0])
 
 func get_biscuit_actions(actionIndex : Array[int]) -> Array[Biscuit]:
 	var actions : Array[Biscuit]
@@ -182,17 +182,17 @@ func mad_hatter(lastAction : int, value : float) -> Array[Biscuit]:
 	if actionCount == 0:
 		actionIndex.append(MadHatter.BATTER)
 	elif actionCount == 1:
-		actionIndex.append([MadHatter.EMPOWER])
-		actionIndex.append([MadHatter.BONANZA])
+		actionIndex.append(MadHatter.EMPOWER)
+		actionIndex.append(MadHatter.BONANZA)
 	elif actionCount == 2:
-		actionIndex.append([MadHatter.REBUFF])
+		actionIndex.append(MadHatter.REBUFF)
 	elif actionCount == 3:
-		actionIndex.append([MadHatter.SPIKE])
-		actionIndex.append([MadHatter.BATTER])
+		actionIndex.append(MadHatter.SPIKE)
+		actionIndex.append(MadHatter.BATTER)
 	elif actionCount == 4:
-		actionIndex.append([MadHatter.INTOXICATE])
+		actionIndex.append(MadHatter.INTOXICATE)
 	elif actionCount == 5:
-		actionIndex.append([MadHatter.BATTER_R])
+		actionIndex.append(MadHatter.BATTER_R)
 	else:
 		match lastAction:
 			MadHatter.BATTER_R:

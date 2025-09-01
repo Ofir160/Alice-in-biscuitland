@@ -13,10 +13,13 @@ func _ready() -> void:
 	var chosenBiscuits = GameManager.get_3_random_biscuits()
 	
 	for i in range(len(chosenBiscuits)):
+		print(i)
 		var displayBiscuit = biscuits.get(i)
 		var chosenBiscuit = chosenBiscuits.get(i)
 		
 		GameManager.set_biscuit(displayBiscuit, chosenBiscuit)
+		displayBiscuit.update_sprites()
+		
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Click"):

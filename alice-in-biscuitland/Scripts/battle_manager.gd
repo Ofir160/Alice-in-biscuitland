@@ -104,7 +104,7 @@ func play_enemy_action() -> void:
 		deal_enemy_thirst(biscuit.thirst + enemy.attackPower)
 		
 	if biscuit.defense > 0:
-		enemy.add_defense(biscuit.defense + enemy.defensePower)
+		add_enemy_defense(biscuit.defense + enemy.defensePower)
 	
 	match biscuit.index:
 		0:
@@ -169,6 +169,8 @@ func play_enemy_action() -> void:
 				enemy.guards.play("3 Guards")
 		33:
 			deal_enemy_thirst((3 + enemy.attackPower) * enemy.redQueenGuardCount)
+		_:
+			pass
 			
 	if teacup.check_tea():
 		GameManager.deathMessage = "You drank all your Tea!"
@@ -395,6 +397,8 @@ func play_biscuit(biscuit : Biscuit, targettedEnemy : bool) -> bool:
 			else:
 				player.attackPower += 1
 				player.defensePower += 1
+		_:
+			pass
 	if enemyTeacup.check_tea(): # Damages the enemy
 		# If the enemy died
 		win_fight()
@@ -448,6 +452,12 @@ func dunk_biscuit(biscuit : Biscuit) -> bool: # Returns true if the biscuit sink
 			result = true
 		16:
 			# Fireproof
+			if randf() <= teacup.dunkChance:
+				if teacup.check_tea_state(1):
+					if biscuit.defense != 0:
+						player.attackPower += 3
+				result = true
+		_:
 			if randf() <= teacup.dunkChance:
 				if teacup.check_tea_state(1):
 					if biscuit.defense != 0:
